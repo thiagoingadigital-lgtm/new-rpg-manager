@@ -27,7 +27,13 @@ function initDb() {
     const buffer = fs.existsSync(DB_PATH) ? fs.readFileSync(DB_PATH) : null;
     DB = new SqlJs.Database(buffer && buffer.length > 0 ? buffer : undefined);
     DB.run('PRAGMA journal_mode = WAL');
-    DB.run('PRAGMA foreign_keys = ON');
+    
+    // If an older DB exists without the inHall column, try to add it (idempotent)
+    try {
+      DB.run("ALTER TABLE characters ADD COLUMN inHall INTEGER DEFAULT 0");
+    } catch (e) {
+      // ignore if column already exists or ALTER not supported
+    }DB.run('PRAGMA foreign_keys = ON');
 
     // Migrações automáticas (rodam a cada boot; CREATE TABLE IF NOT EXISTS)
     DB.run(`
@@ -89,6 +95,7 @@ function initDb() {
         items TEXT DEFAULT '[]',
         spellSlotsUsage TEXT DEFAULT '{}',
         imageUrl TEXT,
+        inHall INTEGER DEFAULT 0,
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
       );
@@ -323,8 +330,8 @@ function migrateJsonIfPresent(serverDb) {
       for (const c of characters) {
         serverDb.db.run(
           `INSERT INTO characters (id, name, class, race, level, attributes, skillProficiencies,
-                                 saveProficiencies, resources, items, spellSlotsUsage, imageUrl, createdAt, updatedAt)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                                 saveProficiencies, resources, items, spellSlotsUsage, imageUrl, inHall, createdAt, updatedAt)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           [
             c.id, c.name, c.class || '', c.race || '', c.level ?? 1,
             JSON.stringify(c.attributes || {}),
@@ -334,6 +341,7 @@ function migrateJsonIfPresent(serverDb) {
             JSON.stringify(c.items || []),
             JSON.stringify(c.spellSlotsUsage || {}),
             c.imageUrl || null,
+            c.inHall ? 1 : 0,
             c.createdAt || new Date().toISOString(),
             c.updatedAt || new Date().toISOString(),
           ]
