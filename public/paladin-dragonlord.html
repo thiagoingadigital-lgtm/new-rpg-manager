@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paladino — Features, Magias e Juramento do Lorde Dragão</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .rules-page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px 24px 60px;
+    }
+    .rules-page h1 { margin-bottom: 4px; }
+    .rules-page .subtitle { opacity: 0.7; margin-bottom: 30px; }
+    .rules-page section {
+      background: #16213e;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 22px;
+    }
+    .rules-page h2 { margin-top: 0; color: #e94560; }
+    .rules-page h3 { margin-bottom: 6px; color: #f2a65a; }
+    .rules-page ul, .rules-page ol { padding-left: 22px; line-height: 1.6; }
+    .rules-page table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .rules-page th, .rules-page td {
+      text-align: left;
+      padding: 6px 10px;
+      border-bottom: 1px solid #2a4a7a;
+      font-size: 0.9rem;
+      vertical-align: top;
+    }
+    .back-link { display: inline-block; margin-bottom: 20px; color: #e94560; text-decoration: none; }
+    .note { font-size: 0.85rem; opacity: 0.7; margin-top: 8px; }
+    .source-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .source-srd { background: #1b4b8a; }
+    .source-book { background: #7a2e46; }
+    .feature-block { margin-bottom: 16px; }
+    .feature-block:last-child { margin-bottom: 0; }
+  </style>
+</head>
+<body>
+  <div class="rules-page">
+    <a href="index.html" class="back-link">← Voltar para o RPG Manager</a>
+    <h1>Paladino — Guia de Referência</h1>
+    <p class="subtitle">Features padrão da classe, lista de magias e o Juramento do Lorde Dragão (Odisseia dos Lordes Dragões).</p>
+
+    <section>
+      <h2>Features padrão da classe Paladino <span class="source-tag source-srd">Regras básicas</span></h2>
+      <p>Resumo das características que todo Paladino ganha, independente do juramento escolhido:</p>
+
+      <div class="feature-block">
+        <h3>Sentido Divino (nível 1)</h3>
+        <p>Como ação, você pode abrir seus sentidos para detectar a presença de celestiais, corruptos (fiends) ou mortos-vivos poderosos em um raio de 18 metros, além de saber a localização de qualquer local ou objeto que tenha sido consagrado ou profanado nesse alcance. Usável um número limitado de vezes, recuperado em descanso longo.</p>
+      </div>
+
+      <div class="feature-block">
+        <h3>Imposição de Mãos (nível 1)</h3>
+        <p>Você tem uma reserva de cura igual a 5 × seu nível de Paladino. Como ação, pode tocar uma criatura e restaurar pontos de vida dessa reserva, ou gastar 5 pontos para curar uma doença ou neutralizar um veneno.</p>
+      </div>
+
+      <div class="feature-block">
+        <h3>Estilo de Combate (nível 2)</h3>
+        <p>Você escolhe uma especialização de combate (ex: Defesa, Duelo, Combate com Grandes Armas, Proteção) que concede um benefício passivo em combate.</p>
+      </div>
+
+      <div class="feature-block">
+        <h3>Conjuração (nível 2)</h3>
+        <p>Você aprende a conjurar magias de Paladino usando Carisma como atributo-chave. Prepara um número de magias igual ao seu modificador de Carisma + metade do seu nível de Paladino (arredondado para baixo, mínimo 1).</p>
+      </div>
+
+      <div class="feature-block">
+        <h3>Punição Divina (nível 2)</h3>
+        <p>Quando você acerta um ataque corpo a corpo com arma, pode gastar um espaço de magia para causar dano radiante adicional, que aumenta conforme o nível do espaço gasto (e ainda mais contra mortos-vivos e corruptos).</p>
+      </div>
+
+      <div class="feature-block">
+        <h3>Saúde Divina (nível 3)</h3>
+        <p>A magia que corre em suas veias o torna imune a doenças.</p>
+      </div>
+
+      <div class="feature-block">
+        <h3>Juramento Sagrado (nível 3)</h3>
+        <p>Você jura um dos Juramentos Sagrados (Devoção, Antigos, Vingança, ou outros de livros adicionais — como o Juramento do Lorde Dragão, veja abaixo). Isso concede magias de juramento, opções de Canalizar Divindade específicas do juramento, e características adicionais nos níveis 7, 15 e 20.</p>
+      </div>
+
+      <div class="feature-block">
+        <h3>Ataque Extra (nível 5)</h3>
+        <p>Você pode atacar duas vezes, em vez de uma, sempre que usar a ação de Atacar no seu turno.</p>
+      </div>
+
+      <div class="feature-block">
+        <h3>Aura de Proteção (nível 6)</h3>
+        <p>Você e criaturas amigáveis a até 3 metros (aumenta com o nível) somam seu modificador de Carisma a qualquer salvaguarda, desde que você esteja consciente.</p>
+      </div>
+
+      <div class="feature-block">
+        <h3>Aura de Coragem (nível 10)</h3>
+        <p>Você e aliados próximos não podem ficar amedrontados enquanto você estiver consciente.</p>
+      </div>
+
+      <div class="feature-block">
+        <h3>Toque Purificador (nível 14)</h3>
+        <p>Você pode gastar 5 pontos da sua reserva de Imposição de Mãos para remover uma magia atuando sobre você ou uma criatura que tocar.</p>
+      </div>
+
+      <div class="feature-block">
+        <h3>Melhoria de Aura (nível 18)</h3>
+        <p>O alcance das suas auras (Proteção e Coragem) aumenta para 9 metros.</p>
+      </div>
+
+      <p class="note">Este resumo cobre as características gerais e comuns a todo Paladino. A progressão exata de dano, quantidade de usos e alcance varia por nível — consulte o Livro do Jogador para os valores completos.</p>
+    </section>
+
+    <section>
+      <h2>Lista de Magias padrão do Paladino <span class="source-tag source-srd">Regras básicas</span></h2>
+      <p>Magias disponíveis para preparação por Paladinos (níveis 1 a 5 de magia, liberadas conforme o nível de personagem):</p>
+
+      <h3>1º nível</h3>
+      <p>Abençoar, Comando, Duelo Compelido, Curar Ferimentos, Detectar o Bem e o Mal, Detectar Magia, Favor Divino, Heroísmo, Proteção contra o Bem e o Mal, Purificar Comida e Bebida, Golpe Causticante, Escudo da Fé, Golpe Trovejante, Golpe Irado.</p>
+
+      <h3>2º nível</h3>
+      <p>Auxílio, Golpe Marcante, Encontrar Montaria, Restauração Menor, Localizar Objeto, Arma Mágica, Proteção contra Veneno, Zona de Verdade.</p>
+
+      <h3>3º nível</h3>
+      <p>Aura de Vitalidade, Golpe Ofuscante, Criar Comida e Água, Manto do Cruzado, Luz do Dia, Dissipar Magia, Arma Elemental, Círculo Mágico, Remover Maldição, Revificar.</p>
+
+      <h3>4º nível</h3>
+      <p>Aura de Vida, Aura de Pureza, Banimento, Guarda contra a Morte, Localizar Criatura, Golpe Cambaleante.</p>
+
+      <h3>5º nível</h3>
+      <p>Golpe Banidor, Círculo de Poder, Onda Destrutiva, Dissipar o Bem e o Mal, Comando Impositivo, Reviver Mortos.</p>
+
+      <p class="note">Nomes traduzidos de forma aproximada — podem variar ligeiramente conforme a edição/tradução oficial que você usa à mesa. Paladinos só têm acesso a magias de nível 1 a 5.</p>
+    </section>
+
+    <section>
+      <h2>Juramento do Lorde Dragão <span class="source-tag source-book">Odisseia dos Lordes Dragões</span></h2>
+      <p>Lordes Dragões são paladinos que procuram aumentar sua influência na terra trazendo um dragão aos seus serviços. Formar um laço verdadeiro com um dragão requer que um paladino choque um ovo de dragão e crie o filhote desde o nascimento dela — um processo guiado por um juramento que cria um vínculo recíproco entre a alma do paladino e a do dragão.</p>
+      <p>Para encontrar o ovo, os Lordes Dragões invocam familiares pseudodragões e os treinam para buscar o ovo perfeito, processo que pode levar anos. Quando o dragão termina de crescer, seu mestre torna-se um verdadeiro Lorde Dragão — servo e senhor do dragão ao mesmo tempo, com destinos interligados: a dor sofrida por um também é sentida pelo outro.</p>
+
+      <h3>Magias de Juramento (a partir do 3º nível)</h3>
+      <table>
+        <tr><th>Nível</th><th>Magias</th></tr>
+        <tr><td>3º</td><td>Convocar Familiar, Marca do Predador</td></tr>
+        <tr><td>5º</td><td>Levitação, Lufada de Vento</td></tr>
+        <tr><td>9º</td><td>Celeridade, Voo</td></tr>
+        <tr><td>13º</td><td>Movimentação Livre, Pele-Rocha</td></tr>
+        <tr><td>17º</td><td>Imobilizar Monstro, Ligação Telepática</td></tr>
+      </table>
+      <p class="note">Essas magias ficam sempre preparadas, sem contar no limite normal de magias preparadas do Paladino.</p>
+
+      <h3>Pseudodragão Familiar (3º nível)</h3>
+      <p>Ao conjurar Convocar Familiar, você invoca um pseudodragão em vez das formas normais da magia. Ele pode sentir o cheiro de ovos de dragão a até 1,6 km de distância e sai em busca de um. A chance maior é encontrar um ovo por volta do seu 5º nível; se isso não acontecer até o 6º nível, o pseudodragão parte à procura e retorna em 3d6 dias com um ovo de dragão de latão, bronze, cobre ou prata (você escolhe o tipo). Se o ovo for perdido ou destruído acidentalmente, o pseudodragão busca outro (ou o mesmo) em 3d6 dias; se você o perder ou destruir de propósito, ele se recusa a repetir o serviço.</p>
+
+      <h3>Canalizar Divindade (3º nível)</h3>
+      <div class="feature-block">
+        <strong>Cólera do Dragão.</strong> Ação: você imita a presença de um dragão adulto com um rugido. Cada criatura à sua escolha a até 18m, ciente de você, faz salvaguarda de Sabedoria (CD 14) ou fica amedrontada por 1 minuto (pode repetir a salvaguarda ao final de cada turno).
+      </div>
+      <div class="feature-block">
+        <strong>Desprezo aos Indignos.</strong> Ação: você entoa o juramento do Lorde Dragão. Criaturas inimigas Grandes ou menores a até 9m fazem salvaguarda de Carisma; quem falhar cai no chão e perde a concentração em qualquer magia ativa.
+      </div>
+
+      <h3>Vínculo do Lorde Dragão (7º nível)</h3>
+      <p>Seu ovo eclode. Você deve conjurar Vínculo dos Lordes Dragões tocando o filhote nas primeiras 24 horas de vida, criando o vínculo. A partir daí, você pode conjurar Vínculo dos Lordes Dragões e Lamento dos Lordes Dragões sem componentes materiais. Seu dragãozinho tem 40 + 2× seu nível de Paladino em pontos de vida, e soma seu bônus de proficiência às próprias salvaguardas.</p>
+
+      <h3>Dragão Jovem (15º nível)</h3>
+      <p>Se ainda não tiverem se passado 5 anos desde o nascimento, seu dragão se torna um dragão jovem do tipo adequado e passa a permitir ser usado como montaria. Montado nele, você ganha as resistências a dano, imunidades e sentidos (visão às cegas, visão no escuro, Percepção passiva, se maior que a sua) do dragão.</p>
+
+      <h3>Vínculo Inquebrável (20º nível)</h3>
+      <p>Seu dragão ganha Ataques Múltiplos, e a arma de sopro dele passa a recarregar normalmente a cada rodada (em vez da restrição de Vínculo dos Lordes Dragões). Além disso, quando seu dragão falha numa salvaguarda, você pode fazê-lo ter sucesso — recarrega após um descanso longo de vocês dois.</p>
+
+      <p class="note">Conteúdo transcrito da sua cópia pessoal de Odisseia dos Lordes Dragões, para uso exclusivo neste site particular.</p>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+{
+  "version": "1.0.0",
+  "source": "D&D 5e SRD 5.1 (lista base) + Tasha's Cauldron of Everything (opcionais)",
+  "class": "Paladino",
+  "castingAbility": "carisma",
+  "halfCaster": true,
+  "spellcastingStartLevel": 2,
+  "description": "Base de dados de referência da classe Paladino (D&D 5e). A aplicação consulta este arquivo como 'banco de dados' para: tabela de bônus de proficiência por nível, tabela de spell slots por nível, lista completa de feitiços e regras de conjuração.",
+
+  "proficiencyBonus": {
+    "description": "Bônus de proficiência por nível do personagem (1-20). Aplica-se a todas as classes.",
+    "table": {
+      "1": 2, "2": 2, "3": 2, "4": 2,
+      "5": 3, "6": 3, "7": 3, "8": 3,
+      "9": 4, "10": 4, "11": 4, "12": 4,
+      "13": 5, "14": 5, "15": 5, "16": 5,
+      "17": 6, "18": 6, "19": 6, "20": 6
+    }
+  },
+
+  "spellSlots": {
+    "description": "Paladino é meio-conjurador (mesma progressão do Patrulheiro). Conjura a partir do nível 2. Chaves = nível do personagem, valores = spell slots disponíveis por nível de spell.",
+    "table": {
+      "1":  { "1": 0 },
+      "2":  { "1": 2 },
+      "3":  { "1": 3 },
+      "4":  { "1": 3 },
+      "5":  { "1": 4, "2": 2 },
+      "6":  { "1": 4, "2": 2 },
+      "7":  { "1": 4, "2": 3 },
+      "8":  { "1": 4, "2": 3 },
+      "9":  { "1": 4, "2": 3, "3": 2 },
+      "10": { "1": 4, "2": 3, "3": 2 },
+      "11": { "1": 4, "2": 3, "3": 3 },
+      "12": { "1": 4, "2": 3, "3": 3 },
+      "13": { "1": 4, "2": 3, "3": 3, "4": 1 },
+      "14": { "1": 4, "2": 3, "3": 3, "4": 1 },
+      "15": { "1": 4, "2": 3, "3": 3, "4": 2 },
+      "16": { "1": 4, "2": 3, "3": 3, "4": 2 },
+      "17": { "1": 4, "2": 3, "3": 3, "4": 3, "5": 1 },
+      "18": { "1": 4, "2": 3, "3": 3, "4": 3, "5": 1 },
+      "19": { "1": 4, "2": 3, "3": 3, "4": 3, "5": 2 },
+      "20": { "1": 4, "2": 3, "3": 3, "4": 3, "5": 2 }
+    }
+  },
+
+  "castingRules": {
+    "preparedSpellsFormula": "modificadorCarisma + floor(nivelPaladino / 2)  (mínimo 1)",
+    "spellSaveDCFormula": "8 + bônusProficiência + modificadorCarisma",
+    "spellAttackBonusFormula": "bônusProficiência + modificadorCarisma"
+  },
+
+  "spells": [
+    { "name": "Bênção", "school": "Encantamento", "level": 1, "castingTime": "1 ação", "range": "9 metros", "components": "V, S, M", "duration": "Concentração, até 1 minuto", "ritual": false, "optional": false },
+    { "name": "Cerimônia", "school": "Abjuração", "level": 1, "castingTime": "1 hora (ritual)", "range": "Toque", "components": "V, S, M", "duration": "Instantânea", "ritual": true, "optional": true },
+    { "name": "Comando", "school": "Encantamento", "level": 1, "castingTime": "1 ação", "range": "18 metros", "components": "V", "duration": "1 rodada", "ritual": false, "optional": false },
+    { "name": "Curar Ferimentos", "school": "Evocação", "level": 1, "castingTime": "1 ação", "range": "Toque", "components": "V, S", "duration": "Instantânea", "ritual": false, "optional": false },
+    { "name": "Destruição Colérica", "school": "Necromancia", "level": 1, "castingTime": "1 ação bônus", "range": "Pessoal", "components": "V", "duration": "Concentração, até 1 minuto", "ritual": false, "optional": true },
+    { "name": "Destruição Lancinante", "school": "Evocação", "level": 1, "castingTime": "1 ação bônus", "range": "Pessoal", "components": "V", "duration": "Concentração, até 1 minuto", "ritual": false, "optional": true },
+    { "name": "Destruição Trovejante", "school": "Evocação", "level": 1, "castingTime": "1 ação bônus", "range": "Pessoal", "components": "V", "duration": "Concentração, até 1 minuto", "ritual": false, "optional": true },
+    { "name": "Detectar Magia", "school": "Adivinhação", "level": 1, "castingTime": "1 ação (ritual)", "range": "Pessoal", "components": "V, S", "duration": "Concentração, até 10 minutos", "ritual": true, "optional": false },
+    { "name": "Detectar o Bem e o Mal", "school": "Adivinhação", "level": 1, "castingTime": "1 ação", "range": "Pessoal", "components": "V, S", "duration": "Concentração, até 10 minutos", "ritual": false, "optional": false },
+    { "name": "Detectar Veneno e Doença", "school": "Adivinhação", "level": 1, "castingTime": "1 ação (ritual)", "range": "Pessoal", "components": "V, S, M", "duration": "Concentração, até 10 minutos", "ritual": true, "optional": false },
+    { "name": "Duelo Compelido", "school": "Encantamento", "level": 1, "castingTime": "1 ação bônus", "range": "9 metros", "components": "V", "duration": "Concentração, até 1 minuto", "ritual": false, "optional": true },
+    { "name": "Auxílio Divino", "school": "Evocação", "level": 1, "castingTime": "1 ação bônus", "range": "Pessoal", "components": "V, S", "duration": "Concentração, até 1 minuto", "ritual": false, "optional": false },
+    { "name": "Escudo da Fé", "school": "Abjuração", "level": 1, "castingTime": "1 ação bônus", "range": "18 metros", "components": "V, S, M", "duration": "Concentração, até 10 minutos", "ritual": false, "optional": false },
+    { "name": "Heroísmo", "school": "Encantamento", "level": 1, "castingTime": "1 ação", "range": "Toque", "components": "V, S", "duration": "Concentração, até 1 minuto", "ritual": false, "optional": false },
+    { "name": "Proteção Contra o Bem e o Mal", "school": "Abjuração", "level": 1, "castingTime": "1 ação", "range": "Toque", "components": "V, S, M", "duration": "Concentração, até 10 minutos", "ritual": false, "optional": false },
+    { "name": "Purificar Alimentos", "school": "Transmutação", "level": 1, "castingTime": "1 ação (ritual)", "range": "3 metros", "components": "V, S", "duration": "Instantânea", "ritual": true, "optional": false },
+
+    { "name": "Ajuda", "school": "Abjuração", "level": 2, "castingTime": "1 ação", "range": "9 metros", "components": "V, S, M", "duration": "8 horas", "ritual": false, "optional": false },
+    { "name": "Arma Mágica", "school": "Transmutação", "level": 2, "castingTime": "1 ação bônus", "range": "Toque", "components": "V, S", "duration": "Concentração, até 1 hora", "ritual": false, "optional": false },
+    { "name": "Convocar Montaria", "school": "Conjuração", "level": 2, "castingTime": "10 minutos", "range": "9 metros", "components": "V, S", "duration": "Instantânea", "ritual": false, "optional": false },
+    { "name": "Destruição Brilhante", "school": "Transmutação", "level": 2, "castingTime": "1 ação bônus", "range": "Pessoal", "components": "V", "duration": "Concentração, até 1 minuto", "ritual": false, "optional": true },
+    { "name": "Localizar Objeto", "school": "Adivinhação", "level": 2, "castingTime": "1 ação", "range": "Pessoal", "components": "V, S, M", "duration": "Concentração, até 10 minutos", "ritual": false, "optional": false },
+    { "name": "Oração Curativa", "school": "Evocação", "level": 2, "castingTime": "10 minutos", "range": "9 metros", "components": "V", "duration": "Instantânea", "ritual": false, "optional": false },
+    { "name": "Proteção Contra Veneno", "school": "Abjuração", "level": 2, "castingTime": "1 ação", "range": "Toque", "components": "V, S", "duration": "Concentração, até 1 hora", "ritual": false, "optional": false },
+    { "name": "Repouso Tranquilo", "school": "Necromancia", "level": 2, "castingTime": "1 ação (ritual)", "range": "Toque", "components": "V, S, M", "duration": "10 dias", "ritual": true, "optional": true },
+    { "name": "Restauração Menor", "school": "Abjuração", "level": 2, "castingTime": "1 ação", "range": "Toque", "components": "V, S", "duration": "Instantânea", "ritual": false, "optional": false },
+    { "name": "Vínculo Protetor", "school": "Abjuração", "level": 2, "castingTime": "1 ação", "range": "Toque", "components": "V, S, M", "duration": "Concentração, até 1 hora", "ritual": false, "optional": true },
+    { "name": "Zona da Verdade", "school": "Encantamento", "level": 2, "castingTime": "1 ação", "range": "18 metros", "components": "V, S", "duration": "Concentração, até 10 minutos", "ritual": false, "optional": false },
+
+    { "name": "Criar Alimentos", "school": "Conjuração", "level": 3, "castingTime": "1 ação", "range": "9 metros", "components": "V, S", "duration": "Instantânea", "ritual": false, "optional": false },
+    { "name": "Luz do Dia", "school": "Evocação", "level": 3, "castingTime": "1 ação", "range": "18 metros", "components": "V, S", "duration": "1 hora", "ritual": false, "optional": false },
+    { "name": "Dissipar Magia", "school": "Abjuração", "level": 3, "castingTime": "1 ação", "range": "36 metros", "components": "V, S", "duration": "Instantânea", "ritual": false, "optional": false },
+    { "name": "Arma Elemental", "school": "Transmutação", "level": 3, "castingTime": "1 ação", "range": "Toque", "components": "V, S", "duration": "Concentração, até 1 hora", "ritual": false, "optional": true },
+    { "name": "Aura da Vitalidade", "school": "Evocação", "level": 3, "castingTime": "1 ação", "range": "Pessoal (aura de 9 metros)", "components": "V", "duration": "Concentração, até 1 minuto", "ritual": false, "optional": true },
+    { "name": "Círculo Mágico", "school": "Abjuração", "level": 3, "castingTime": "1 minuto", "range": "3 metros", "components": "V, S, M", "duration": "1 hora", "ritual": false, "optional": false },
+    { "name": "Destruição Cegante", "school": "Evocação", "level": 3, "castingTime": "1 ação", "range": "Pessoal (6 metros)", "components": "V", "duration": "Instantânea", "ritual": false, "optional": true },
+    { "name": "Manto do Cruzado", "school": "Evocação", "level": 3, "castingTime": "1 ação", "range": "Pessoal", "components": "V", "duration": "Concentração, até 10 minutos", "ritual": false, "optional": true },
+    { "name": "Remover Maldição", "school": "Abjuração", "level": 3, "castingTime": "1 ação", "range": "Toque", "components": "V, S", "duration": "Instantânea", "ritual": false, "optional": false },
+    { "name": "Revivificar", "school": "Necromancia", "level": 3, "castingTime": "1 ação", "range": "Toque", "components": "V, S, M", "duration": "Instantânea", "ritual": false, "optional": false },
+    { "name": "Mortalha Espiritual", "school": "Necromancia", "level": 3, "castingTime": "1 ação bônus", "range": "Pessoal", "components": "V, S", "duration": "Concentração, até 1 hora", "ritual": false, "optional": true },
+
+    { "name": "Banimento", "school": "Abjuração", "level": 4, "castingTime": "1 ação", "range": "18 metros", "components": "V, S, M", "duration": "Concentração, até 1 minuto", "ritual": false, "optional": false },
+    { "name": "Proteção Contra a Morte", "school": "Abjuração", "level": 4, "castingTime": "1 ação", "range": "Toque", "components": "V, S", "duration": "8 horas", "ritual": false, "optional": false },
+    { "name": "Localizar Criatura", "school": "Adivinhação", "level": 4, "castingTime": "1 ação", "range": "Pessoal", "components": "V, S, M", "duration": "Concentração, até 1 hora", "ritual": false, "optional": false },
+    { "name": "Aura da Pureza", "school": "Abjuração", "level": 4, "castingTime": "1 ação", "range": "Pessoal (aura de 9 metros)", "components": "V", "duration": "Concentração, até 10 minutos", "ritual": false, "optional": true },
+    { "name": "Aura da Vida", "school": "Abjuração", "level": 4, "castingTime": "1 ação", "range": "Pessoal (aura de 9 metros)", "components": "V", "duration": "Concentração, até 10 minutos", "ritual": false, "optional": true },
+    { "name": "Destruição Estonteante", "school": "Encantamento", "level": 4, "castingTime": "1 ação bônus", "range": "Pessoal", "components": "V", "duration": "Concentração, até 1 minuto", "ritual": false, "optional": true },
+
+    { "name": "Dissipar o Bem e o Mal", "school": "Abjuração", "level": 5, "castingTime": "1 ação", "range": "Pessoal", "components": "V, S, M", "duration": "Concentração, até 1 minuto", "ritual": false, "optional": false },
+    { "name": "Missão", "school": "Encantamento", "level": 5, "castingTime": "1 minuto", "range": "18 metros", "components": "V", "duration": "30 dias", "ritual": false, "optional": false },
+    { "name": "Reviver os Mortos", "school": "Necromancia", "level": 5, "castingTime": "1 hora", "range": "Toque", "components": "V, S, M", "duration": "Instantânea", "ritual": false, "optional": false },
+    { "name": "Arma Sagrada", "school": "Evocação", "level": 5, "castingTime": "1 ação bônus", "range": "Toque", "components": "V, S, M", "duration": "Concentração, até 1 hora", "ritual": false, "optional": true },
+    { "name": "Círculo do Poder", "school": "Abjuração", "level": 5, "castingTime": "1 ação", "range": "Pessoal (aura de 9 metros)", "components": "V", "duration": "Concentração, até 10 minutos", "ritual": false, "optional": true },
+    { "name": "Destruição Banidora", "school": "Abjuração", "level": 5, "castingTime": "1 ação", "range": "Pessoal (9 metros)", "components": "V", "duration": "Concentração, até 1 minuto", "ritual": false, "optional": true },
+    { "name": "Invocar Celestial", "school": "Conjuração", "level": 5, "castingTime": "1 minuto", "range": "27 metros", "components": "V, S, M", "duration": "Concentração, até 1 hora", "ritual": false, "optional": true },
+    { "name": "Onda Destrutiva", "school": "Evocação", "level": 5, "castingTime": "1 ação", "range": "Pessoal (9 metros)", "components": "V", "duration": "Instantânea", "ritual": false, "optional": true },
+    { "name": "Restauração Maior", "school": "Abjuração", "level": 5, "castingTime": "1 hora", "range": "Toque", "components": "V, S, M", "duration": "Instantânea", "ritual": false, "optional": true }
+  ]
+}

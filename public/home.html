@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vallus — RPG Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="landing-page">
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="home.html" class="nav-brand">🎲 Vallus</a>
+      <div class="nav-links">
+        <a href="home.html" class="active">Home</a>
+        <a href="index.html">Personagens</a>
+        <a href="lore.html">Lore</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Gerencie sua Jornada</h1>
+      <p>O companheiro definitivo para suas aventuras de D&D 5e. Fichas inteligentes, magias integradas e a história do seu mundo em um só lugar.</p>
+      <div class="hero-actions">
+        <a href="index.html" class="btn btn-primary btn-large">Começar Aventura</a>
+        <a href="lore.html" class="btn btn-secondary btn-large">Explorar Lore</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hall-of-heroes">
+      <div class="section-header">
+        <h2>🏆 Hall dos Heróis</h2>
+        <p>Os aventureiros mais lendários que já passaram por estas terras.</p>
+      </div>
+      <div id="hall-grid" class="hall-grid">
+        <!-- Preenchido via JS -->
+        <div class="loading">Carregando heróis...</div>
+      </div>
+    </section>
+
+    <section class="features-summary">
+      <div class="section-header">
+        <h2>⚔️ Recursos do Sistema</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card">
+          <span class="feat-icon">📜</span>
+          <h3>12 Classes Básicas</h3>
+          <p>Features de nível 1 a 20 integradas para todas as classes do Livro do Jogador.</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">🔮</span>
+          <h3>Grimório Completo</h3>
+          <p>Busca instantânea de feitiços com cálculo automático de slots e CD.</p>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">🗄️</span>
+          <h3>Banco de Dados SQLite</h3>
+          <p>Persistência robusta e rápida para você e seu grupo de até 10 pessoas.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Vallus RPG Manager. Feito para aventureiros.</p>
+  </footer>
+
+  <script>
+    async function loadHall() {
+      try {
+        const res = await fetch('/api/characters/hall');
+        const heroes = await res.json();
+        const grid = document.getElementById('hall-grid');
+        
+        if (heroes.length === 0) {
+          grid.innerHTML = '<p class="empty-msg">Nenhum herói registrado ainda. <a href="index.html">Crie o primeiro!</a></p>';
+          return;
+        }
+
+        grid.innerHTML = heroes.map(h => `
+          <div class="hero-card" onclick="window.location.href='index.html?id=${h.id}'">
+            <div class="hero-image">
+              ${h.imageUrl ? `<img src="${h.imageUrl}" alt="${h.name}">` : `<span>${h.name[0]}</span>`}
+            </div>
+            <div class="hero-info">
+              <h3>${h.name}</h3>
+              <p class="hero-meta">${h.race || 'Sem Raça'} • ${h.class || 'Sem Classe'}</p>
+              <div class="hero-level">Nível ${h.level}</div>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error('Erro ao carregar hall:', err);
+        document.getElementById('hall-grid').innerHTML = '<p>Erro ao carregar heróis.</p>';
+      }
+    }
+    loadHall();
+  </script>
+</body>
+</html>

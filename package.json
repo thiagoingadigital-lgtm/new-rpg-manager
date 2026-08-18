@@ -1,0 +1,16 @@
+{
+  "name": "rpg-manager",
+  "version": "1.0.0",
+  "description": "Gerenciador de personagens de RPG (dados, features e recursos)",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "express": "^4.19.2",
+    "multer": "^2.0.0"
+  }
+}
