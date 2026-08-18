@@ -94,6 +94,7 @@ function sanitizeCharacter(body, existing = {}) {
     spells: body.spells ?? existing.spells ?? [],
     spellSlotsUsage: body.spellSlotsUsage ?? existing.spellSlotsUsage ?? {},
     imageUrl: body.imageUrl ?? existing.imageUrl ?? null,
+    inHall: typeof body.inHall === 'boolean' ? (body.inHall ? 1 : 0) : (existing.inHall ?? 0),
   };
 }
 
@@ -111,7 +112,7 @@ function sanitizeSpell(body, existing = {}) {
 function loadCharacter(id) {
   const row = db.get(`
     SELECT id, name, class, race, level, attributes, skillProficiencies, saveProficiencies,
-           resources, items, spellSlotsUsage, imageUrl, createdAt, updatedAt
+           resources, items, spellSlotsUsage, imageUrl, inHall, createdAt, updatedAt
     FROM characters WHERE id = ?
   `, [id]);
   if (!row) return null;
@@ -259,13 +260,13 @@ app.get('/api/spells', (req, res) => {
 app.get('/api/characters/hall', (req, res) => {
   res.json(db.all(`
     SELECT id, name, class, race, level, imageUrl, createdAt
-    FROM characters ORDER BY level DESC, updatedAt DESC
+    FROM characters WHERE inHall = 1 ORDER BY level DESC, updatedAt DESC LIMIT 24
   `));
 });
 
 // Listar todos
 app.get('/api/characters', (req, res) => {
-  const rows = db.all(`SELECT id, name, class, race, level, imageUrl FROM characters ORDER BY updatedAt DESC`);
+  const rows = db.all(`SELECT id, name, class, race, level, imageUrl, inHall FROM characters ORDER BY updatedAt DESC`);
   res.json(rows);
 });
 
@@ -307,7 +308,7 @@ app.put('/api/characters/:id', (req, res) => {
                           attributes = ?, skillProficiencies = ?,
                           saveProficiencies = ?, resources = ?,
                           items = ?, spellSlotsUsage = ?,
-                          imageUrl = ?, updatedAt = datetime('now')
+                          imageUrl = ?, inHall = ?, updatedAt = datetime('now')
     WHERE id = ?
   `, [
     updated.name, updated.class, updated.race, updated.level,
@@ -318,6 +319,7 @@ app.put('/api/characters/:id', (req, res) => {
     JSON.stringify(updated.items),
     JSON.stringify(updated.spellSlotsUsage),
     updated.imageUrl,
+    updated.inHall ? 1 : 0,
     updated.id,
   ]);
   res.json(updated);

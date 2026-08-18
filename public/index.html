@@ -9,17 +9,18 @@
 <body>
   <div class="app">
     <aside class="sidebar">
-      <h1 onclick="window.location.href='home.html'" style="cursor:pointer">🎲 Vallus</h1>
-      <nav class="sidebar-nav">
+      <div class="brand" onclick="window.location.href='home.html'" style="cursor:pointer">
+        <span class="brand-icon">🎲</span>
+        <h1>RPG Manager<small>Gestão de Aventuras</small></h1>
+      </div>
+      <nav>
         <a href="home.html">🏠 Home</a>
         <a href="index.html" class="active">👤 Personagens</a>
         <a href="lore.html">📜 Lore</a>
       </nav>
-      <hr class="sidebar-divider" />
-      <button id="btn-new-character" class="btn btn-primary">+ Novo Personagem</button>
+      <button id="btn-new-character" class="btn btn-new" style="width: 100%;">+ Novo Personagem</button>
       <p class="sidebar-label">Lista de Heróis</p>
       <ul id="character-list" class="character-list"></ul>
-      <hr class="sidebar-divider" />
       <a href="rules.html" target="_blank" class="btn btn-secondary rules-link">📖 Regras de Criação</a>
       <a href="paladin-dragonlord.html" target="_blank" class="btn btn-secondary rules-link">🐉 Lorde Dragão</a>
     </aside>

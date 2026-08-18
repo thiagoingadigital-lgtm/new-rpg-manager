@@ -111,13 +111,15 @@ function renderCharacterList() {
   characterListEl.innerHTML = '';
   state.characters.forEach((char) => {
     const li = document.createElement('li');
-    li.className = `character-item ${state.selectedId === char.id ? 'active' : ''}`;
+    li.className = state.selectedId === char.id ? 'active' : '';
+    const initial = (char.name || '?')[0].toUpperCase();
     li.innerHTML = `
-      <div class="char-thumb">${char.imageUrl ? `<img src="${char.imageUrl}">` : char.name[0]}</div>
-      <div class="char-info">
+      <div class="avatar">${char.imageUrl ? `<img src="${char.imageUrl}" alt="">` : escapeHtml(initial)}</div>
+      <div>
         <span class="char-name">${escapeHtml(char.name)}</span>
-        <span class="char-meta">${char.class || 'Sem classe'} • Nível ${char.level}</span>
+        <span class="char-sub">${escapeHtml(char.class || 'Sem classe')}${char.race ? ' • ' + escapeHtml(char.race) : ''} • Nível ${char.level ?? 1}</span>
       </div>
+      <button class="hall-toggle ${char.inHall ? 'on' : ''}" title="Exibir no Hall dos Heróis" onclick="event.stopPropagation(); toggleHall('${char.id}')">${char.inHall ? '⭐' : '☆'}</button>
     `;
     li.onclick = () => selectCharacter(char.id);
     characterListEl.appendChild(li);
@@ -402,6 +404,14 @@ async function selectCharacter(id) {
   const char = await getCharacter(id);
   renderCharacterView(char);
 }
+
+async function toggleHall(id) {
+  const char = state.characters.find(c => c.id === id);
+  if (!char) return;
+  await updateCharacter(id, { inHall: !char.inHall });
+  await refreshSelected();
+}
+window.toggleHall = toggleHall;
 
 window.selectCharacterById = selectCharacter; // Global para index.html
 
