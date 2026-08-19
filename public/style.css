@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=DM+Sans:wght@400;500;700&display=swap');
+
 /*
   Paleta Vallus:
   #2E2910 - marrom-oliva escuro (fundo principal)
@@ -735,3 +737,55 @@ input::placeholder {
 @media (max-width:760px) {
   .atlas-header { height:66px; }.atlas-menu-button { display:block; }.atlas-nav { display:none; position:absolute; top:66px; left:0; right:0; flex-direction:column; align-items:flex-start; gap:20px; padding:24px; background:var(--atlas-ink); border-bottom:1px solid rgba(244,239,231,.12); }.menu-open .atlas-nav { display:flex; }.atlas-hero { min-height:650px; padding:110px 20px 70px; }.atlas-hero h1 { font-size:clamp(3.7rem,16vw,5.8rem); }.atlas-hero-content p { max-width:300px; font-size:12px; }.atlas-coordinates,.atlas-scroll-note { display:none; }.atlas-field-note { grid-template-columns:1fr; gap:24px; padding:45px 20px; }.atlas-field-note blockquote { font-size:2rem; }.atlas-note-meta { padding-left:0; padding-top:16px; border-left:0; border-top:1px solid rgba(15,22,35,.2); }.atlas-characters { padding:75px 20px; }.atlas-section-heading { display:block; }.atlas-section-heading > p { margin-top:30px; }.atlas-character-grid { grid-template-columns:1fr; }.atlas-character-card { min-height:460px; }.atlas-empty-card { min-height:300px; }.atlas-feature-strip { grid-template-columns:1fr; gap:25px; margin-top:60px; }.atlas-feature-strip > div { padding:0 0 25px; border-right:0; border-bottom:1px solid rgba(15,22,35,.15); }.atlas-universe { grid-template-columns:1fr; gap:32px; min-height:600px; padding:80px 20px; }.atlas-universe-stats { margin-top:12px; }.atlas-footer { align-items:flex-start; flex-direction:column; }.atlas-footer > div { flex-wrap:wrap; gap:15px; }
 }
+
+/* =========================================================
+   SISTEMA VISUAL COMPARTILHADO — páginas internas do Atlas
+   Mantém a lógica existente e unifica ficha, lore e referências.
+   ========================================================= */
+:root { --atlas-ink:#0f1623; --atlas-paper:#f4efe7; --atlas-sand:#e8e0d2; --atlas-copper:#b86f4a; --atlas-muted:#a89e8c; --atlas-line:rgba(244,239,231,.14); }
+body:not(.atlas-page) { background:var(--atlas-ink); color:var(--atlas-paper); font-family:'DM Sans',Arial,sans-serif; }
+body:not(.atlas-page) h1, body:not(.atlas-page) h2, body:not(.atlas-page) h3 { font-family:'Cormorant Garamond',Georgia,serif; font-weight:600; }
+body:not(.atlas-page) .top-nav { height:76px; padding:0 clamp(20px,4vw,64px); background:rgba(15,22,35,.82); border-bottom:1px solid var(--atlas-line); backdrop-filter:blur(16px); }
+body:not(.atlas-page) .nav-container { max-width:1400px; height:100%; padding:0; }
+body:not(.atlas-page) .nav-brand { color:var(--atlas-paper); font-family:'Cormorant Garamond',Georgia,serif; font-size:24px; letter-spacing:.08em; }
+body:not(.atlas-page) .nav-links { gap:32px; }
+body:not(.atlas-page) .nav-links a { color:rgba(244,239,231,.58); font-size:9px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; }
+body:not(.atlas-page) .nav-links a:hover, body:not(.atlas-page) .nav-links a.active { color:var(--atlas-copper); }
+body:not(.atlas-page) .main-content { background:var(--atlas-ink); padding:42px clamp(20px,5vw,76px); }
+body:not(.atlas-page) .sidebar { width:280px; background:#0b111c; border-right:1px solid var(--atlas-line); padding:28px 20px; }
+body:not(.atlas-page) .sidebar h1 { color:var(--atlas-paper); font-family:'Cormorant Garamond',Georgia,serif; font-size:28px; letter-spacing:.08em; }
+body:not(.atlas-page) .sidebar-nav a { color:rgba(244,239,231,.6); border-color:transparent; border-radius:0; font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
+body:not(.atlas-page) .sidebar-nav a:hover, body:not(.atlas-page) .sidebar-nav a.active { background:rgba(184,111,74,.15); color:var(--atlas-copper); border-left:2px solid var(--atlas-copper); }
+body:not(.atlas-page) .sidebar-divider { border-color:var(--atlas-line); }
+body:not(.atlas-page) .sidebar-label { color:var(--atlas-copper); letter-spacing:.18em; }
+body:not(.atlas-page) .character-list li { border-radius:0; background:rgba(244,239,231,.04); border-color:var(--atlas-line); color:var(--atlas-paper); }
+body:not(.atlas-page) .character-list li:hover, body:not(.atlas-page) .character-list li.active { background:rgba(184,111,74,.18); border-color:var(--atlas-copper); }
+body:not(.atlas-page) .card { border-radius:0; background:#182233; border:1px solid var(--atlas-line); box-shadow:none; }
+body:not(.atlas-page) .card h2 { color:var(--atlas-paper); font-size:2.2rem; letter-spacing:-.02em; }
+body:not(.atlas-page) .card h3 { color:var(--atlas-copper); }
+body:not(.atlas-page) input, body:not(.atlas-page) select, body:not(.atlas-page) textarea { background:#111b2b; border:1px solid var(--atlas-line); border-radius:0; color:var(--atlas-paper); }
+body:not(.atlas-page) input:focus, body:not(.atlas-page) select:focus, body:not(.atlas-page) textarea:focus { outline:1px solid var(--atlas-copper); border-color:var(--atlas-copper); }
+body:not(.atlas-page) .btn { border-radius:0; font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
+body:not(.atlas-page) .btn-primary { background:var(--atlas-copper); color:var(--atlas-ink); }
+body:not(.atlas-page) .btn-primary:hover { background:#d28861; }
+body:not(.atlas-page) .btn-secondary { background:transparent; color:var(--atlas-paper); border:1px solid var(--atlas-copper); }
+body:not(.atlas-page) .btn-secondary:hover { background:rgba(184,111,74,.16); }
+body:not(.atlas-page) .btn-danger { color:#db8b70; border-color:#db8b70; }
+body:not(.atlas-page) .stat-box, body:not(.atlas-page) .item-row { border-radius:0; background:#111b2b; border-color:var(--atlas-line); }
+body:not(.atlas-page) .stat-value, body:not(.atlas-page) .mod-badge { color:var(--atlas-copper); }
+body:not(.atlas-page) .calc-table td { border-color:var(--atlas-line); }
+body:not(.atlas-page) .empty-state { color:rgba(244,239,231,.6); }
+.lore-page { background:var(--atlas-ink); }
+.lore-page .lore-hero { min-height:360px; display:flex; align-items:flex-end; padding:120px clamp(20px,8vw,120px) 60px; background:linear-gradient(90deg,rgba(15,22,35,.98),rgba(15,22,35,.55)),url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2200&q=85') center/cover; }
+.lore-page .lore-hero .container { max-width:1400px; padding:0; }
+.lore-page .lore-hero h1 { margin:0; color:var(--atlas-paper); font-size:clamp(4rem,8vw,7rem); line-height:.8; }
+.lore-page .lore-hero p { max-width:500px; color:rgba(244,239,231,.65); line-height:1.7; }
+.lore-page .lore-content { max-width:1000px; padding:80px 24px; }
+.lore-page .lore-card { margin-bottom:18px; padding:32px 36px; background:#182233; border:1px solid var(--atlas-line); border-radius:0; }
+.lore-page .lore-card h2 { margin-top:0; color:var(--atlas-copper); font-size:2.6rem; }
+.lore-page .lore-card p, .lore-page .lore-card li { color:rgba(244,239,231,.72); line-height:1.8; }
+.lore-page .lore-list { padding-left:22px; }.lore-page .lore-list li { margin:12px 0; }.lore-page .lore-list strong { color:var(--atlas-paper); }
+.lore-page .editable-lore { background:var(--atlas-sand); color:var(--atlas-ink); }.lore-page .editable-lore h2 { color:var(--atlas-ink); }.lore-page .editable-lore p { color:rgba(15,22,35,.62); }
+.lore-page .lore-form input, .lore-page .lore-form textarea { width:100%; margin:8px 0; background:rgba(15,22,35,.08); color:var(--atlas-ink); border-color:rgba(15,22,35,.2); }.lore-page .lore-entries li { margin-top:12px; padding:18px; background:rgba(15,22,35,.07); border:1px solid rgba(15,22,35,.16); }.lore-page .lore-entries p { color:rgba(15,22,35,.68); }
+.rules-page { max-width:1000px; padding:100px 24px 80px; }.rules-page .back-link { color:var(--atlas-copper); font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; }.rules-page h1 { margin:24px 0 8px; color:var(--atlas-paper); font-size:clamp(4rem,8vw,7rem); line-height:.82; }.rules-page .subtitle { color:rgba(244,239,231,.6); line-height:1.7; }.rules-page section { padding:32px 36px; margin-bottom:18px; background:#182233; border:1px solid var(--atlas-line); border-radius:0; }.rules-page section h2 { color:var(--atlas-copper); font-size:2.6rem; line-height:.95; }.rules-page section h3 { color:var(--atlas-paper); font-size:1.7rem; }.rules-page section p, .rules-page section li { color:rgba(244,239,231,.7); line-height:1.8; }.rules-page table { border-collapse:collapse; }.rules-page th, .rules-page td { padding:10px; border-bottom:1px solid var(--atlas-line); color:rgba(244,239,231,.7); text-align:left; }.rules-page th { color:var(--atlas-copper); }.rules-page .note { color:var(--atlas-muted); }.rules-page .source-srd { background:rgba(184,111,74,.28); }.rules-page .source-book { background:#313f54; }
+@media (max-width:760px) { body:not(.atlas-page) .app { display:block; }.sidebar { width:100%; min-height:auto; }.main-content { padding:24px 16px; }.lore-page .lore-hero { min-height:300px; padding:110px 20px 45px; }.lore-page .lore-content { padding:55px 16px; }.lore-page .lore-card, .rules-page section { padding:24px 20px; }.rules-page { padding:95px 16px 55px; }.rules-page h1 { font-size:4.1rem; } }
