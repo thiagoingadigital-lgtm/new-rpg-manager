@@ -841,3 +841,13 @@ body:not(.atlas-page) .empty-state { color:rgba(244,239,231,.6); }
 .v2-header,.v2-footer,.v2-hero{color:#f6efe5}
 .v2-header a,.v2-footer a,.v2-hero p{color:#e4d8d0}
 .v2-header a:hover,.v2-footer a:hover{color:#e9b949}
+
+/* Editor de mapas: a imagem é o território; a camada de coordenadas é invisível e persistente. */
+.map-viewport{position:relative;overflow:auto;min-height:520px;background:#171316;border:1px solid #241a1c;display:flex;align-items:center;justify-content:center}
+.map-canvas{position:relative;width:100%;min-width:720px;min-height:520px;transform-origin:center center;transition:transform .18s ease-out;background:#d7c3a9}
+.map-canvas>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:none;pointer-events:none}
+.coordinate-layer{position:absolute;inset:0;z-index:2}
+.map-marker{position:absolute;transform:translate(-50%,-50%);width:34px;height:34px;border:3px solid #fffaf3;border-radius:50%;font:700 10px/1 'DM Sans',sans-serif;letter-spacing:.04em;box-shadow:3px 3px 0 #241a1c;cursor:grab;color:#fffaf3;touch-action:none}
+.map-marker:active{cursor:grabbing}.map-marker.color-red{background:#d9272e}.map-marker.color-blue{background:#2c6e9e}.map-marker.color-gold{background:#c79b2b;color:#241a1c}.map-marker.color-green{background:#3e7955}.map-marker.color-purple{background:#745184}.map-marker.color-white{background:#fffaf3;color:#241a1c;border-color:#241a1c}
+.map-marker-label{position:absolute;transform:translateX(-50%);padding:3px 6px;background:#241a1c;color:#fffaf3;font:700 9px/1.1 'DM Sans',sans-serif;letter-spacing:.06em;white-space:nowrap;pointer-events:none}
+.coordinate-badge{font:700 10px/1 'DM Sans',sans-serif;letter-spacing:.12em;color:#d9272e}.panel-intro{max-width:680px;margin:0 0 22px;color:#686064}.color-dot{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle}.color-dot.color-red{background:#d9272e}.color-dot.color-blue{background:#2c6e9e}.color-dot.color-gold{background:#c79b2b}.color-dot.color-green{background:#3e7955}.color-dot.color-purple{background:#745184}.color-dot.color-white{background:#fffaf3;border:1px solid #241a1c}.marker-row-actions button{color:#d9272e;background:transparent;border:0;text-transform:uppercase;font:700 10px 'DM Sans',sans-serif;letter-spacing:.08em}.marker-row-actions button:hover{text-decoration:underline}
