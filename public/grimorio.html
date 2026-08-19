@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vallus — Grimório Integrado</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="atlas-page grimoire-page">
+  <header class="atlas-header">
+    <a href="index.html" class="atlas-brand" aria-label="Vallus — início"><span class="atlas-mark" aria-hidden="true">⌁</span><span><strong>VALLUS</strong><small>GRIMÓRIO INTEGRADO</small></span></a>
+    <button class="atlas-menu-button" aria-label="Abrir menu" onclick="document.body.classList.toggle('menu-open')">☰</button>
+    <nav class="atlas-nav" aria-label="Navegação principal"><a href="index.html">01 / Início</a><a href="personagens.html">02 / Personagens</a><a class="active" href="grimorio.html">03 / Grimório</a><a class="atlas-nav-cta" href="personagens.html">Abrir fichas</a></nav>
+  </header>
+  <main>
+    <section class="grimoire-hero"><div class="atlas-kicker"><span></span> Registro arcano — biblioteca ativa</div><h1>O que foi<br /><em>escrito no fogo.</em></h1><p>Consulte a biblioteca de magias da campanha. Filtre por classe, escola, nível e propriedades para encontrar o próximo recurso da mesa.</p></section>
+    <section class="grimoire-library">
+      <div class="grimoire-toolbar"><div><div class="atlas-kicker dark"><span></span> Biblioteca de feitiços</div><h2>Consulta<br /><em>rápida.</em></h2></div><div class="grimoire-source">Fonte atual<br /><strong>SRD 5.1 + Tasha's</strong></div></div>
+      <form id="spell-filters" class="grimoire-filters">
+        <label class="grimoire-search">Buscar no grimório<input id="spell-query" type="search" placeholder="Nome ou palavra-chave" autocomplete="off" /></label>
+        <label>Classe<select id="spell-class"><option value="">Todas as classes</option></select></label>
+        <label>Tipo / escola<select id="spell-school"><option value="">Todas as escolas</option></select></label>
+        <label>Nível<select id="spell-level"><option value="">Todos</option><option value="0">Truque</option><option value="1">1º círculo</option><option value="2">2º círculo</option><option value="3">3º círculo</option><option value="4">4º círculo</option><option value="5">5º círculo</option></select></label>
+        <label class="grimoire-check"><input id="spell-ritual" type="checkbox" /> Apenas rituais</label><label class="grimoire-check"><input id="spell-optional" type="checkbox" /> Apenas opcionais</label>
+        <button class="grimoire-reset" type="reset">Limpar filtros</button>
+      </form>
+      <div class="grimoire-status"><span id="spell-count">Consultando...</span><span id="spell-note">A biblioteca mostra os registros disponíveis para a classe selecionada.</span></div>
+      <div id="spell-results" class="spell-results"><p class="dashboard-loading">Abrindo os registros arcanos...</p></div>
+    </section>
+  </main>
+  <footer class="atlas-footer"><a href="index.html" class="atlas-brand"><span class="atlas-mark" aria-hidden="true">⌁</span><span><strong>VALLUS</strong><small>RPG MANAGER © 2026</small></span></a><div><a href="personagens.html">Personagens</a><a href="grimorio.html">Grimório</a><a href="index.html">Início</a></div></footer>
+  <script>
+    const state = { spells: [], classes: [] };
+    const $ = (id) => document.getElementById(id);
+    const schoolNames = ['Abjuração','Adivinhação','Conjuração','Encantamento','Evocação','Ilusão','Necromancia','Transmutação'];
+    async function loadData() {
+      try {
+        const [spellsRes, classesRes] = await Promise.all([fetch('/api/spells'), fetch('/api/classes')]);
+        state.spells = await spellsRes.json(); state.classes = await classesRes.json();
+        const classes = state.classes.filter(c => c.casting && c.casting !== 'none').map(c => c.name).sort((a,b) => a.localeCompare(b,'pt'));
+        $('spell-class').innerHTML = '<option value="">Todas as classes</option>' + classes.map(c => `<option value="${c}">${c}</option>`).join('');
+        const schools = [...new Set([...schoolNames, ...state.spells.map(s => s.school)])].filter(Boolean).sort((a,b) => a.localeCompare(b,'pt'));
+        $('spell-school').innerHTML = '<option value="">Todas as escolas</option>' + schools.map(s => `<option value="${s}">${s}</option>`).join('');
+        render();
+      } catch (err) { $('spell-results').innerHTML = '<div class="spell-empty"><strong>Biblioteca indisponível.</strong><span>Não foi possível consultar a fonte de magias.</span></div>'; }
+    }
+    function render() {
+      const query = $('spell-query').value.trim().toLowerCase(); const cls = $('spell-class').value; const school = $('spell-school').value; const level = $('spell-level').value; const ritual = $('spell-ritual').checked; const optional = $('spell-optional').checked;
+      const filtered = state.spells.filter(s => (!query || `${s.name} ${s.school} ${s.duration}`.toLowerCase().includes(query)) && (!cls || (s.classes || ['Paladino']).includes(cls)) && (!school || s.school === school) && (!level || String(s.level) === level) && (!ritual || s.ritual) && (!optional || s.optional));
+      $('spell-count').textContent = `${filtered.length} registro${filtered.length === 1 ? '' : 's'} encontrado${filtered.length === 1 ? '' : 's'}`; $('spell-note').textContent = cls && cls !== 'Paladino' ? 'A fonte atual ainda não possui registros vinculados a essa classe.' : 'A biblioteca mostra os registros disponíveis para a classe selecionada.';
+      $('spell-results').innerHTML = filtered.length ? filtered.map((s, i) => `<article class="spell-card"><div class="spell-card-top"><span>Registro ${String(i + 1).padStart(2,'0')} / ${s.level ? `${s.level}º círculo` : 'Truque'}</span><b>${s.school}</b></div><h3>${s.name}</h3><div class="spell-meta"><span><strong>Conjuração</strong>${s.castingTime || '—'}</span><span><strong>Alcance</strong>${s.range || '—'}</span><span><strong>Duração</strong>${s.duration || '—'}</span></div><div class="spell-tags">${s.ritual ? '<em>Ritual</em>' : ''}${s.optional ? '<em>Opcional</em>' : ''}<small>${(s.classes || ['Paladino']).join(' · ')}</small></div></article>`).join('') : '<div class="spell-empty"><strong>Nenhum registro corresponde aos filtros.</strong><span>Tente mudar a escola, classe ou nível da consulta.</span></div>';
+    }
+    $('spell-filters').addEventListener('input', render); $('spell-filters').addEventListener('change', render); $('spell-filters').addEventListener('reset', () => setTimeout(render)); loadData();
+  </script>
+</body>
+</html>

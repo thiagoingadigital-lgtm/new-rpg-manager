@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RPG Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <h1 onclick="window.location.href='index.html'" style="cursor:pointer">⌁ Vallus</h1>
+      <nav class="sidebar-nav">
+        <a href="index.html">⌂ Início</a>
+        <a href="personagens.html" class="active">◇ Personagens</a>
+        <a href="grimorio.html">✦ Grimório Integrado</a>
+      </nav>
+      <hr class="sidebar-divider" />
+      <button id="btn-new-character" class="btn btn-primary">+ Novo Personagem</button>
+      <p class="sidebar-label">Lista de Heróis</p>
+      <ul id="character-list" class="character-list"></ul>
+      <hr class="sidebar-divider" />
+      <a href="rules.html" target="_blank" class="btn btn-secondary rules-link">📖 Regras de Criação</a>
+      <a href="paladin-dragonlord.html" target="_blank" class="btn btn-secondary rules-link">🐉 Lorde Dragão</a>
+    </aside>
+
+    <main class="main-content">
+      <div id="empty-state" class="empty-state">
+        <p>Selecione um personagem à esquerda ou crie um novo para começar.</p>
+      </div>
+
+      <div id="character-view" class="character-view hidden">
+        <!-- Dados gerais -->
+        <section class="card">
+          <h2>Dados do Personagem</h2>
+
+          <div class="portrait-row">
+            <div class="portrait-frame">
+              <img id="f-portrait" src="" alt="Retrato do personagem" class="hidden" />
+              <span id="portrait-placeholder">Sem imagem</span>
+            </div>
+            <div class="portrait-actions">
+              <label class="btn btn-secondary file-btn">
+                Enviar imagem
+                <input type="file" id="f-image-input" accept="image/png,image/jpeg,image/gif,image/webp" class="hidden" />
+              </label>
+              <button id="btn-remove-image" class="btn btn-danger">Remover imagem</button>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <label>Nome
+              <input type="text" id="f-name" />
+            </label>
+            <label>Classe
+              <input type="text" id="f-class" />
+            </label>
+            <label>Raça
+              <input type="text" id="f-race" />
+            </label>
+            <label>Nível
+              <input type="number" id="f-level" min="1" />
+            </label>
+          </div>
+
+          <h3>Atributos</h3>
+          <div class="attributes-grid">
+            <label>Força <input type="number" id="attr-forca" /><span class="mod-badge" id="mod-forca">+0</span></label>
+            <label>Destreza <input type="number" id="attr-destreza" /><span class="mod-badge" id="mod-destreza">+0</span></label>
+            <label>Constituição <input type="number" id="attr-constituicao" /><span class="mod-badge" id="mod-constituicao">+0</span></label>
+            <label>Inteligência <input type="number" id="attr-inteligencia" /><span class="mod-badge" id="mod-inteligencia">+0</span></label>
+            <label>Sabedoria <input type="number" id="attr-sabedoria" /><span class="mod-badge" id="mod-sabedoria">+0</span></label>
+            <label>Carisma <input type="number" id="attr-carisma" /><span class="mod-badge" id="mod-carisma">+0</span></label>
+          </div>
+
+          <div class="actions">
+            <button id="btn-save-character" class="btn btn-primary">Salvar Dados</button>
+            <button id="btn-delete-character" class="btn btn-danger">Excluir Personagem</button>
+          </div>
+        </section>
+
+        <!-- Estatísticas calculadas -->
+        <section class="card">
+          <h2>Estatísticas Calculadas</h2>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <span class="stat-label">Bônus de Proficiência</span>
+              <span class="stat-value" id="stat-proficiency">+2</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Iniciativa</span>
+              <span class="stat-value" id="stat-initiative">+0</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Classe de Armadura</span>
+              <span class="stat-value" id="stat-ac">10</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Percepção Passiva</span>
+              <span class="stat-value" id="stat-passive-perception">10</span>
+            </div>
+          </div>
+          <p class="note">Calculado automaticamente a partir do nível, atributos e itens marcados como "equipado" no inventário (armadura + escudo).</p>
+        </section>
+
+        <!-- Perícias e Salvaguardas -->
+        <section class="card">
+          <h2>Salvaguardas</h2>
+          <table class="calc-table" id="saves-table"></table>
+        </section>
+
+        <section class="card">
+          <h2>Perícias</h2>
+          <table class="calc-table" id="skills-table"></table>
+        </section>
+
+        <!-- Features -->
+        <section class="card">
+          <h2>Features / Habilidades</h2>
+          <div class="add-form template-form">
+            <select id="template-select">
+              <option value="">Aplicar template de features...</option>
+            </select>
+            <button id="btn-apply-template" class="btn btn-secondary">Aplicar</button>
+          </div>
+          <ul id="feature-list" class="item-list"></ul>
+          <div class="add-form">
+            <input type="text" id="new-feature-name" placeholder="Nome da feature" />
+            <input type="text" id="new-feature-desc" placeholder="Descrição" />
+            <button id="btn-add-feature" class="btn btn-secondary">Adicionar</button>
+          </div>
+        </section>
+
+        <!-- Conjuração (Paladino) -->
+        <section class="card">
+          <h2>🔮 Conjuração (Paladino)</h2>
+          <div class="spellcast-summary">
+            <div class="stat-box">
+              <span class="stat-label">CD de Magia</span>
+              <span class="stat-value" id="stat-spell-save-dc">—</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Bônus de Ataque Mágico</span>
+              <span class="stat-value" id="stat-spell-attack">—</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Feitiços Preparados</span>
+              <span class="stat-value" id="stat-prepared-spells">—</span>
+            </div>
+          </div>
+          <p class="casting-info">CD = 8 + Proficiência + Mod. Carisma &nbsp;•&nbsp; Ataque = Proficiência + Mod. Carisma &nbsp;•&nbsp; Preparados = Mod. Carisma + Nível ÷ 2 (arredondado para baixo). <strong>Carregado da base de dados: <code>paladin-reference.json</code></strong></p>
+
+          <h3>Spell Slots <span class="spell-slot-count" id="slots-level-display"></span></h3>
+          <div class="spellcast-summary" id="spell-slots-container"></div>
+          <p class="casting-info">Os quadrados representam cada slot disponível; marque os que já foram usados no dia. A quantidade total é calculada automaticamente pelo nível do personagem (meio-conjurador).</p>
+
+          <h3>Feitiços Conhecidos</h3>
+          <div class="spell-search-row">
+            <input type="text" id="spell-search-input" placeholder="Buscar feitiço..." />
+            <select id="spell-filter-level">
+              <option value="">Todos os níveis</option>
+            </select>
+            <label class="checkbox-label">
+              <input type="checkbox" id="spell-filter-optional" /> Somente opcionais (Tasha)
+            </label>
+            <button id="btn-refresh-spells" class="btn btn-secondary">Buscar</button>
+          </div>
+          <ul id="spell-list" class="spell-list"></ul>
+
+          <div class="spell-form-row">
+            <input type="text" id="new-spell-name" placeholder="Nome do feitiço preparado" />
+            <input type="text" id="new-spell-school" placeholder="Escola (ex: Abjuração)" />
+            <input type="number" id="new-spell-level" placeholder="Nível (1-5)" min="1" max="5" style="width: 110px" />
+            <button id="btn-add-spell" class="btn btn-secondary">Adicionar Feitiço</button>
+          </div>
+        </section>
+
+        <!-- Recursos -->
+        <section class="card">
+          <h2>Recursos (HP, Mana, Espaços de Magia...)</h2>
+          <ul id="resource-list" class="item-list"></ul>
+          <div class="add-form">
+            <input type="text" id="new-resource-name" placeholder="Nome do recurso (ex: HP)" />
+            <input type="number" id="new-resource-current" placeholder="Atual" />
+            <input type="number" id="new-resource-max" placeholder="Máximo" />
+            <button id="btn-add-resource" class="btn btn-secondary">Adicionar</button>
+          </div>
+        </section>
+
+        <!-- Inventário -->
+        <section class="card">
+          <h2>Inventário</h2>
+          <ul id="inventory-list" class="item-list"></ul>
+
+          <div class="inventory-form">
+            <div class="form-row">
+              <select id="new-item-type">
+                <option value="arma">⚔️ Arma</option>
+                <option value="armadura">🛡️ Armadura</option>
+                <option value="escudo">🔰 Escudo</option>
+                <option value="consumivel">🧪 Consumível</option>
+                <option value="magico">✨ Item Mágico</option>
+                <option value="outro">📦 Outro (Homebrew)</option>
+              </select>
+              <input type="text" id="new-item-name" placeholder="Nome do item" />
+              <input type="number" id="new-item-quantity" placeholder="Qtd" value="1" min="1" />
+            </div>
+
+            <!-- Campos específicos por tipo (mostrados/ocultados via JS) -->
+            <div class="form-row item-fields" data-for="arma">
+              <input type="text" id="field-arma-damage" placeholder="Dano (ex: 1d8)" />
+              <input type="text" id="field-arma-damage-type" placeholder="Tipo de dano (ex: cortante)" />
+              <input type="text" id="field-arma-properties" placeholder="Propriedades (ex: Leve, Versátil)" />
+            </div>
+
+            <div class="form-row item-fields" data-for="armadura">
+              <input type="text" id="field-armadura-ac" placeholder="CA base (ex: 16)" />
+              <select id="field-armadura-type">
+                <option value="">Tipo de armadura...</option>
+                <option value="Leve">Leve</option>
+                <option value="Média">Média</option>
+                <option value="Pesada">Pesada</option>
+              </select>
+              <label class="checkbox-label">
+                <input type="checkbox" id="field-armadura-stealth" /> Desvantagem em Furtividade
+              </label>
+            </div>
+
+            <div class="form-row item-fields" data-for="escudo">
+              <input type="text" id="field-escudo-bonus" placeholder="Bônus de CA (ex: +2)" />
+            </div>
+
+            <div class="form-row item-fields" data-for="consumivel">
+              <input type="text" id="field-consumivel-effect" placeholder="Efeito (ex: Cura 2d4+2 PV)" />
+            </div>
+
+            <div class="form-row item-fields" data-for="magico">
+              <input type="text" id="field-magico-rarity" placeholder="Raridade (ex: Raro)" />
+              <label class="checkbox-label">
+                <input type="checkbox" id="field-magico-attunement" /> Requer Sintonia
+              </label>
+              <input type="text" id="field-magico-effect" placeholder="Efeito" />
+            </div>
+
+            <div class="form-row item-fields" data-for="outro">
+              <textarea id="field-outro-description" placeholder="Descreva o item homebrew livremente: efeito, regras, lore, o que for preciso..."></textarea>
+            </div>
+
+            <div class="form-row">
+              <input type="text" id="new-item-notes" placeholder="Notas gerais (opcional)" />
+              <label class="checkbox-label">
+                <input type="checkbox" id="new-item-equipped" /> Equipado
+              </label>
+              <button id="btn-add-item" class="btn btn-secondary">Adicionar Item</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+  // Permite abrir uma ficha diretamente via URL (usado pelo Centro de Comando)
+    (function () {
+      const id = new URLSearchParams(window.location.search).get('id');
+      if (id && typeof selectCharacterById === 'function') {
+        selectCharacterById(id);
+      }
+    })();
+  </script>
+</body>
+</html>

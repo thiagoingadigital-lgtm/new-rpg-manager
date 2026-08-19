@@ -3,93 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Vallus — um atlas vivo para acompanhar personagens, lore e jornadas de RPG." />
-  <title>Vallus — Atlas de Personagens</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <meta http-equiv="refresh" content="0; url=index.html" />
+  <title>Vallus — Centro de Comando</title>
 </head>
-<body class="landing-page atlas-page">
-  <header class="atlas-header">
-    <a href="home.html" class="atlas-brand" aria-label="Vallus — início">
-      <span class="atlas-mark" aria-hidden="true">⌁</span>
-      <span><strong>VALLUS</strong><small>ATLAS DE PERSONAGENS</small></span>
-    </a>
-    <button class="atlas-menu-button" aria-label="Abrir menu" onclick="document.body.classList.toggle('menu-open')">☰</button>
-    <nav class="atlas-nav" aria-label="Navegação principal">
-      <a class="active" href="home.html">01 / Início</a>
-      <a href="index.html">02 / Personagens</a>
-      <a href="lore.html">03 / Lore</a>
-      <a class="atlas-nav-cta" href="index.html">Abrir atlas</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="atlas-hero" id="inicio">
-      <div class="atlas-hero-image" aria-hidden="true"></div>
-      <div class="atlas-hero-overlay" aria-hidden="true"></div>
-      <div class="atlas-hero-content">
-        <div class="atlas-kicker"><span></span> Registro 001 — transmissão ativa</div>
-        <h1>Alguns nomes<br /><em>chegam antes</em><br />das histórias.</h1>
-        <p>Um atlas vivo de pessoas que atravessam o que restou do mundo conhecido. Toda descoberta começa com um registro incompleto.</p>
-        <a class="atlas-text-link" href="#personagens">Explorar personagens <span>↘</span></a>
-      </div>
-      <div class="atlas-coordinates"><strong>42° 08′ S / 71° 14′ L</strong><br />A costa desapareceu<br />há 116 anos.</div>
-      <div class="atlas-scroll-note">Deslize para investigar <span>↘</span></div>
-    </section>
-
-    <section class="atlas-field-note">
-      <div class="atlas-note-label"><span></span> Nota de campo</div>
-      <blockquote>“O mapa não mostra onde estamos. Mostra o que ainda pode nos encontrar.”</blockquote>
-      <div class="atlas-note-meta">Caderno 07<br />Entrada não assinada<br />Estado: legível</div>
-    </section>
-
-    <section class="atlas-characters" id="personagens">
-      <div class="atlas-section-heading">
-        <div><div class="atlas-kicker dark"><span></span> 02 / Pessoas catalogadas</div><h2>Os que<br /><em>permanecem.</em></h2></div>
-        <p>Cada registro é uma porta. Alguns foram encontrados; outros ainda estão procurando por nós.</p>
-      </div>
-      <div id="hall-grid" class="atlas-character-grid"><div class="atlas-loading">Carregando registros...</div></div>
-      <div class="atlas-feature-strip">
-        <div><span class="atlas-feature-index">01</span><strong>Fichas inteligentes</strong><p>Atributos, perícias e estatísticas calculadas sem sair da narrativa.</p></div>
-        <div><span class="atlas-feature-index">02</span><strong>Grimório integrado</strong><p>Busque magias, slots e recursos diretamente na ficha do personagem.</p></div>
-        <div><span class="atlas-feature-index">03</span><strong>Lore conectado</strong><p>O mundo da campanha vive ao lado das pessoas que o atravessam.</p></div>
-      </div>
-    </section>
-
-    <section class="atlas-universe" id="lore">
-      <div class="atlas-orbit orbit-one"></div><div class="atlas-orbit orbit-two"></div>
-      <div class="atlas-universe-label">03 / O universo</div>
-      <div class="atlas-universe-copy"><h2>Um mundo<br /><em>entre linhas.</em></h2><p>Depois da Queda, as fronteiras deixaram de ser lugares. Tornaram-se histórias contadas por quem atravessou a névoa — e por quem voltou diferente.</p><a class="atlas-text-link" href="lore.html">Ler o primeiro fragmento <span>↗</span></a></div>
-      <div class="atlas-universe-stats"><strong>Arquivo parcial</strong><br />6 regiões conhecidas<br />2 línguas extintas<br />1 pergunta sem resposta</div>
-    </section>
-  </main>
-
-  <footer class="atlas-footer"><a href="home.html" class="atlas-brand"><span class="atlas-mark" aria-hidden="true">⌁</span><span><strong>VALLUS</strong><small>RPG MANAGER © 2026</small></span></a><div><a href="#personagens">Personagens</a><a href="lore.html">Lore</a><a href="#inicio">Voltar ao topo</a></div></footer>
-
-  <script>
-    async function loadHall() {
-      const grid = document.getElementById('hall-grid');
-      try {
-        const res = await fetch('/api/characters/hall');
-        const heroes = await res.json();
-        if (!heroes.length) {
-          grid.innerHTML = '<article class="atlas-empty-card"><span>Registro 03 / não catalogado</span><h3>A próxima ficha ainda está em branco.</h3><a href="index.html">Criar primeiro personagem <b>→</b></a></article>';
-          return;
-        }
-        const cards = heroes.slice(0, 2).map((h, i) => `
-          <a class="atlas-character-card" href="index.html?id=${encodeURIComponent(h.id)}">
-            <div class="atlas-character-image">${h.imageUrl ? `<img src="${h.imageUrl}" alt="${h.name}">` : `<span>${(h.name || '?')[0]}</span>`}</div>
-            <div class="atlas-character-gradient"></div>
-            <div class="atlas-character-copy"><small>Registro 0${i + 1} / ${h.class || 'Aventureiro'}</small><h3>${h.name}</h3><p>${h.race || 'Origem não registrada'} · Nível ${h.level || '—'}</p></div><span class="atlas-card-arrow">↗</span>
-          </a>`).join('');
-        grid.innerHTML = cards + '<article class="atlas-empty-card"><span>Registro 03 / não catalogado</span><h3>A próxima ficha ainda está em branco.</h3><a href="index.html">Criar primeiro personagem <b>→</b></a></article>';
-      } catch (err) {
-        grid.innerHTML = '<article class="atlas-empty-card"><span>Arquivo indisponível</span><h3>Não foi possível carregar os registros.</h3><a href="index.html">Abrir gerenciador <b>→</b></a></article>';
-      }
-    }
-    loadHall();
-  </script>
+<body>
+  <p>Redirecionando para o <a href="index.html">Centro de Comando</a>…</p>
 </body>
 </html>
