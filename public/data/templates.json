@@ -4,32 +4,18 @@
       "id": "paladin-core",
       "label": "Paladino — Features Padrão da Classe",
       "features": [
-        { "name": "Sentido Divino", "description": "Nível 1. Ação para detectar celestiais, corruptos ou mortos-vivos poderosos a 18m, e locais/objetos consagrados ou profanados." },
-        { "name": "Imposição de Mãos", "description": "Nível 1. Reserva de cura igual a 5 × nível de Paladino. Toque para curar PV, ou gaste 5 pontos para curar doença/veneno." },
+        { "name": "Sentido Divino", "description": "Nível 1. Ação para detectar celestiais, corruptos ou mortos-vivos poderosos a 18m, e locais ou objetos consagrados ou profanados." },
+        { "name": "Imposição de Mãos", "description": "Nível 1. Reserva de cura igual a 5 × nível de Paladino. Toque para curar PV, ou gaste 5 pontos para curar doença ou veneno." },
         { "name": "Estilo de Combate", "description": "Nível 2. Escolha uma especialização de combate com benefício passivo." },
-        { "name": "Conjuração", "description": "Nível 2. Conjura magias de Paladino usando Carisma. Magias preparadas = mod. Carisma + metade do nível (mín. 1)." },
+        { "name": "Conjuração", "description": "Nível 2. Conjura magias de Paladino usando Carisma. Magias preparadas = modificador de Carisma + metade do nível, mínimo 1." },
         { "name": "Punição Divina", "description": "Nível 2. Gaste um espaço de magia ao acertar um ataque corpo a corpo para causar dano radiante extra." },
         { "name": "Saúde Divina", "description": "Nível 3. Imunidade a doenças." },
-        { "name": "Juramento Sagrado", "description": "Nível 3. Escolha do juramento (ex: Lorde Dragão), concedendo magias de juramento, Canalizar Divindade e features nos níveis 7, 15 e 20." },
+        { "name": "Juramento Sagrado", "description": "Nível 3. Escolha um juramento sagrado, concedendo magias de juramento, Canalizar Divindade e features nos níveis 7, 15 e 20." },
         { "name": "Ataque Extra", "description": "Nível 5. Ataca duas vezes ao usar a ação de Atacar." },
-        { "name": "Aura de Proteção", "description": "Nível 6. Você e aliados próximos somam seu mod. de Carisma em salvaguardas." },
+        { "name": "Aura de Proteção", "description": "Nível 6. Você e aliados próximos somam seu modificador de Carisma em salvaguardas." },
         { "name": "Aura de Coragem", "description": "Nível 10. Você e aliados próximos não podem ficar amedrontados." },
         { "name": "Toque Purificador", "description": "Nível 14. Gaste 5 pontos de Imposição de Mãos para remover uma magia de si ou de um aliado tocado." },
         { "name": "Melhoria de Aura", "description": "Nível 18. O alcance das auras aumenta para 9m." }
-      ]
-    },
-    {
-      "id": "paladin-oath-dragonlord",
-      "label": "Paladino — Juramento do Lorde Dragão (completo, com features padrão)",
-      "extends": "paladin-core",
-      "features": [
-        { "name": "Magias de Juramento", "description": "3º: Convocar Familiar, Marca do Predador. 5º: Levitação, Lufada de Vento. 9º: Celeridade, Voo. 13º: Movimentação Livre, Pele-Rocha. 17º: Imobilizar Monstro, Ligação Telepática. Sempre preparadas." },
-        { "name": "Pseudodragão Familiar", "description": "Nível 3. Convocar Familiar invoca um pseudodragão que busca um ovo de dragão (latão, bronze, cobre ou prata) a até 1,6km de distância, geralmente retornando por volta do nível 5, ou em 3d6 dias após o nível 6." },
-        { "name": "Canalizar Divindade: Cólera do Dragão", "description": "Nível 3. Ação: criaturas escolhidas a até 18m fazem salvaguarda de Sabedoria CD 14 ou ficam amedrontadas por 1 minuto." },
-        { "name": "Canalizar Divindade: Desprezo aos Indignos", "description": "Nível 3. Ação: inimigos Grandes ou menores a até 9m fazem salvaguarda de Carisma; falha = caído e perde concentração." },
-        { "name": "Vínculo do Lorde Dragão", "description": "Nível 7. Ovo eclode; conjure Vínculo dos Lordes Dragões tocando o filhote nas primeiras 24h. Dragão tem 40 + 2×nível PV e soma seu bônus de proficiência às salvaguardas." },
-        { "name": "Dragão Jovem", "description": "Nível 15. Se ainda não passaram 5 anos do nascimento, o dragão vira jovem e serve de montaria; você ganha as resistências, imunidades e sentidos dele quando montado." },
-        { "name": "Vínculo Inquebrável", "description": "Nível 20. Dragão ganha Ataques Múltiplos e sopro recarrega normalmente. Você pode forçar sucesso numa salvaguarda falha do dragão 1x por descanso longo." }
       ]
     }
   ]
