@@ -57,6 +57,7 @@ const characterViewEl = document.getElementById('character-view');
 
 const fName = document.getElementById('f-name');
 const fClass = document.getElementById('f-class');
+const fSubclass = document.getElementById('f-subclass');
 const fRace = document.getElementById('f-race');
 const fLevel = document.getElementById('f-level');
 const fPortrait = document.getElementById('f-portrait');
@@ -137,6 +138,10 @@ async function renderCharacterView(character) {
   // Dados básicos
   fName.value = character.name;
   fClass.value = character.class;
+  if (fSubclass) {
+    fSubclass.value = character.class === 'Paladino' ? (character.subclass || '') : '';
+    fSubclass.disabled = character.class !== 'Paladino';
+  }
   fRace.value = character.race;
   fLevel.value = character.level;
 
@@ -446,6 +451,7 @@ async function loadTemplates() {
 }
 
 // Event Listeners básicos
+if (fClass && fSubclass) fClass.addEventListener('change', () => { fSubclass.disabled = fClass.value !== 'Paladino'; if (fClass.value !== 'Paladino') fSubclass.value = ''; });
 document.getElementById('btn-new-character').onclick = async () => {
   const char = await createCharacter({ name: 'Novo Herói', level: 1 });
   await refreshSelected();
@@ -455,7 +461,7 @@ document.getElementById('btn-new-character').onclick = async () => {
 document.getElementById('btn-save-character').onclick = async () => {
   if (!state.selectedId) return;
   const data = {
-    name: fName.value, class: fClass.value, race: fRace.value, level: Number(fLevel.value),
+    name: fName.value, class: fClass.value, subclass: fClass.value === 'Paladino' ? (fSubclass?.value || '') : '', race: fRace.value, level: Number(fLevel.value),
     attributes: Object.fromEntries(attrIds.map(a => [a, Number(document.getElementById(`attr-${a}`).value)]))
   };
   await updateCharacter(state.selectedId, data);

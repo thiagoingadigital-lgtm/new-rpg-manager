@@ -77,6 +77,7 @@ function sanitizeCharacter(body, existing = {}) {
     id: existing.id || newId(),
     name: body.name ?? existing.name ?? 'Sem nome',
     class: body.class ?? existing.class ?? '',
+    subclass: (body.class ?? existing.class) === 'Paladino' ? (body.subclass ?? existing.subclass ?? '') : '',
     race: body.race ?? existing.race ?? '',
     level: Number(body.level ?? existing.level ?? 1),
     attributes: {
@@ -111,7 +112,7 @@ function sanitizeSpell(body, existing = {}) {
 // Monta o objeto completo do personagem a partir das tabelas do SQLite
 function loadCharacter(id) {
   const row = db.get(`
-    SELECT id, name, class, race, level, attributes, skillProficiencies, saveProficiencies,
+    SELECT id, name, class, subclass, race, level, attributes, skillProficiencies, saveProficiencies,
            resources, items, spellSlotsUsage, imageUrl, createdAt, updatedAt
     FROM characters WHERE id = ?
   `, [id]);
@@ -281,11 +282,11 @@ app.get('/api/characters/:id', (req, res) => {
 app.post('/api/characters', (req, res) => {
   const character = sanitizeCharacter(req.body || {});
   db.run(`
-    INSERT INTO characters (id, name, class, race, level, attributes, skillProficiencies,
+    INSERT INTO characters (id, name, class, subclass, race, level, attributes, skillProficiencies,
                             saveProficiencies, resources, items, spellSlotsUsage, imageUrl, createdAt, updatedAt)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
   `, [
-    character.id, character.name, character.class, character.race, character.level,
+    character.id, character.name, character.class, character.subclass, character.race, character.level,
     JSON.stringify(character.attributes),
     JSON.stringify(character.skillProficiencies),
     JSON.stringify(character.saveProficiencies),
@@ -304,14 +305,14 @@ app.put('/api/characters/:id', (req, res) => {
 
   const updated = sanitizeCharacter(req.body || {}, existing);
   db.run(`
-    UPDATE characters SET name = ?, class = ?, race = ?, level = ?,
+    UPDATE characters SET name = ?, class = ?, subclass = ?, race = ?, level = ?,
                           attributes = ?, skillProficiencies = ?,
                           saveProficiencies = ?, resources = ?,
                           items = ?, spellSlotsUsage = ?,
                           imageUrl = ?, updatedAt = datetime('now')
     WHERE id = ?
   `, [
-    updated.name, updated.class, updated.race, updated.level,
+    updated.name, updated.class, updated.subclass, updated.race, updated.level,
     JSON.stringify(updated.attributes),
     JSON.stringify(updated.skillProficiencies),
     JSON.stringify(updated.saveProficiencies),
