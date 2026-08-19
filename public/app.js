@@ -77,7 +77,7 @@ const SKILLS = [
   { key: 'investigacao', label: 'Investigação', ability: 'inteligencia' },
   { key: 'natureza', label: 'Natureza', ability: 'inteligencia' },
   { key: 'religiao', label: 'Religião', ability: 'inteligencia' },
-  { key: 'adestrar_animais', label: 'Adestrar Animais', ability: 'sabedoria' },
+  { key: 'lidarComAnimais', label: 'Adestrar Animais', ability: 'sabedoria' },
   { key: 'intuicao', label: 'Intuição', ability: 'sabedoria' },
   { key: 'medicina', label: 'Medicina', ability: 'sabedoria' },
   { key: 'percepcao', label: 'Percepção', ability: 'sabedoria' },
@@ -168,7 +168,7 @@ async function renderCharacterView(character) {
   document.getElementById('stat-initiative').textContent = formatModifier(dexMod);
   
   const wisMod = calculateModifier(character.attributes.sabedoria);
-  document.getElementById('stat-passive-perception').textContent = 10 + wisMod + (character.proficiencies?.percepcao ? profBonus : 0);
+  document.getElementById('stat-passive-perception').textContent = 10 + wisMod + (character.skillProficiencies?.percepcao?.proficient ? profBonus : 0);
 
   // CA
   let baseAC = 10 + dexMod;
@@ -196,13 +196,15 @@ async function renderCharacterView(character) {
 }
 
 function renderSavesAndSkills(character, profBonus) {
-  const profs = character.proficiencies || {};
-  
+  const saveProfs = character.saveProficiencies || {};
+  const skillProfs = character.skillProficiencies || {};
+
   savesTable.innerHTML = attrIds.map(attr => {
     const mod = calculateModifier(character.attributes[attr]);
-    const total = mod + (profs[`save_${attr}`] ? profBonus : 0);
+    const proficient = Boolean(saveProfs[attr]);
+    const total = mod + (proficient ? profBonus : 0);
     return `<tr>
-      <td><input type="checkbox" class="prof-toggle" data-key="save_${attr}" ${profs[`save_${attr}`] ? 'checked' : ''}></td>
+      <td><input type="checkbox" class="prof-toggle" data-kind="save" data-key="${attr}" ${proficient ? 'checked' : ''}></td>
       <td>${ABILITY_LABELS[attr]}</td>
       <td class="total-val">${formatModifier(total)}</td>
     </tr>`;
@@ -210,9 +212,10 @@ function renderSavesAndSkills(character, profBonus) {
 
   skillsTable.innerHTML = SKILLS.map(s => {
     const mod = calculateModifier(character.attributes[s.ability]);
-    const total = mod + (profs[s.key] ? profBonus : 0);
+    const proficient = Boolean(skillProfs[s.key]?.proficient);
+    const total = mod + (proficient ? profBonus : 0);
     return `<tr>
-      <td><input type="checkbox" class="prof-toggle" data-key="${s.key}" ${profs[s.key] ? 'checked' : ''}></td>
+      <td><input type="checkbox" class="prof-toggle" data-kind="skill" data-key="${s.key}" ${proficient ? 'checked' : ''}></td>
       <td>${s.label} <small>(${s.ability.substring(0,3)})</small></td>
       <td class="total-val">${formatModifier(total)}</td>
     </tr>`;
@@ -220,9 +223,25 @@ function renderSavesAndSkills(character, profBonus) {
 
   document.querySelectorAll('.prof-toggle').forEach(cb => {
     cb.addEventListener('change', async () => {
-      const newProfs = { ...character.proficiencies, [cb.dataset.key]: cb.checked };
-      await updateCharacter(character.id, { proficiencies: newProfs });
-      await refreshSelected();
+      cb.disabled = true;
+      try {
+        if (cb.dataset.kind === 'save') {
+          const newSaveProficiencies = { ...saveProfs, [cb.dataset.key]: cb.checked };
+          await updateCharacter(character.id, { saveProficiencies: newSaveProficiencies });
+        } else {
+          const newSkillProficiencies = {
+            ...skillProfs,
+            [cb.dataset.key]: { ...(skillProfs[cb.dataset.key] || {}), proficient: cb.checked },
+          };
+          await updateCharacter(character.id, { skillProficiencies: newSkillProficiencies });
+        }
+        await refreshSelected();
+      } catch (error) {
+        cb.checked = !cb.checked;
+        console.error('Não foi possível salvar a proficiência:', error);
+      } finally {
+        cb.disabled = false;
+      }
     });
   });
 }
