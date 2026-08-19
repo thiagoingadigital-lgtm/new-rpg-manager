@@ -874,3 +874,11 @@ body:not(.atlas-page) .empty-state { color:rgba(244,239,231,.6); }
 
 /* Conteúdo vinculado ao pino: miniatura do NPC ou fallback textual, sempre dentro da escala inversa. */
 .map-marker .marker-avatar,.map-marker .marker-name-chip{position:absolute;z-index:2;left:50%;top:19px;transform:translateX(-50%);pointer-events:none}.map-marker .marker-avatar{width:25px;height:25px;border:2px solid #fffaf3;border-radius:50%;overflow:hidden;background:#241a1c}.map-marker .marker-avatar img{display:block;width:100%;height:100%;object-fit:cover}.map-marker .marker-name-chip{max-width:34px;overflow:hidden;color:#fffaf3;font:700 5px/1 'DM Sans',sans-serif;letter-spacing:-.01em;text-align:center;text-overflow:ellipsis;text-shadow:0 1px 2px #241a1c}.map-marker.color-gold .marker-name-chip,.map-marker.color-white .marker-name-chip{color:#241a1c;text-shadow:0 1px 2px #fffaf3}.map-marker.color-white .marker-avatar{border-color:#241a1c}
+
+/* Pino compacto: a área visual é menor, mas continua com escala inversa ao zoom. */
+.map-marker{width:42px;height:60px}.map-marker svg{width:42px;height:60px}.map-marker .marker-avatar,.map-marker .marker-name-chip{top:16px}.map-marker .marker-avatar{width:22px;height:22px}.map-marker .marker-name-chip{max-width:29px;font-size:4.5px}
+
+/* Encaixe preciso no furo do pino compacto: 21px de diâmetro, alinhado ao círculo interno do SVG. */
+.map-marker .marker-avatar{left:50%;top:10.5px;width:20px;height:20px;border:0;border-radius:50%;box-shadow:0 0 0 1px rgba(255,250,243,.72);overflow:hidden}.map-marker .marker-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+.zoom-controls #clear-marker-selection{border-color:#d9272e;color:#d9272e;background:#fffaf3}.zoom-controls #clear-marker-selection:hover{background:#d9272e;color:#fffaf3}
