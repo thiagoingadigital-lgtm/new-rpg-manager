@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Motor de rolagem de dados do Vallus RPG Manager." />
+  <title>Vallus — Rolagem de Dados</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="atlas-page module-page dice-page">
+  <header class="atlas-header"><a href="index.html" class="atlas-brand"><span class="atlas-mark">⌁</span><span><strong>VALLUS</strong><small>MOTOR DE DADOS</small></span></a><button class="atlas-menu-button" aria-label="Abrir menu" onclick="document.body.classList.toggle('menu-open')">☰</button><nav class="atlas-nav"><a href="index.html">01 / Início</a><a class="active" href="rolagem.html">02 / Rolagem</a><a href="sessao.html">03 / Sessão</a><a class="atlas-nav-cta" href="personagens.html">Abrir fichas</a></nav></header>
+  <main>
+    <section class="module-hero"><div class="atlas-kicker"><span></span> Ação rápida — arquivo de resultados</div><h1>Role o destino<br /><em>da cena.</em></h1><p>Testes, ataques, dano e fórmulas próprias em uma tela rápida para a mesa. Cada resultado pode carregar contexto e voltar ao diário.</p><div class="module-meta"><span><b id="roll-count">0</b> rolagens nesta sessão</span><span>Estado: pronto</span></div></section>
+    <section class="module-section dice-layout">
+      <div class="module-heading"><div><div class="atlas-kicker dark"><span></span> Lançamento rápido</div><h2>Escolha um<br /><em>dado.</em></h2></div><p>Use um botão para uma rolagem imediata ou escreva uma fórmula para combinar dados, modificadores e operações.</p></div>
+      <div class="dice-quick-grid"><button data-formula="d4">d4<span>efeito</span></button><button data-formula="d6">d6<span>recurso</span></button><button data-formula="d8">d8<span>cura</span></button><button data-formula="d10">d10<span>percentual</span></button><button data-formula="d12">d12<span>arma pesada</span></button><button data-formula="d20">d20<span>teste / ataque</span></button><button data-formula="d100">d100<span>tabela</span></button></div>
+      <form id="dice-form" class="dice-console"><label>FÓRMULA<input id="dice-formula" value="1d20 + 5" autocomplete="off" /></label><label>CONTEXTO<input id="dice-label" placeholder="Ataque, percepção, dano..." /></label><label>VISIBILIDADE<select id="dice-mode"><option value="Pública">Pública</option><option value="Privada">Privada</option><option value="Oculta">Oculta com revelação</option><option value="Narrativa">Narrativa</option></select></label><button class="atlas-button" type="submit">Rolar agora <span>↗</span></button></form>
+      <div id="roll-result" class="roll-result" aria-live="polite"><span>Último resultado</span><strong>—</strong><small>Escolha um dado para começar.</small></div>
+    </section>
+    <section class="module-section history-section"><div class="module-heading compact"><div><div class="atlas-kicker dark"><span></span> Histórico</div><h2>O que aconteceu<br /><em>agora.</em></h2></div><button id="clear-rolls" class="text-button" type="button">Limpar histórico ×</button></div><div id="roll-history" class="roll-history"><div class="empty-module">As rolagens importantes desta sessão aparecerão aqui.</div></div></section>
+  </main>
+  <footer class="atlas-footer"><a href="index.html" class="atlas-brand"><span class="atlas-mark">⌁</span><span><strong>VALLUS</strong><small>RPG MANAGER © 2026</small></span></a><div><a href="sessao.html">Sessão</a><a href="grimorio.html">Grimório</a><a href="index.html">Início</a></div></footer>
+  <script>
+    const key='vallus-roll-history'; let history=JSON.parse(localStorage.getItem(key)||'[]');
+    const $=id=>document.getElementById(id); const formulaInput=$('dice-formula');
+    function roll(formula){ const clean=formula.replace(/\s/g,'').toLowerCase(); const match=clean.match(/^(\d*)d(4|6|8|10|12|20|100)([+-]\d+)?$/); if(!match) throw new Error('Use fórmulas como 2d20+5 ou 1d8-1.'); const count=Math.min(Number(match[1]||1),30), sides=Number(match[2]), mod=Number(match[3]||0); const dice=Array.from({length:count},()=>Math.floor(Math.random()*sides)+1); return {dice,mod,total:dice.reduce((a,b)=>a+b,0)+mod}; }
+    function render(){ $('roll-count').textContent=history.length; $('roll-history').innerHTML=history.length?history.map(item=>`<article class="roll-row"><span>${item.time}</span><div><strong>${item.label||'Rolagem rápida'}</strong><small>${item.formula} · ${item.mode}</small></div><b>${item.total>=0?'+':''}${item.total}</b></article>`).join(''):'<div class="empty-module">As rolagens importantes desta sessão aparecerão aqui.</div>'; }
+    document.querySelectorAll('[data-formula]').forEach(button=>button.addEventListener('click',()=>{formulaInput.value=button.dataset.formula; $('dice-form').requestSubmit();}));
+    $('dice-form').addEventListener('submit',event=>{event.preventDefault(); try{const formula=formulaInput.value; const result=roll(formula); const item={...result,formula,label:$('dice-label').value,mode:$('dice-mode').value,time:new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}; history=[item,...history].slice(0,30); localStorage.setItem(key,JSON.stringify(history)); $('roll-result').innerHTML=`<span>Resultado · ${formula}</span><strong>${result.total>=0?'+':''}${result.total}</strong><small>${result.dice.join(' · ')} ${result.mod?` ${result.mod>0?'+':''}${result.mod}`:''}</small>`; $('dice-label').value=''; render();}catch(error){$('roll-result').innerHTML=`<span>Fórmula não reconhecida</span><strong>!</strong><small>${error.message}</small>`;}});
+    $('clear-rolls').addEventListener('click',()=>{history=[];localStorage.removeItem(key);render();}); render();
+  </script>
+</body>
+</html>

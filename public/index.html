@@ -1,45 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Vallus — centro de comando para personagens, grimório e referências da campanha." />
-  <title>Vallus — Centro de Comando</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Vallus — arquivo vivo para preparar e conduzir campanhas de RPG." />
+  <title>Vallus — Centro de Comando</title><link rel="stylesheet" href="style.css" />
 </head>
-<body class="atlas-page dashboard-page">
-  <header class="atlas-header">
-    <a href="index.html" class="atlas-brand" aria-label="Vallus — centro de comando"><span class="atlas-mark" aria-hidden="true">⌁</span><span><strong>VALLUS</strong><small>CENTRO DE COMANDO</small></span></a>
-    <button class="atlas-menu-button" aria-label="Abrir menu" onclick="document.body.classList.toggle('menu-open')">☰</button>
-    <nav class="atlas-nav" aria-label="Navegação principal"><a class="active" href="index.html">01 / Início</a><a href="personagens.html">02 / Personagens</a><a href="grimorio.html">03 / Grimório</a><a class="atlas-nav-cta" href="personagens.html">Abrir fichas</a></nav>
-  </header>
-  <main>
-    <section class="dashboard-hero">
-      <div class="dashboard-hero-image" aria-hidden="true"></div><div class="dashboard-hero-overlay" aria-hidden="true"></div>
-      <div class="dashboard-hero-copy"><div class="atlas-kicker"><span></span> Painel de campanha — transmissão ativa</div><h1>A próxima história<br /><em>começa aqui.</em></h1><p>Um centro de comando para organizar personagens, consultar magias e manter as regras da sua mesa ao alcance de uma página.</p><a class="atlas-text-link" href="personagens.html">Abrir árvore de personagens <span>↘</span></a></div>
-      <div class="atlas-coordinates"><strong>VALLUS / 001</strong><br />Arquivo de campanha<br />Estado: em movimento</div>
-    </section>
-    <section class="dashboard-tree">
-      <div class="dashboard-heading"><div><div class="atlas-kicker dark"><span></span> Árvore de páginas</div><h2>Escolha um<br /><em>caminho.</em></h2></div><p>A campanha se divide em quatro registros. Cada um mantém uma parte da mesa em ordem.</p></div>
-      <div class="dashboard-grid">
-        <a class="dashboard-card dashboard-card-tall" href="personagens.html"><span class="dashboard-index">01 / Registro de heróis</span><div><span class="dashboard-symbol">♢</span><h3>Personagens</h3><p>Crie, edite e acompanhe fichas, atributos, recursos, inventário e habilidades.</p></div><span class="dashboard-arrow">↗</span></a>
-        <a class="dashboard-card dashboard-card-copper" href="grimorio.html"><span class="dashboard-index">02 / Biblioteca arcana</span><div><span class="dashboard-symbol">✦</span><h3>Grimório<br />integrado</h3><p>Filtre magias por escola, classe, nível e propriedades rituais.</p></div><span class="dashboard-arrow">↗</span></a>
-        <a class="dashboard-card dashboard-card-paper" href="rules.html"><span class="dashboard-index">03 / Manual de mesa</span><div><span class="dashboard-symbol">⌘</span><h3>Regras de criação</h3><p>Um guia rápido para montar personagens e registrar os valores derivados.</p></div><span class="dashboard-arrow">↗</span></a>
-        <a class="dashboard-card dashboard-card-outline" href="paladin-dragonlord.html"><span class="dashboard-index">04 / Documento especializado</span><div><span class="dashboard-symbol">◌</span><h3>Lorde Dragão</h3><p>Features, magias e o juramento para uma campanha de alto risco.</p></div><span class="dashboard-arrow">↗</span></a>
-      </div>
-    </section>
-    <section class="dashboard-roster"><div><div class="atlas-kicker"><span></span> Últimos registros</div><h2>O grupo em<br /><em>movimento.</em></h2></div><div id="dashboard-roster-list" class="dashboard-roster-list"><p class="dashboard-loading">Consultando o arquivo de personagens...</p></div></section>
-  </main>
-  <footer class="atlas-footer"><a href="index.html" class="atlas-brand"><span class="atlas-mark" aria-hidden="true">⌁</span><span><strong>VALLUS</strong><small>RPG MANAGER © 2026</small></span></a><div><a href="personagens.html">Personagens</a><a href="grimorio.html">Grimório</a><a href="#inicio">Voltar ao topo</a></div></footer>
-  <script>
-    async function loadRoster() {
-      const target = document.getElementById('dashboard-roster-list');
-      try {
-        const res = await fetch('/api/characters/hall'); const heroes = await res.json();
-        target.innerHTML = heroes.length ? heroes.slice(0, 5).map((h, i) => `<a class="roster-row" href="personagens.html?id=${encodeURIComponent(h.id)}"><span>0${i + 1}</span><strong>${h.name || 'Sem nome'}</strong><small>${h.class || 'Classe não registrada'} · nível ${h.level || '—'}</small><b>↗</b></a>`).join('') : '<div class="roster-empty"><span>Arquivo vazio</span><strong>Crie o primeiro personagem para começar a campanha.</strong><a href="personagens.html">Abrir ficha <b>→</b></a></div>';
-      } catch (err) { target.innerHTML = '<div class="roster-empty"><span>Arquivo indisponível</span><strong>Abra as fichas para consultar os personagens.</strong><a href="personagens.html">Abrir fichas <b>→</b></a></div>'; }
-    }
-    loadRoster();
-  </script>
-</body>
-</html>
+<body class="atlas-page dashboard-page" id="inicio">
+<header class="atlas-header"><a href="index.html" class="atlas-brand" aria-label="Vallus — centro de comando"><span class="atlas-mark">⌁</span><span><strong>VALLUS</strong><small>CENTRO DE COMANDO</small></span></a><button class="atlas-menu-button" aria-label="Abrir menu" onclick="document.body.classList.toggle('menu-open')">☰</button><nav class="atlas-nav"><a class="active" href="index.html">01 / Início</a><a href="sessao.html">02 / Sessão</a><a href="rolagem.html">03 / Rolagem</a><a class="atlas-nav-cta" href="personagens.html">Abrir fichas</a></nav></header>
+<main>
+<section class="dashboard-hero"><div class="dashboard-hero-image" aria-hidden="true"></div><div class="dashboard-hero-overlay" aria-hidden="true"></div><div class="dashboard-hero-copy"><div class="atlas-kicker"><span></span> Painel de campanha — transmissão ativa</div><h1>A próxima história<br /><em>começa aqui.</em></h1><p>Um arquivo vivo para preparar a campanha, encontrar a informação certa e conduzir a próxima cena sem perder o contexto.</p><a class="atlas-text-link" href="sessao.html">Abrir modo de sessão <span>↘</span></a></div><div class="atlas-coordinates"><strong>VALLUS / 001</strong><br />Arquivo de campanha<br />Estado: em movimento</div></section>
+<section class="dashboard-tree"><div class="dashboard-heading"><div><div class="atlas-kicker dark"><span></span> Arquitetura da campanha</div><h2>Escolha um<br /><em>caminho.</em></h2></div><p>Os módulos funcionam como placas do mesmo arquivo: conecte personagens, magias, locais, rolagens e acontecimentos.</p></div>
+<div class="dashboard-grid dashboard-grid-modules">
+<a class="dashboard-card dashboard-card-tall" href="personagens.html"><span class="dashboard-index">01 / Registro de heróis</span><div><span class="dashboard-symbol">♢</span><h3>Personagens</h3><p>Fichas, atributos, recursos, inventário, ações e vínculos da campanha.</p></div><span class="dashboard-arrow">↗</span></a>
+<a class="dashboard-card dashboard-card-copper" href="grimorio.html"><span class="dashboard-index">02 / Biblioteca arcana</span><div><span class="dashboard-symbol">✦</span><h3>Grimório<br />integrado</h3><p>Consulte, filtre, prepare e use magias conectadas aos personagens.</p></div><span class="dashboard-arrow">↗</span></a>
+<a class="dashboard-card dashboard-card-paper" href="rolagem.html"><span class="dashboard-index">03 / Motor de dados</span><div><span class="dashboard-symbol">◈</span><h3>Rolagem<br />de dados</h3><p>Testes, ataques, dano, fórmulas próprias e histórico da sessão.</p></div><span class="dashboard-arrow">↗</span></a>
+<a class="dashboard-card dashboard-card-outline" href="mapas.html"><span class="dashboard-index">04 / Atlas de locais</span><div><span class="dashboard-symbol">⌖</span><h3>Mapas<br />e locais</h3><p>Regiões, salas, marcadores, descobertas e informações privadas.</p></div><span class="dashboard-arrow">↗</span></a>
+<a class="dashboard-card dashboard-card-tall" href="biblioteca.html"><span class="dashboard-index">05 / Arquivo vivo</span><div><span class="dashboard-symbol">▦</span><h3>Biblioteca<br />e bestiário</h3><p>Criaturas, itens, facções, regras e referências do universo.</p></div><span class="dashboard-arrow">↗</span></a>
+<a class="dashboard-card dashboard-card-copper" href="sessao.html"><span class="dashboard-index">06 / Mesa em andamento</span><div><span class="dashboard-symbol">●</span><h3>Modo de<br />sessão</h3><p>Ações rápidas, notas, estado da cena e contexto sempre visível.</p></div><span class="dashboard-arrow">↗</span></a>
+<a class="dashboard-card dashboard-card-paper" href="rules.html"><span class="dashboard-index">07 / Manual de mesa</span><div><span class="dashboard-symbol">⌘</span><h3>Regras de criação</h3><p>Campos, cálculos e referências para conduzir a campanha.</p></div><span class="dashboard-arrow">↗</span></a>
+<a class="dashboard-card dashboard-card-outline" href="paladin-dragonlord.html"><span class="dashboard-index">08 / Documento especializado</span><div><span class="dashboard-symbol">◌</span><h3>Lorde Dragão</h3><p>Features, magias e o juramento para uma campanha de alto risco.</p></div><span class="dashboard-arrow">↗</span></a>
+</div></section>
+<section class="dashboard-roster"><div><div class="atlas-kicker"><span></span> Últimos registros</div><h2>O grupo em<br /><em>movimento.</em></h2></div><div id="dashboard-roster-list" class="dashboard-roster-list"><p class="dashboard-loading">Consultando o arquivo de personagens...</p></div></section>
+</main>
+<footer class="atlas-footer"><a href="index.html" class="atlas-brand"><span class="atlas-mark">⌁</span><span><strong>VALLUS</strong><small>RPG MANAGER © 2026</small></span></a><div><a href="sessao.html">Sessão</a><a href="rolagem.html">Rolagem</a><a href="grimorio.html">Grimório</a><a href="biblioteca.html">Biblioteca</a><a href="#inicio">Voltar ao topo</a></div></footer>
+<script>async function loadRoster(){const target=document.getElementById('dashboard-roster-list');try{const res=await fetch('/api/characters/hall');const heroes=await res.json();target.innerHTML=heroes.length?heroes.slice(0,5).map((h,i)=>`<a class="roster-row" href="personagens.html?id=${encodeURIComponent(h.id)}"><span>0${i+1}</span><strong>${h.name||'Sem nome'}</strong><small>${h.class||'Classe não registrada'} · nível ${h.level||'—'}</small><b>↗</b></a>`).join(''):'<div class="roster-empty"><span>Arquivo vazio</span><strong>Crie o primeiro personagem para começar a campanha.</strong><a href="personagens.html">Abrir ficha <b>→</b></a></div>'}catch(err){target.innerHTML='<div class="roster-empty"><span>Arquivo indisponível</span><strong>Abra as fichas para consultar os personagens.</strong><a href="personagens.html">Abrir fichas <b>→</b></a></div>'}}loadRoster();</script>
+</body></html>
