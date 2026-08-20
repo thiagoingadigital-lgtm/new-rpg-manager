@@ -53,3 +53,10 @@
 - [x] Corrigir combinações de contraste insuficiente
 - [x] Validar estados hover, foco, selecionado e desabilitado
 - [x] Verificar responsividade e ausência de regressões
+
+## Limpeza confirmada do banco
+
+- [x] Inventariar personagens, mapas, marcadores e tabelas dependentes
+- [x] Criar backup local do banco antes da operação
+- [x] Remover registros em transação preservando usuários, campanhas e catálogos
+- [x] Validar contagens e integridade após a limpeza
