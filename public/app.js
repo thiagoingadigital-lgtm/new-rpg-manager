@@ -5,6 +5,7 @@ const state = {
   paladinReference: null,
   spellSearchCache: null,
   classesCache: [],
+  classReference: [],
 };
 
 // ---------- API helpers ----------
@@ -28,6 +29,21 @@ const deleteCharacter = (id) => api(`/characters/${id}`, { method: 'DELETE' });
 
 function classSlug(name) {
   return String(name || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function syncClassReference() {
+  if (!fClass || !state.classReference.length) return;
+  const currentClass = fClass.value;
+  fClass.innerHTML = '<option value="">Selecionar classe</option>' + state.classReference.map(cls => `<option value="${escapeHtml(cls.name)}">${escapeHtml(cls.name)}</option>`).join('');
+  fClass.value = currentClass;
+  const selected = state.classReference.find(cls => cls.name === currentClass);
+  if (fSubclass) {
+    const subclasses = selected?.subclasses || [];
+    const currentSubclass = fSubclass.value;
+    fSubclass.innerHTML = '<option value="">Nenhuma subclasse</option>' + subclasses.map(subclass => `<option value="${escapeHtml(subclass)}">${escapeHtml(subclass)}</option>`).join('');
+    fSubclass.value = subclasses.includes(currentSubclass) ? currentSubclass : '';
+    fSubclass.disabled = currentClass !== 'Paladino';
+  }
 }
 
 function setCharacterStatus(message, type = 'success') {
@@ -153,6 +169,7 @@ async function renderCharacterView(character) {
   // Dados básicos
   fName.value = character.name;
   fClass.value = character.class;
+  syncClassReference();
   if (fSubclass) {
     fSubclass.value = character.class === 'Paladino' ? (character.subclass || '') : '';
     fSubclass.disabled = character.class !== 'Paladino';
@@ -477,7 +494,7 @@ async function loadTemplates() {
 }
 
 // Event Listeners básicos
-if (fClass && fSubclass) fClass.addEventListener('change', () => { fSubclass.disabled = fClass.value !== 'Paladino'; if (fClass.value !== 'Paladino') fSubclass.value = ''; if (state.currentCharacter) { renderCastingStats(state.currentCharacter, Number(document.getElementById('stat-proficiency').textContent.replace('+', '')) || 2); renderSpellSlots({ ...state.currentCharacter, class: fClass.value }); } });
+if (fClass && fSubclass) fClass.addEventListener('change', async () => { syncClassReference(); if (state.currentCharacter) { renderCastingStats({ ...state.currentCharacter, class: fClass.value }, Number(document.getElementById('stat-proficiency').textContent.replace('+', '')) || 2); renderSpellSlots({ ...state.currentCharacter, class: fClass.value }); await refreshSpellSearch(); } });
 
 document.getElementById('btn-refresh-spells')?.addEventListener('click', refreshSpellSearch);
 document.getElementById('spell-search-input')?.addEventListener('keydown', (event) => { if (event.key === 'Enter') { event.preventDefault(); refreshSpellSearch(); } });
@@ -531,6 +548,7 @@ function formatItemDetails(item) {
 // Start
 (async () => {
   try { state.classesCache = await api('/classes'); } catch (error) { console.warn('Classes indisponíveis:', error); }
+  try { const reference = await api('/class-reference'); state.classReference = reference.classes || []; syncClassReference(); } catch (error) { console.warn('Catálogo de classes indisponível:', error); }
   await refreshSelected();
   await loadTemplates();
 })();

@@ -137,6 +137,40 @@ function loadCharacter(id) {
 
 // ---------- Migração do JSON antigo para o SQLite — movida para db.js (initDb) ----------
 
+// ---------- Catálogo estruturado das classes ----------
+const classReference = (() => {
+  const file = path.join(__dirname, 'data', 'class-reference.json');
+  if (!fs.existsSync(file)) return { version: '1.0.0', classes: [] };
+  try { return JSON.parse(fs.readFileSync(file, 'utf-8')); } catch (err) { console.error('Erro ao carregar class-reference.json:', err); return { version: '1.0.0', classes: [] }; }
+})();
+const srdSpells = (() => {
+  const file = path.join(__dirname, 'data', 'srd-spells.json');
+  if (!fs.existsSync(file)) return [];
+  try { return JSON.parse(fs.readFileSync(file, 'utf-8')).spells || []; } catch (err) { console.error('Erro ao carregar srd-spells.json:', err); return []; }
+})();
+const spellClassAliases = { bardo: 'Bard', bruxo: 'Warlock', clerigo: 'Cleric', druida: 'Druid', feiticeiro: 'Sorcerer', mago: 'Wizard', paladino: 'Paladin', patrulheiro: 'Ranger' };
+const schoolAliases = { Abjuration: 'Abjuração', Conjuration: 'Conjuração', Divination: 'Adivinhação', Enchantment: 'Encantamento', Evocation: 'Evocação', Illusion: 'Ilusão', Necromancy: 'Necromancia', Transmutation: 'Transmutação' };
+function spellsForClass(requestedClass) {
+  const key = String(requestedClass || 'paladino').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  if (key === 'all') {
+    const merged = new Map();
+    Object.keys(spellClassAliases).forEach((classKey) => spellsForClass(classKey).forEach((spell) => {
+      const existing = merged.get(spell.name);
+      merged.set(spell.name, existing ? { ...existing, classes: [...new Set([...existing.classes, ...spell.classes])] } : spell);
+    }));
+    return [...merged.values()];
+  }
+  const apiClass = spellClassAliases[key];
+  if (!apiClass) return [];
+  const catalog = srdSpells.filter((spell) => spell.classes.includes(apiClass)).map((spell) => ({ ...spell, school: schoolAliases[spell.school] || spell.school, classes: [classReference.classes.find((cls) => cls.slug === key)?.name || apiClass] }));
+  if (key !== 'paladino' || !paladinReference) return catalog;
+  const known = new Set(catalog.map((spell) => spell.name));
+  const extras = paladinReference.spells.filter((spell) => !known.has(spell.name)).map((spell) => ({ ...spell, classes: ['Paladino'] }));
+  return [...catalog, ...extras];
+}
+
+app.get('/api/class-reference', (req, res) => res.json(classReference));
+
 // ---------- Rotas: Referência da classe Paladino (mantida p/ compatibilidade do frontend) ----------
 const paladinReference = (() => {
   const file = path.join(__dirname, 'data', 'paladin-reference.json');
@@ -156,8 +190,7 @@ app.get('/api/paladin/reference', (req, res) => {
 
 app.get('/api/paladin/spells', (req, res) => {
   if (!paladinReference) return res.status(503).json({ error: 'Base de dados de referência indisponível' });
-  const requestedClass = String(req.query.class || 'paladino').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  let spells = requestedClass === 'paladino' ? paladinReference.spells.map((spell) => ({ ...spell, classes: ['Paladino'] })) : [];
+  let spells = spellsForClass(req.query.class);
   const { level, school, name, q, optional } = req.query;
   if (level) spells = spells.filter((s) => s.level === Number(level));
   if (school) spells = spells.filter((s) => s.school.toLowerCase() === String(school).toLowerCase());
@@ -246,8 +279,7 @@ app.get('/api/spell-slots', (req, res) => {
 // mas por enquanto servimos os feitiços do paladino direto do JSON, mantendo a fonte única).
 app.get('/api/spells', (req, res) => {
   if (!paladinReference) return res.status(503).json({ error: 'Base de feitiços indisponível' });
-  const requestedClass = String(req.query.class || 'paladino').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  let spells = requestedClass === 'paladino' ? paladinReference.spells.map((spell) => ({ ...spell, classes: ['Paladino'] })) : [];
+  let spells = spellsForClass(req.query.class);
   const { level, school, q, optional } = req.query;
   if (level) spells = spells.filter((s) => s.level === Number(level));
   if (school) spells = spells.filter((s) => s.school.toLowerCase() === String(school).toLowerCase());

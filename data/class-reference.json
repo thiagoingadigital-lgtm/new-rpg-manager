@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "source": "RPG Manager class registry",
+  "classes": [
+    {"slug":"barbaro","name":"Bárbaro","hitDie":"d12","primaryAbility":"Força","role":"Linha de frente","casting":"none","castingAbility":null,"resources":["Fúria"],"subclasses":["Caminho Primal"]},
+    {"slug":"bardo","name":"Bardo","hitDie":"d8","primaryAbility":"Carisma","role":"Suporte","casting":"full","castingAbility":"Carisma","resources":["Inspiração Bárdica"],"subclasses":["Colégio Bárdico"],"spellCatalog":"pending"},
+    {"slug":"bruxo","name":"Bruxo","hitDie":"d8","primaryAbility":"Carisma","role":"Dano","casting":"pact","castingAbility":"Carisma","resources":["Espaços de Pacto","Invocações Místicas"],"subclasses":["Patrono do Outro Plano"],"spellCatalog":"pending"},
+    {"slug":"clerigo","name":"Clérigo","hitDie":"d8","primaryAbility":"Sabedoria","role":"Suporte","casting":"full","castingAbility":"Sabedoria","resources":["Canalizar Divindade"],"subclasses":["Domínio Divino"],"spellCatalog":"pending"},
+    {"slug":"druida","name":"Druida","hitDie":"d8","primaryAbility":"Sabedoria","role":"Controle","casting":"full","castingAbility":"Sabedoria","resources":["Forma Selvagem"],"subclasses":["Círculo Druídico"],"spellCatalog":"pending"},
+    {"slug":"feiticeiro","name":"Feiticeiro","hitDie":"d6","primaryAbility":"Carisma","role":"Dano","casting":"full","castingAbility":"Carisma","resources":["Pontos de Feitiçaria","Metamágica"],"subclasses":["Origem Mágica"],"spellCatalog":"pending"},
+    {"slug":"guerreiro","name":"Guerreiro","hitDie":"d10","primaryAbility":"Força ou Destreza","role":"Dano","casting":"none","castingAbility":null,"resources":["Retomar Fôlego","Surto de Ação"],"subclasses":["Arquétipo Marcial"]},
+    {"slug":"ladino","name":"Ladino","hitDie":"d8","primaryAbility":"Destreza","role":"Furtivo","casting":"none","castingAbility":null,"resources":["Ataque Furtivo","Ação Ardilosa"],"subclasses":["Arquétipo de Ladino"]},
+    {"slug":"mago","name":"Mago","hitDie":"d6","primaryAbility":"Inteligência","role":"Controle","casting":"full","castingAbility":"Inteligência","resources":["Recuperação Arcana"],"subclasses":["Tradição Arcana"],"spellCatalog":"pending"},
+    {"slug":"monge","name":"Monge","hitDie":"d8","primaryAbility":"Destreza e Sabedoria","role":"Dano","casting":"none","castingAbility":null,"resources":["Pontos de Ki","Movimento sem Armadura"],"subclasses":["Tradição Monástica"]},
+    {"slug":"paladino","name":"Paladino","hitDie":"d10","primaryAbility":"Força e Carisma","role":"Linha de frente","casting":"half","castingAbility":"Carisma","resources":["Imposição das Mãos","Sentido Divino"],"subclasses":["Lorde Dragão","Juramento Sagrado"],"spellCatalog":"paladin-reference"},
+    {"slug":"patrulheiro","name":"Patrulheiro","hitDie":"d10","primaryAbility":"Destreza e Sabedoria","role":"Dano","casting":"half","castingAbility":"Sabedoria","resources":["Inimigo Favorito","Explorador Nato"],"subclasses":["Arquetipo de Patrulheiro"],"spellCatalog":"pending"}
+  ]
+}
