@@ -7,3 +7,24 @@
 - [x] Automatizar proficiências, bônus de ataque, dano e CA
 - [ ] Validar persistência, regras e responsividade
 - [ ] Preparar checkpoint e commit
+
+## Documentação histórica
+
+- [x] Inventariar todos os commits e branches relevantes
+- [x] Comparar arquivos e funcionalidades por commit
+- [x] Redigir o panorama histórico e o estado atual
+- [x] Revisar e entregar a documentação consolidada
+
+## Implementação das melhorias prioritárias
+
+- [x] Auditar e definir o contrato do motor central de regras
+- [x] Modelar proficiências explícitas de armas, armaduras, escudos e ferramentas
+- [x] Centralizar CA, ataques, dano, deslocamento, condições e efeitos
+- [x] Evoluir inventário, mãos, munição, recarga, duas armas e itens mágicos
+- [x] Conectar multiclassing à ficha e aos cálculos
+- [x] Aprimorar wizard, point buy e equipamento inicial
+- [x] Completar grimório, preparação e filtros mecânicos
+- [x] Implementar campanhas ativas, papéis e permissões reais
+- [x] Criar testes automatizados de regras
+- [x] Limpar legado e consolidar camadas arquiteturais
+- [x] Validar fluxos completos e preparar entrega

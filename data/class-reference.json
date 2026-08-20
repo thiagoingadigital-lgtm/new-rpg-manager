@@ -140,7 +140,22 @@
         "natureza",
         "prestidigitacao"
       ],
-      "skillChoiceCount": 2
+      "skillChoiceCount": 2,
+      "proficiencies": {
+        "weapons": {
+          "categories": [
+            "simples"
+          ]
+        },
+        "armor": {
+          "categories": [
+            "Leve",
+            "Média"
+          ]
+        },
+        "shield": true,
+        "tools": []
+      }
     },
     {
       "slug": "barbaro",
@@ -322,7 +337,23 @@
         "percepcao",
         "sobrevivencia"
       ],
-      "skillChoiceCount": 2
+      "skillChoiceCount": 2,
+      "proficiencies": {
+        "weapons": {
+          "categories": [
+            "simples",
+            "marcial"
+          ]
+        },
+        "armor": {
+          "categories": [
+            "Leve",
+            "Média"
+          ]
+        },
+        "shield": true,
+        "tools": []
+      }
     },
     {
       "slug": "bardo",
@@ -493,7 +524,27 @@
         "persuasao",
         "prestidigitacao"
       ],
-      "skillChoiceCount": 3
+      "skillChoiceCount": 3,
+      "proficiencies": {
+        "weapons": {
+          "categories": [
+            "simples"
+          ],
+          "names": [
+            "Besta de mão",
+            "Espada longa",
+            "Rapieira",
+            "Espada curta"
+          ]
+        },
+        "armor": {
+          "categories": [
+            "Leve"
+          ]
+        },
+        "shield": false,
+        "tools": []
+      }
     },
     {
       "slug": "clerigo",
@@ -661,7 +712,22 @@
         "persuasao",
         "religiao"
       ],
-      "skillChoiceCount": 2
+      "skillChoiceCount": 2,
+      "proficiencies": {
+        "weapons": {
+          "categories": [
+            "simples"
+          ]
+        },
+        "armor": {
+          "categories": [
+            "Leve",
+            "Média"
+          ]
+        },
+        "shield": true,
+        "tools": []
+      }
     },
     {
       "slug": "druida",
@@ -791,7 +857,31 @@
         "religiao",
         "sobrevivencia"
       ],
-      "skillChoiceCount": 2
+      "skillChoiceCount": 2,
+      "proficiencies": {
+        "weapons": {
+          "names": [
+            "Clava",
+            "Adaga",
+            "Dardo",
+            "Azagaia",
+            "Maça",
+            "Bordão",
+            "Foice",
+            "Lança",
+            "Funda",
+            "Cimitarra"
+          ]
+        },
+        "armor": {
+          "categories": [
+            "Leve",
+            "Média"
+          ]
+        },
+        "shield": true,
+        "tools": []
+      }
     },
     {
       "slug": "guerreiro",
@@ -958,7 +1048,24 @@
         "percepcao",
         "sobrevivencia"
       ],
-      "skillChoiceCount": 2
+      "skillChoiceCount": 2,
+      "proficiencies": {
+        "weapons": {
+          "categories": [
+            "simples",
+            "marcial"
+          ]
+        },
+        "armor": {
+          "categories": [
+            "Leve",
+            "Média",
+            "Pesada"
+          ]
+        },
+        "shield": true,
+        "tools": []
+      }
     },
     {
       "slug": "monge",
@@ -1171,7 +1278,22 @@
         "religiao",
         "furtividade"
       ],
-      "skillChoiceCount": 2
+      "skillChoiceCount": 2,
+      "proficiencies": {
+        "weapons": {
+          "categories": [
+            "simples"
+          ],
+          "names": [
+            "Espada curta"
+          ]
+        },
+        "armor": {
+          "categories": []
+        },
+        "shield": false,
+        "tools": []
+      }
     },
     {
       "slug": "paladino",
@@ -1352,7 +1474,24 @@
         "persuasao",
         "religiao"
       ],
-      "skillChoiceCount": 2
+      "skillChoiceCount": 2,
+      "proficiencies": {
+        "weapons": {
+          "categories": [
+            "simples",
+            "marcial"
+          ]
+        },
+        "armor": {
+          "categories": [
+            "Leve",
+            "Média",
+            "Pesada"
+          ]
+        },
+        "shield": true,
+        "tools": []
+      }
     },
     {
       "slug": "patrulheiro",
@@ -1529,7 +1668,23 @@
         "percepcao",
         "sobrevivencia"
       ],
-      "skillChoiceCount": 3
+      "skillChoiceCount": 3,
+      "proficiencies": {
+        "weapons": {
+          "categories": [
+            "simples",
+            "marcial"
+          ]
+        },
+        "armor": {
+          "categories": [
+            "Leve",
+            "Média"
+          ]
+        },
+        "shield": true,
+        "tools": []
+      }
     },
     {
       "slug": "ladino",
@@ -1715,7 +1870,27 @@
         "percepcao",
         "prestidigitacao"
       ],
-      "skillChoiceCount": 4
+      "skillChoiceCount": 4,
+      "proficiencies": {
+        "weapons": {
+          "categories": [
+            "simples"
+          ],
+          "names": [
+            "Besta de mão",
+            "Espada longa",
+            "Rapieira",
+            "Espada curta"
+          ]
+        },
+        "armor": {
+          "categories": [
+            "Leve"
+          ]
+        },
+        "shield": false,
+        "tools": []
+      }
     },
     {
       "slug": "feiticeiro",
@@ -1858,7 +2033,23 @@
         "persuasao",
         "religiao"
       ],
-      "skillChoiceCount": 2
+      "skillChoiceCount": 2,
+      "proficiencies": {
+        "weapons": {
+          "names": [
+            "Adaga",
+            "Dardo",
+            "Funda",
+            "Bordão",
+            "Besta leve"
+          ]
+        },
+        "armor": {
+          "categories": []
+        },
+        "shield": false,
+        "tools": []
+      }
     },
     {
       "slug": "bruxo",
@@ -2040,7 +2231,21 @@
         "natureza",
         "religiao"
       ],
-      "skillChoiceCount": 2
+      "skillChoiceCount": 2,
+      "proficiencies": {
+        "weapons": {
+          "categories": [
+            "simples"
+          ]
+        },
+        "armor": {
+          "categories": [
+            "Leve"
+          ]
+        },
+        "shield": false,
+        "tools": []
+      }
     },
     {
       "slug": "mago",
@@ -2202,7 +2407,23 @@
         "medicina",
         "religiao"
       ],
-      "skillChoiceCount": 2
+      "skillChoiceCount": 2,
+      "proficiencies": {
+        "weapons": {
+          "names": [
+            "Adaga",
+            "Dardo",
+            "Funda",
+            "Bordão",
+            "Besta leve"
+          ]
+        },
+        "armor": {
+          "categories": []
+        },
+        "shield": false,
+        "tools": []
+      }
     }
   ],
   "customOptions": [

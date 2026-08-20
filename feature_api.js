@@ -1,5 +1,7 @@
 const crypto = require('crypto');
-
+const fs = require('fs');
+const path = require('path');
+const spellReference = (() => { try { const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'srd-spells.json'), 'utf8')); return data.spells || data; } catch (_) { return []; } })();
 const SESSION_COOKIE = 'rpg_session';
 const SESSION_DAYS = 14;
 const MAX_NAME = 120;
@@ -114,6 +116,36 @@ function registerFeatureApi(app, { db, newId }) {
     db.transaction(() => { db.run('INSERT INTO campaigns (id, ownerId, name, description) VALUES (?, ?, ?, ?)', [campaignId, req.user.id, name, clean(body.description)]); db.run("INSERT INTO campaign_members (campaignId, userId, role) VALUES (?, ?, 'owner')", [campaignId, req.user.id]); })();
     res.status(201).json(db.get('SELECT c.*, cm.role FROM campaigns c JOIN campaign_members cm ON cm.campaignId = c.id WHERE c.id = ? AND cm.userId = ?', [campaignId, req.user.id]));
   });
+  app.get('/api/campaigns/:campaignId/members', requireUser, ensureCampaignAccess, (req, res) => {
+    res.json(db.all('SELECT u.id, u.name, u.email, cm.role, cm.createdAt FROM campaign_members cm JOIN users u ON u.id = cm.userId WHERE cm.campaignId = ? ORDER BY cm.createdAt ASC', [req.campaignId]));
+  });
+  app.post('/api/campaigns/:campaignId/members', requireUser, ensureCampaignAccess, (req, res) => {
+    if (!['owner', 'master'].includes(req.campaign.role)) return res.status(403).json({ error: 'Somente proprietário ou mestre pode gerenciar membros.' });
+    const body = parseBody(req); const email = clean(body.email, '', 180).toLowerCase(); const role = ['master','player','reader'].includes(body.role) ? body.role : 'player';
+    const user = db.get('SELECT id, name, email FROM users WHERE email = ?', [email]);
+    if (!user) return res.status(404).json({ error: 'Usuário não encontrado. O membro precisa criar uma conta antes do convite.' });
+    db.run('INSERT OR REPLACE INTO campaign_members (campaignId, userId, role) VALUES (?, ?, ?)', [req.campaignId, user.id, role]);
+    res.status(201).json({ ...user, role });
+  });
+  app.put('/api/campaigns/:campaignId/members/:userId', requireUser, ensureCampaignAccess, (req, res) => {
+    if (req.campaign.role !== 'owner') return res.status(403).json({ error: 'Somente o proprietário pode alterar papéis.' });
+    const role = ['owner','master','player','reader'].includes(req.body?.role) ? req.body.role : 'player';
+    if (req.params.userId === req.user.id && role !== 'owner') return res.status(400).json({ error: 'O proprietário não pode remover seu próprio papel.' });
+    db.run('UPDATE campaign_members SET role = ? WHERE campaignId = ? AND userId = ?', [role, req.campaignId, req.params.userId]);
+    res.json(db.get('SELECT u.id, u.name, u.email, cm.role, cm.createdAt FROM campaign_members cm JOIN users u ON u.id = cm.userId WHERE cm.campaignId = ? AND cm.userId = ?', [req.campaignId, req.params.userId]));
+  });
+  app.delete('/api/campaigns/:campaignId/members/:userId', requireUser, ensureCampaignAccess, (req, res) => {
+    if (!['owner', 'master'].includes(req.campaign.role)) return res.status(403).json({ error: 'Somente proprietário ou mestre pode remover membros.' });
+    if (req.params.userId === req.campaign.ownerId) return res.status(400).json({ error: 'O proprietário não pode ser removido.' });
+    db.run('DELETE FROM campaign_members WHERE campaignId = ? AND userId = ?', [req.campaignId, req.params.userId]);
+    res.json({ ok: true });
+  });
+  app.put('/api/campaigns/:campaignId', requireUser, ensureCampaignAccess, (req, res) => {
+    if (!['owner', 'master'].includes(req.campaign.role)) return res.status(403).json({ error: 'Sem permissão para editar a campanha.' });
+    const name = clean(req.body?.name, req.campaign.name, MAX_NAME); const description = clean(req.body?.description, req.campaign.description);
+    db.run("UPDATE campaigns SET name=?, description=?, updatedAt=datetime('now') WHERE id=?", [name, description, req.campaignId]);
+    res.json(db.get('SELECT c.*, cm.role FROM campaigns c JOIN campaign_members cm ON cm.campaignId=c.id WHERE c.id=? AND cm.userId=?', [req.campaignId, req.user.id]));
+  });
 
   app.get('/api/v2/maps', requireUser, ensureCampaignAccess, (req, res) => res.json(db.all('SELECT * FROM maps WHERE campaignId = ? ORDER BY updatedAt DESC', [req.campaignId]).map(mapRow)));
   app.post('/api/v2/maps', requireUser, ensureCampaignAccess, (req, res) => { const b = parseBody(req); const mapId = clean(b.id, '', 80) || id(newId); db.run('INSERT INTO maps (id,campaignId,ownerId,name,kind,imageUrl,description,zoom) VALUES (?,?,?,?,?,?,?,?)', [mapId, req.campaignId, req.user.id, clean(b.name, 'Novo mapa', MAX_NAME), clean(b.kind, 'Regional', 40), clean(b.imageUrl, '', 2000), clean(b.description), Math.min(300, Math.max(100, Number(b.zoom) || 100))]); res.status(201).json(mapRow(db.get('SELECT * FROM maps WHERE id = ?', [mapId]))); });
@@ -157,7 +189,7 @@ function registerFeatureApi(app, { db, newId }) {
   app.post('/api/v2/spells/favorites', requireUser, (req,res)=>{const spellName=clean(parseBody(req).spellName,'',200);if(!spellName)return res.status(400).json({error:'Feitiço inválido.'});try{db.run('INSERT INTO spell_favorites (id,userId,spellName) VALUES (?,?,?)',[id(newId),req.user.id,spellName]);}catch(e){db.run('DELETE FROM spell_favorites WHERE userId=? AND spellName=?',[req.user.id,spellName]);}res.json({ok:true,favorite:true,spellName});});
   app.delete('/api/v2/spells/favorites/:spellName', requireUser, (req,res)=>{db.run('DELETE FROM spell_favorites WHERE userId=? AND spellName=?',[req.user.id,decodeURIComponent(req.params.spellName)]);res.json({ok:true});});
   app.get('/api/v2/characters/:id/prepared-spells', requireUser, (req,res)=>res.json(db.all('SELECT spellName,prepared FROM prepared_spells WHERE characterId=? ORDER BY createdAt ASC',[req.params.id])));
-  app.post('/api/v2/characters/:id/prepared-spells', requireUser, (req,res)=>{const spellName=clean(parseBody(req).spellName,'',200);if(!spellName)return res.status(400).json({error:'Feitiço inválido.'});const prepared=parseBody(req).prepared===false?0:1;db.run('INSERT OR REPLACE INTO prepared_spells (id,characterId,spellName,prepared,updatedAt) VALUES (?,?,?,?,datetime(\'now\'))',[id(newId),req.params.id,spellName,prepared]);res.json({spellName,prepared:!!prepared});});
+  app.post('/api/v2/characters/:id/prepared-spells', requireUser, (req,res)=>{const body=parseBody(req);const spellName=clean(body.spellName,'',200);const character=db.get('SELECT id,class,level,attributes FROM characters WHERE id=?',[req.params.id]);if(!character)return res.status(404).json({error:'Personagem não encontrado.'});const spell=spellReference.find(item=>item.name===spellName);if(!spell)return res.status(404).json({error:'Feitiço não encontrado no catálogo.'});const className=String(character.class||'');if(Array.isArray(spell.classes)&&spell.classes.length&&!spell.classes.some(name=>name.toLowerCase()===className.toLowerCase()))return res.status(400).json({error:'Este feitiço não está disponível para a classe da ficha.'});const prepared=body.prepared===false?0:1;if(prepared){const existing=db.get('SELECT spellName FROM prepared_spells WHERE characterId=? AND prepared=1 AND spellName<>?',[character.id,spellName]);const attrs=json(character.attributes,{});const ability=className==='Clérigo'||className==='Druida'||className==='Monge'?'sabedoria':className==='Mago'||className==='Artífice'?'inteligencia':'carisma';const modifier=Math.floor((Number(attrs[ability]||10)-10)/2);const limit=Math.max(1,modifier+Number(character.level||1));const count=db.get('SELECT COUNT(*) AS count FROM prepared_spells WHERE characterId=? AND prepared=1 AND spellName<>?',[character.id,spellName])?.count||0;if(count>=limit)return res.status(400).json({error:`Limite de magias preparadas atingido (${limit}).`});}db.run('INSERT OR REPLACE INTO prepared_spells (id,characterId,spellName,prepared,updatedAt) VALUES (?,?,?,?,datetime(\'now\'))',[id(newId),character.id,spellName,prepared]);res.json({spellName,prepared:!!prepared});});
   app.delete('/api/v2/characters/:id/prepared-spells/:spellName', requireUser, (req,res)=>{db.run('DELETE FROM prepared_spells WHERE characterId=? AND spellName=?',[req.params.id,decodeURIComponent(req.params.spellName)]);res.json({ok:true});});
 }
 

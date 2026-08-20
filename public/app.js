@@ -55,6 +55,12 @@ function applyItemReference(item) {
 }
 function equippedItemDetails(character) { return (character.items || []).filter(item => item.equipped).map(item => item.details || {}); }
 function classCanUseItem(character, item) {
+  if (window.RPGRules) {
+    const catalog = itemByName(item.name) || item;
+    if (item.type === 'arma') return window.RPGRules.weaponIsProficient({ ...character, classReference: state.classReference }, catalog);
+    if (item.type === 'armadura') return window.RPGRules.armorIsProficient({ ...character, classReference: state.classReference }, catalog);
+    if (item.type === 'escudo') return Boolean(window.RPGRules.classProficiencies(state.classReference, character).shield);
+  }
   const name = String(character.class || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const catalog = itemByName(item.name) || item;
   if (item.type === 'arma') return catalog.category === 'simples' || ['barbaro','guerreiro','paladino','patrulheiro'].some(key => name.includes(key));
@@ -62,6 +68,11 @@ function classCanUseItem(character, item) {
   return true;
 }
 function weaponComputed(character, item, profBonus) {
+  if (window.RPGRules) {
+    const derived = window.RPGRules.derive({ ...character, classReference: state.classReference }, { classes: state.classReference, races: state.raceReference, backgrounds: state.backgroundReference, items: state.itemReference });
+    const computed = derived.attacks.find(attack => attack.name === item.name);
+    if (computed) return computed;
+  }
   const catalog = itemByName(item.name) || item;
   const details = item.details || catalog.details || {};
   const props = String(details.properties || '').toLowerCase();
@@ -377,55 +388,53 @@ async function renderCharacterView(character) {
     badge.textContent = formatModifier(calculateModifier(score));
   });
 
-  // Estatísticas calculadas
-  const profBonus = await api(`/proficiency?level=${character.level}`).then(r => r.bonus);
+  // Todas as estatísticas derivadas passam pelo contrato central de regras.
+  let multiclasses = character.multiclasses || [];
+  try { if (character.id) multiclasses = await api(`/v2/characters/${character.id}/classes`); } catch (_) { /* sessão anônima mantém o cálculo da classe principal */ }
+  const referenceCharacter = { ...character, multiclasses, classReference: state.classReference };
+  const derived = window.RPGRules ? window.RPGRules.derive(referenceCharacter, { classes: state.classReference, races: state.raceReference, backgrounds: state.backgroundReference, items: state.itemReference }) : null;
+  const profBonus = derived?.proficiencyBonus ?? await api(`/proficiency?level=${character.level}`).then(r => r.bonus);
   document.getElementById('stat-proficiency').textContent = `+${profBonus}`;
-  
-  const dexMod = calculateModifier(displayCharacter.attributes.destreza);
+  const dexMod = derived?.modifiers?.destreza ?? calculateModifier(displayCharacter.attributes.destreza);
   document.getElementById('stat-initiative').textContent = formatModifier(dexMod);
-  
-  const wisMod = calculateModifier(displayCharacter.attributes.sabedoria);
-  document.getElementById('stat-passive-perception').textContent = 10 + wisMod + (character.skillProficiencies?.percepcao?.proficient ? profBonus : 0);
-
-  // CA automática: armadura, limite de Destreza, escudo, requisito de Força e proficiência.
-  let baseAC = 10 + dexMod;
-  let armorPenalty = 0;
-  let armorWarning = '';
-
-  (character.items || []).forEach(item => {
-    if (!item.equipped) return;
-    if (item.type === 'armadura') {
-      const armorAC = parseInt(item.details?.baseAC) || 10;
-      const type = item.details?.armorType;
-      const dexCap = Number(item.details?.dexCap);
-      if (!classCanUseItem(character, item)) { armorWarning = 'Sem proficiência na armadura'; return; }
-      if (type === 'Leve') baseAC = armorAC + dexMod;
-      else if (type === 'Média') baseAC = armorAC + Math.min(Number.isFinite(dexCap) && dexCap > 0 ? dexCap : 2, dexMod);
-      else if (type === 'Pesada') baseAC = armorAC;
-      if (Number(item.details?.strengthMin || 0) > Number(displayCharacter.attributes.forca || 10)) armorPenalty = 10;
-    } else if (item.type === 'escudo') {
-      baseAC += parseInt(item.details?.acBonus) || 2;
-    }
-  });
-  document.getElementById('stat-ac').textContent = baseAC;
+  const wisMod = derived?.modifiers?.sabedoria ?? calculateModifier(displayCharacter.attributes.sabedoria);
+  document.getElementById('stat-passive-perception').textContent = 10 + wisMod + (derived?.skillProficiencies?.percepcao?.proficient ? profBonus : 0);
+  document.getElementById('stat-ac').textContent = derived?.armorClass ?? (10 + dexMod);
   const acNote = document.getElementById('stat-ac')?.parentElement;
-  if (acNote) acNote.title = armorWarning ? `${armorWarning}; CA calculada sem a armadura.` : armorPenalty ? 'Deslocamento reduzido em 10 pés por requisito de Força.' : 'CA calculada automaticamente pelo equipamento.';
+  if (acNote) acNote.title = derived?.armorProficient === false ? 'A personagem não possui proficiência na armadura equipada.' : derived?.speedPenalty ? 'Deslocamento reduzido em 10 pés por requisito de Força.' : 'CA calculada automaticamente pelo motor de regras.';
 
-  renderSavesAndSkills(displayCharacter, profBonus);
+  renderSavesAndSkills(displayCharacter, profBonus, derived);
   renderFeatures(character);
   renderResources(character);
   renderInventory(character);
   renderCastingStats(displayCharacter, profBonus);
   renderSpellSlots(displayCharacter);
   renderSpells(displayCharacter);
+  renderMulticlass({ ...character, multiclasses });
 }
 
-function renderSavesAndSkills(character, profBonus) {
+async function renderMulticlass(character) {
+  const list = document.getElementById('multiclass-list');
+  const select = document.getElementById('multiclass-class');
+  if (!list || !select || !character?.id) return;
+  select.innerHTML = '<option value="">Classe adicional</option>' + state.classReference.filter(cls => cls.name !== character.class).map(cls => `<option value="${escapeHtml(cls.name)}">${escapeHtml(cls.name)}</option>`).join('');
+  try {
+    const classes = await api(`/v2/characters/${character.id}/classes`);
+    const total = Number(character.level || 1) + classes.reduce((sum, item) => sum + Number(item.level || 0), 0);
+    document.getElementById('multiclass-total-level').textContent = `Nível total ${total}`;
+    list.innerHTML = classes.length ? classes.map(item => `<li class="item-row"><strong class="item-name">${escapeHtml(item.className)}</strong><span class="item-desc">${item.subclass ? escapeHtml(item.subclass) + ' · ' : ''}nível ${item.level}</span><button class="rebuild-danger multiclass-remove" data-id="${escapeHtml(item.id)}">Remover</button></li>`).join('') : '<li class="class-reference-empty">Nenhuma classe adicional registrada.</li>';
+    list.querySelectorAll('.multiclass-remove').forEach(button => button.addEventListener('click', async () => { if (!confirm('Remover esta classe adicional?')) return; await api(`/v2/characters/${character.id}/classes/${button.dataset.id}`, { method: 'DELETE' }); await renderMulticlass(character); }));
+  } catch (error) {
+    list.innerHTML = `<li class="class-reference-empty">${escapeHtml(error.message || 'Faça login para gerenciar multiclassing.')}</li>`;
+  }
+}
+
+function renderSavesAndSkills(character, profBonus, derived = null) {
   const selectedClass = state.classReference.find(cls => cls.name === character.class);
   const saveProfs = Object.fromEntries((selectedClass?.savingThrows || Object.keys(character.saveProficiencies || {})).map(key => [key, true]));
   const racial = selectedRaceData(character.race, character.subrace);
   const fixedRacial = [...(racial?.proficiencies || []), ...(racial?.selectedSubrace?.proficiencies || [])];
-  const skillProfs = { ...(character.skillProficiencies || {}) };
+  const skillProfs = { ...(derived?.skillProficiencies || character.skillProficiencies || {}) };
   fixedRacial.forEach(key => { if (SKILLS.some(skill => skill.key === key)) skillProfs[key] = { ...(skillProfs[key] || {}), proficient: true, source: 'race' }; });
   const allowedSkills = new Set([...(selectedClass?.skillChoices || []), ...(racial?.proficiencyChoices || []), ...(racial?.selectedSubrace?.proficiencyChoices || []), ...fixedRacial]);
 
@@ -781,8 +790,15 @@ function wizardCurrentFieldsValid() {
     if (classSelected !== classCount || raceSelected !== raceCount) { setCharacterStatus(`Conclua as escolhas de perícias: ${classCount} de classe e ${raceCount} de raça.`, 'error'); return false; }
   }
   if (wizardStep === 4) {
-    const values = ['forca','destreza','constituicao','inteligencia','sabedoria','carisma'].map(key => Number(document.getElementById(`wizard-${key}`).value));
+    const keys = ['forca','destreza','constituicao','inteligencia','sabedoria','carisma'];
+    const values = keys.map(key => Number(document.getElementById(`wizard-${key}`).value));
     if (values.some(value => value < 1 || value > 30)) { setCharacterStatus('Use valores de habilidade entre 1 e 30.', 'error'); return false; }
+    const method = document.getElementById('wizard-ability-method')?.value;
+    if (method === 'point-buy') {
+      const costs = { 8: 0, 9: 1, 10: 2, 11: 3, 12: 4, 13: 5, 14: 7, 15: 9 };
+      const points = values.reduce((total, value) => total + (costs[value] ?? 999), 0);
+      if (values.some(value => !(value in costs)) || points > 27) { setCharacterStatus(`Point buy inválido: use valores de 8 a 15 e no máximo 27 pontos. Atual: ${points}.`, 'error'); return false; }
+    }
   }
   return true;
 }
@@ -859,6 +875,7 @@ fLevel?.addEventListener('input', () => renderClassReference());
 document.getElementById('btn-refresh-spells')?.addEventListener('click', refreshSpellSearch);
 document.getElementById('spell-search-input')?.addEventListener('keydown', (event) => { if (event.key === 'Enter') { event.preventDefault(); refreshSpellSearch(); } });
 document.getElementById('btn-new-character').onclick = () => openCreationWizard();
+document.getElementById('btn-add-multiclass')?.addEventListener('click', async () => { const character = state.currentCharacter; const className = document.getElementById('multiclass-class')?.value; const level = Number(document.getElementById('multiclass-level')?.value || 1); if (!character || !className) return; try { await api(`/v2/characters/${character.id}/classes`, { method: 'POST', body: JSON.stringify({ className, level }) }); await renderMulticlass(character); setCharacterStatus('Classe adicional salva.', 'success'); } catch (error) { setCharacterStatus(error.message || 'Não foi possível salvar a classe adicional.', 'error'); } });
 document.getElementById('wizard-close')?.addEventListener('click', closeCreationWizard);
 document.getElementById('wizard-background')?.addEventListener('change', wizardSyncBackground);
 document.getElementById('wizard-background-variant')?.addEventListener('change', wizardSyncBackground);
