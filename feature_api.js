@@ -1,9 +1,8 @@
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
+const { SESSION_COOKIE, SESSION_DAYS, parseCookies, setSessionCookie, clearSessionCookie, attachUser: createAttachUser, requireUser: createRequireUser } = require('./auth');
 const spellReference = (() => { try { const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'srd-spells.json'), 'utf8')); return data.spells || data; } catch (_) { return []; } })();
-const SESSION_COOKIE = 'rpg_session';
-const SESSION_DAYS = 14;
 const MAX_NAME = 120;
 
 function id(newId) { return newId(); }
@@ -17,16 +16,8 @@ function hashPassword(password, salt = crypto.randomBytes(16).toString('hex')) {
   return { salt, hash: crypto.scryptSync(password, salt, 64).toString('hex') };
 }
 function validPassword(password) { return typeof password === 'string' && password.length >= 8 && password.length <= 128; }
-function parseCookies(req) {
-  return String(req.headers.cookie || '').split(';').reduce((acc, part) => {
-    const index = part.indexOf('=');
-    if (index > 0) acc[part.slice(0, index).trim()] = decodeURIComponent(part.slice(index + 1).trim());
-    return acc;
-  }, {});
-}
-function setCookie(res, value, maxAge = SESSION_DAYS * 86400) {
-  res.setHeader('Set-Cookie', `${SESSION_COOKIE}=${encodeURIComponent(value)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}`);
-}
+
+
 function publicUser(row) { return row && { id: row.id, name: row.name, email: row.email, createdAt: row.createdAt }; }
 function parseTags(value) {
   if (Array.isArray(value)) return value.map(item => clean(item, '', 40)).filter(Boolean).slice(0, 30);
@@ -36,18 +27,8 @@ function parseBody(req) { return req.body && typeof req.body === 'object' ? req.
 function nowPlusDays(days) { return new Date(Date.now() + days * 86400000).toISOString().slice(0, 19).replace('T', ' '); }
 
 function registerFeatureApi(app, { db, newId }) {
-  function userFromRequest(req) {
-    const token = parseCookies(req)[SESSION_COOKIE];
-    if (!token) return null;
-    const session = db.get("SELECT s.id, s.userId, s.expiresAt, u.name, u.email, u.createdAt FROM sessions s JOIN users u ON u.id = s.userId WHERE s.id = ? AND datetime(s.expiresAt) > datetime('now')", [token]);
-    if (!session) return null;
-    return { id: session.userId, name: session.name, email: session.email, createdAt: session.createdAt, sessionId: session.id };
-  }
-  function requireUser(req, res, next) {
-    req.user = userFromRequest(req);
-    if (!req.user) return res.status(401).json({ error: 'Faça login para continuar.', code: 'AUTH_REQUIRED' });
-    next();
-  }
+  const requireUser = createRequireUser(db);
+  const attachAuth = createAttachUser(db);
   function ensureCampaignAccess(req, res, next) {
     const campaignId = clean(req.params.campaignId || req.query.campaignId || parseBody(req).campaignId, '', 80);
     if (!campaignId) return res.status(400).json({ error: 'campaignId é obrigatório.' });
@@ -57,11 +38,11 @@ function registerFeatureApi(app, { db, newId }) {
     req.campaignId = campaignId;
     next();
   }
-  function withUser(req, res, next) { req.user = userFromRequest(req); next(); }
+  function withUser(req, res, next) { return attachAuth(req, res, next); }
   function sessionFor(res, userId) {
     const token = crypto.randomBytes(32).toString('hex');
     db.run('INSERT INTO sessions (id, userId, expiresAt) VALUES (?, ?, ?)', [token, userId, nowPlusDays(SESSION_DAYS)]);
-    setCookie(res, token);
+    setSessionCookie(res, token);
   }
   function userCampaigns(userId) {
     return db.all('SELECT c.*, cm.role FROM campaigns c JOIN campaign_members cm ON cm.campaignId = c.id WHERE cm.userId = ? ORDER BY c.updatedAt DESC', [userId]);
@@ -107,7 +88,7 @@ function registerFeatureApi(app, { db, newId }) {
     sessionFor(res, user.id);
     res.json({ user: publicUser(user), campaigns: userCampaigns(user.id) });
   });
-  app.post('/api/auth/logout', (req, res) => { const token = parseCookies(req)[SESSION_COOKIE]; if (token) db.run('DELETE FROM sessions WHERE id = ?', [token]); setCookie(res, '', 0); res.json({ ok: true }); });
+  app.post('/api/auth/logout', (req, res) => { const token = parseCookies(req)[SESSION_COOKIE]; if (token) db.run('DELETE FROM sessions WHERE id = ?', [token]); clearSessionCookie(res); res.json({ ok: true }); });
 
   app.get('/api/campaigns', requireUser, (req, res) => res.json(userCampaigns(req.user.id)));
   app.post('/api/campaigns', requireUser, (req, res) => {

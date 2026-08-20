@@ -12,15 +12,18 @@ const state = {
 };
 
 // ---------- API helpers ----------
+function redirectToLogin() {
+  if (!location.pathname.endsWith('/login.html') && !location.pathname.endsWith('login.html')) location.href = `login.html?next=${encodeURIComponent(location.pathname + location.search)}`;
+}
+async function responseError(res, fallback = 'Erro na requisição') {
+  const payload = await res.json().catch(() => ({}));
+  if (res.status === 401) { redirectToLogin(); const error = new Error(payload.error || 'Sua sessão expirou. Faça login novamente.'); error.status = 401; error.code = payload.code || 'AUTH_REQUIRED'; throw error; }
+  if (res.status === 403) { const error = new Error(payload.error || 'Você não tem permissão para esta ficha.'); error.status = 403; error.code = payload.code || 'FORBIDDEN'; throw error; }
+  const error = new Error(payload.error || `${fallback}: ${res.status}`); error.status = res.status; error.code = payload.code; throw error;
+}
 async function api(path, options = {}) {
-  const res = await fetch(`/api${path}`, {
-    headers: { 'Content-Type': 'application/json' },
-    ...options,
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.error || `Erro na requisição: ${res.status}`);
-  }
+  const res = await fetch(`/api${path}`, { credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, ...options });
+  if (!res.ok) await responseError(res);
   return res.json();
 }
 
@@ -228,8 +231,8 @@ function setCharacterStatus(message, type = 'success') {
 async function uploadImage(id, file) {
   const formData = new FormData();
   formData.append('image', file);
-  const res = await fetch(`/api/characters/${id}/image`, { method: 'POST', body: formData });
-  if (!res.ok) throw new Error('Erro ao enviar imagem');
+  const res = await fetch(`/api/characters/${id}/image`, { method: 'POST', body: formData, credentials: 'same-origin' });
+  if (!res.ok) await responseError(res, 'Erro ao enviar imagem');
   return res.json();
 }
 const removeImage = (id) => api(`/characters/${id}/image`, { method: 'DELETE' });
@@ -942,7 +945,7 @@ exportCharacterButton?.addEventListener('click', async () => {
   if (!state.selectedId) return;
   try {
     const response = await fetch(`/api/v2/characters/${state.selectedId}/export`, { credentials: 'same-origin' });
-    if (!response.ok) throw new Error('Faça login para exportar a ficha.');
+    if (!response.ok) await responseError(response, 'Não foi possível exportar a ficha');
     const blob = await response.blob();
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');

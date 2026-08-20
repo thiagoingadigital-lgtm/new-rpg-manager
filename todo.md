@@ -28,3 +28,14 @@
 - [x] Criar testes automatizados de regras
 - [x] Limpar legado e consolidar camadas arquiteturais
 - [x] Validar fluxos completos e preparar entrega
+
+## Proteção das rotas legadas de personagens
+
+- [x] Auditar sessão, ownership e rotas atuais
+- [x] Criar `auth.js` com `requireUser` e `attachUser`
+- [x] Proteger listagem, Hall, ficha e sub-rotas de personagem
+- [x] Implementar `POST /api/characters/:id/claim`
+- [x] Tratar 401/403 no `public/app.js`
+- [x] Criar testes de integração para anônimo, ownership e claim legado
+- [x] Confirmar que `/api/v2/*` não sofreu alterações
+- [x] Rodar todos os testes existentes

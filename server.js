@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const multer = require('multer');
 const db = require('./db'); // SQLite (sql.js WASM) — banco local, existe apenas enquanto a app roda
 const { initDb } = db;
+const { requireUser, attachUser, getSessionUser } = require('./auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,7 @@ const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
 if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 
 app.use(express.json());
+app.use(attachUser(db));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 app.use(express.static(path.join(__dirname, 'public')));
 const { registerFeatureApi } = require('./feature_api');
@@ -41,13 +43,6 @@ const upload = multer({
 // ---------- Helpers ----------
 function newId() {
   return crypto.randomUUID();
-}
-function sessionUserId(req) {
-  const cookie = String(req.headers.cookie || '').split(';').map(part => part.trim()).find(part => part.startsWith('rpg_session='));
-  if (!cookie) return null;
-  const token = decodeURIComponent(cookie.slice('rpg_session='.length));
-  const row = db.get("SELECT userId FROM sessions WHERE id = ? AND datetime(expiresAt) > datetime('now')", [token]);
-  return row?.userId || null;
 }
 
 // ---------- Modelo base de um personagem ----------
@@ -124,7 +119,7 @@ function sanitizeSpell(body, existing = {}) {
 function loadCharacter(id) {
   const row = db.get(`
     SELECT id, name, class, subclass, race, subrace, level, attributes, skillProficiencies, saveProficiencies,
-           resources, items, spellSlotsUsage, imageUrl, creationData, createdAt, updatedAt
+           resources, items, spellSlotsUsage, imageUrl, creationData, campaignId, ownerId, createdAt, updatedAt
     FROM characters WHERE id = ?
   `, [id]);
   if (!row) return null;
@@ -144,6 +139,32 @@ function loadCharacter(id) {
     creationData: JSON.parse(row.creationData || '{}'),
     features,
     spells,
+  };
+}
+
+function characterRow(id) { return db.get('SELECT id, ownerId, campaignId FROM characters WHERE id = ?', [id]); }
+function campaignMembership(userId, campaignId) { return campaignId && userId ? db.get('SELECT role FROM campaign_members WHERE campaignId = ? AND userId = ?', [campaignId, userId]) : null; }
+function canReadCharacter(row, userId) {
+  if (!row || !userId) return false;
+  if (row.ownerId === userId || row.ownerId == null) return true;
+  return Boolean(campaignMembership(userId, row.campaignId));
+}
+function canEditCharacter(row, userId) {
+  if (!row || !userId) return false;
+  if (row.ownerId === userId) return true;
+  const membership = campaignMembership(userId, row.campaignId);
+  return Boolean(membership && ['owner', 'master'].includes(membership.role));
+}
+const requireAuth = requireUser(db);
+function requireCharacterAccess(mode = 'read') {
+  return (req, res, next) => {
+    if (!req.user) return res.status(401).json({ error: 'Faça login para continuar.', code: 'AUTH_REQUIRED' });
+    const row = characterRow(req.params.id);
+    if (!row) return res.status(404).json({ error: 'Personagem não encontrado.' });
+    const allowed = mode === 'edit' ? canEditCharacter(row, req.user.id) : canReadCharacter(row, req.user.id);
+    if (!allowed) return res.status(403).json({ error: 'Você não tem permissão para acessar esta ficha.', code: 'CHARACTER_FORBIDDEN' });
+    req.characterAccess = row;
+    next();
   };
 }
 
@@ -319,30 +340,41 @@ app.get('/api/spells', (req, res) => {
 // ---------- Rotas: Personagens (SQLite) ----------
 
 // Hall dos heróis: personagens resumidos, ordenados por nível (para a Home)
-app.get('/api/characters/hall', (req, res) => {
+app.get('/api/characters/hall', requireAuth, (req, res) => {
   res.json(db.all(`
     SELECT id, name, class, race, level, imageUrl, createdAt
-    FROM characters ORDER BY level DESC, updatedAt DESC
-  `));
+    FROM characters WHERE ownerId = ? OR ownerId IS NULL OR campaignId IN (SELECT campaignId FROM campaign_members WHERE userId = ?) ORDER BY level DESC, updatedAt DESC
+  `, [req.user.id, req.user.id]));
 });
 
 // Listar todos
-app.get('/api/characters', (req, res) => {
-  const rows = db.all(`SELECT id, name, class, race, level, imageUrl FROM characters ORDER BY updatedAt DESC`);
+app.get('/api/characters', requireAuth, (req, res) => {
+  const rows = db.all(`SELECT id, name, class, race, level, imageUrl FROM characters WHERE ownerId = ? OR ownerId IS NULL OR campaignId IN (SELECT campaignId FROM campaign_members WHERE userId = ?) ORDER BY updatedAt DESC`, [req.user.id, req.user.id]);
   res.json(rows);
 });
 
+// Reivindicar personagem legado sem proprietário.
+app.post('/api/characters/:id/claim', requireAuth, (req, res) => {
+  const row = db.get('SELECT id, ownerId FROM characters WHERE id = ?', [req.params.id]);
+  if (!row) return res.status(404).json({ error: 'Personagem não encontrado.' });
+  if (row.ownerId) return res.status(409).json({ error: 'Esta ficha já possui um proprietário.', code: 'CHARACTER_ALREADY_CLAIMED' });
+  db.run("UPDATE characters SET ownerId = ?, updatedAt = datetime('now') WHERE id = ? AND ownerId IS NULL", [req.user.id, row.id]);
+  const claimed = db.get('SELECT id, ownerId FROM characters WHERE id = ?', [row.id]);
+  if (claimed.ownerId !== req.user.id) return res.status(409).json({ error: 'A ficha foi reivindicada por outro usuário.', code: 'CHARACTER_ALREADY_CLAIMED' });
+  res.json({ ok: true, characterId: row.id, ownerId: req.user.id });
+});
+
 // Buscar um (completo, com features e spells)
-app.get('/api/characters/:id', (req, res) => {
+app.get('/api/characters/:id', requireAuth, requireCharacterAccess('read'), (req, res) => {
   const character = loadCharacter(req.params.id);
   if (!character) return res.status(404).json({ error: 'Personagem não encontrado' });
   res.json(character);
 });
 
 // Criar
-app.post('/api/characters', (req, res) => {
+app.post('/api/characters', requireAuth, (req, res) => {
   const character = sanitizeCharacter(req.body || {});
-  const ownerId = sessionUserId(req);
+  const ownerId = req.user.id;
   const campaign = ownerId ? db.get('SELECT c.id FROM campaigns c JOIN campaign_members cm ON cm.campaignId = c.id WHERE cm.userId = ? ORDER BY c.createdAt LIMIT 1', [ownerId]) : null;
   db.run(`
     INSERT INTO characters (id, name, class, subclass, race, subrace, level, attributes, skillProficiencies,
@@ -365,7 +397,7 @@ app.post('/api/characters', (req, res) => {
 });
 
 // Atualizar (dados gerais, atributos, recursos, itens etc.)
-app.put('/api/characters/:id', (req, res) => {
+app.put('/api/characters/:id', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const existing = loadCharacter(req.params.id);
   if (!existing) return res.status(404).json({ error: 'Personagem não encontrado' });
 
@@ -389,14 +421,14 @@ app.put('/api/characters/:id', (req, res) => {
     JSON.stringify(updated.creationData),
     updated.id,
     ]);
-  const actorId = sessionUserId(req);
+  const actorId = req.user.id;
   if (actorId) {
     db.run('INSERT INTO character_history (id, characterId, userId, action, snapshot) VALUES (?, ?, ?, ?, ?)', [newId(), updated.id, actorId, 'updated', JSON.stringify(updated)]);
   }
   res.json(updated);
 });
 // Excluir
-app.delete('/api/characters/:id', (req, res) => {
+app.delete('/api/characters/:id', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const existing = db.get('SELECT imageUrl FROM characters WHERE id = ?', [req.params.id]);
   if (!existing) return res.status(404).json({ error: 'Personagem não encontrado' });
   db.run('DELETE FROM characters WHERE id = ?', [req.params.id]);
@@ -405,7 +437,7 @@ app.delete('/api/characters/:id', (req, res) => {
 
 // ---------- Rotas: Imagem do personagem ----------
 
-app.post('/api/characters/:id/image', upload.single('image'), (req, res) => {
+app.post('/api/characters/:id/image', requireAuth, requireCharacterAccess('edit'), upload.single('image'), (req, res) => {
   const character = db.get('SELECT id, imageUrl FROM characters WHERE id = ?', [req.params.id]);
   if (!character) return res.status(404).json({ error: 'Personagem não encontrado' });
   if (!req.file) return res.status(400).json({ error: 'Nenhuma imagem enviada' });
@@ -419,7 +451,7 @@ app.post('/api/characters/:id/image', upload.single('image'), (req, res) => {
   res.json({ imageUrl: `/uploads/${req.file.filename}` });
 });
 
-app.delete('/api/characters/:id/image', (req, res) => {
+app.delete('/api/characters/:id/image', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const character = db.get('SELECT id, imageUrl FROM characters WHERE id = ?', [req.params.id]);
   if (!character) return res.status(404).json({ error: 'Personagem não encontrado' });
 
@@ -441,7 +473,7 @@ app.use((err, req, res, next) => {
 
 // ---------- Rotas: Features (habilidades/talentos) ----------
 
-app.post('/api/characters/:id/features', (req, res) => {
+app.post('/api/characters/:id/features', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const character = db.get('SELECT id FROM characters WHERE id = ?', [req.params.id]);
   if (!character) return res.status(404).json({ error: 'Personagem não encontrado' });
   const feature = { id: newId(), name: req.body.name || 'Nova feature', description: req.body.description || '' };
@@ -450,7 +482,7 @@ app.post('/api/characters/:id/features', (req, res) => {
   res.status(201).json(feature);
 });
 
-app.put('/api/characters/:id/features/:featureId', (req, res) => {
+app.put('/api/characters/:id/features/:featureId', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const feature = db.get('SELECT * FROM character_features WHERE id = ? AND characterId = ?',
     [req.params.featureId, req.params.id]);
   if (!feature) return res.status(404).json({ error: 'Feature não encontrada' });
@@ -460,7 +492,7 @@ app.put('/api/characters/:id/features/:featureId', (req, res) => {
   res.json({ id: feature.id, name, description });
 });
 
-app.delete('/api/characters/:id/features/:featureId', (req, res) => {
+app.delete('/api/characters/:id/features/:featureId', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const feature = db.get('SELECT id FROM character_features WHERE id = ? AND characterId = ?',
     [req.params.featureId, req.params.id]);
   if (!feature) return res.status(404).json({ error: 'Feature não encontrada' });
@@ -470,7 +502,7 @@ app.delete('/api/characters/:id/features/:featureId', (req, res) => {
 
 // ---------- Rotas: Recursos (HP, mana, itens, munição etc.) ----------
 
-app.post('/api/characters/:id/resources', (req, res) => {
+app.post('/api/characters/:id/resources', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const character = loadCharacter(req.params.id);
   if (!character) return res.status(404).json({ error: 'Personagem não encontrado' });
   const resource = {
@@ -483,7 +515,7 @@ app.post('/api/characters/:id/resources', (req, res) => {
   res.status(201).json(resource);
 });
 
-app.put('/api/characters/:id/resources/:resourceId', (req, res) => {
+app.put('/api/characters/:id/resources/:resourceId', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const character = loadCharacter(req.params.id);
   if (!character) return res.status(404).json({ error: 'Personagem não encontrado' });
   const resource = character.resources.find(r => r.id === req.params.resourceId);
@@ -496,7 +528,7 @@ app.put('/api/characters/:id/resources/:resourceId', (req, res) => {
   res.json(resource);
 });
 
-app.delete('/api/characters/:id/resources/:resourceId', (req, res) => {
+app.delete('/api/characters/:id/resources/:resourceId', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const character = loadCharacter(req.params.id);
   if (!character) return res.status(404).json({ error: 'Personagem não encontrado' });
   character.resources = character.resources.filter(r => r.id !== req.params.resourceId);
@@ -508,6 +540,12 @@ app.delete('/api/characters/:id/resources/:resourceId', (req, res) => {
 // ---------- Rotas: Itens / Inventário ----------
 
 const ITEM_TYPES = ['arma', 'armadura', 'escudo', 'consumivel', 'magico', 'outro'];
+const itemReferenceData = (() => { try { return JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'item-reference.json'), 'utf8')).items || []; } catch (_) { return []; } })();
+function normalizeEquipment(items, changed) {
+  const next = items.map(item => ({ ...item }));
+  if (!changed.equipped || !['armadura', 'escudo'].includes(changed.type)) return next;
+  return next.map(item => item.id !== changed.id && item.equipped && item.type === changed.type ? { ...item, equipped: false } : item);
+}
 
 function sanitizeItem(body, existing = {}) {
   const type = ITEM_TYPES.includes(body.type) ? body.type : (existing.type || 'outro');
@@ -522,28 +560,29 @@ function sanitizeItem(body, existing = {}) {
   };
 }
 
-app.post('/api/characters/:id/items', (req, res) => {
+app.post('/api/characters/:id/items', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const character = loadCharacter(req.params.id);
   if (!character) return res.status(404).json({ error: 'Personagem não encontrado' });
   const item = sanitizeItem(req.body || {});
-  character.items.push(item);
+  character.items = normalizeEquipment(character.items, item);
   db.run("UPDATE characters SET items = ?, updatedAt = datetime('now') WHERE id = ?",
     [JSON.stringify(character.items), character.id]);
   res.status(201).json(item);
 });
 
-app.put('/api/characters/:id/items/:itemId', (req, res) => {
+app.put('/api/characters/:id/items/:itemId', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const character = loadCharacter(req.params.id);
   if (!character) return res.status(404).json({ error: 'Personagem não encontrado' });
   const idx = character.items.findIndex(i => i.id === req.params.itemId);
   if (idx === -1) return res.status(404).json({ error: 'Item não encontrado' });
   character.items[idx] = sanitizeItem(req.body || {}, character.items[idx]);
+  character.items = normalizeEquipment(character.items, character.items[idx]);
   db.run("UPDATE characters SET items = ?, updatedAt = datetime('now') WHERE id = ?",
     [JSON.stringify(character.items), character.id]);
   res.json(character.items[idx]);
 });
 
-app.delete('/api/characters/:id/items/:itemId', (req, res) => {
+app.delete('/api/characters/:id/items/:itemId', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const character = loadCharacter(req.params.id);
   if (!character) return res.status(404).json({ error: 'Personagem não encontrado' });
   character.items = character.items.filter(i => i.id !== req.params.itemId);
@@ -554,7 +593,7 @@ app.delete('/api/characters/:id/items/:itemId', (req, res) => {
 
 // ---------- Rotas: Spells (feitiços preparados do personagem) ----------
 
-app.post('/api/characters/:id/spells', (req, res) => {
+app.post('/api/characters/:id/spells', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const character = db.get('SELECT id FROM characters WHERE id = ?', [req.params.id]);
   if (!character) return res.status(404).json({ error: 'Personagem não encontrado' });
   const spell = sanitizeSpell(req.body || {});
@@ -563,7 +602,7 @@ app.post('/api/characters/:id/spells', (req, res) => {
   res.status(201).json(spell);
 });
 
-app.put('/api/characters/:id/spells/:spellId', (req, res) => {
+app.put('/api/characters/:id/spells/:spellId', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const spell = db.get('SELECT * FROM character_spells WHERE id = ? AND characterId = ?',
     [req.params.spellId, req.params.id]);
   if (!spell) return res.status(404).json({ error: 'Feitiço não encontrado' });
@@ -576,7 +615,7 @@ app.put('/api/characters/:id/spells/:spellId', (req, res) => {
   res.json({ id: spell.id, name, school, level, casted });
 });
 
-app.delete('/api/characters/:id/spells/:spellId', (req, res) => {
+app.delete('/api/characters/:id/spells/:spellId', requireAuth, requireCharacterAccess('edit'), (req, res) => {
   const spell = db.get('SELECT id FROM character_spells WHERE id = ? AND characterId = ?',
     [req.params.spellId, req.params.id]);
   if (!spell) return res.status(404).json({ error: 'Feitiço não encontrado' });
