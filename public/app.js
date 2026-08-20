@@ -26,6 +26,19 @@ const createCharacter = (data) => api('/characters', { method: 'POST', body: JSO
 const updateCharacter = (id, data) => api(`/characters/${id}`, { method: 'PUT', body: JSON.stringify(data) });
 const deleteCharacter = (id) => api(`/characters/${id}`, { method: 'DELETE' });
 
+function classSlug(name) {
+  return String(name || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function setCharacterStatus(message, type = 'success') {
+  const el = document.getElementById('character-save-status');
+  if (!el) return;
+  el.textContent = message;
+  el.dataset.status = type;
+  window.clearTimeout(setCharacterStatus.timer);
+  if (message) setCharacterStatus.timer = window.setTimeout(() => { el.textContent = ''; el.dataset.status = ''; }, 4200);
+}
+
 async function uploadImage(id, file) {
   const formData = new FormData();
   formData.append('image', file);
@@ -134,6 +147,8 @@ async function renderCharacterView(character) {
   }
   emptyStateEl.classList.add('hidden');
   characterViewEl.classList.remove('hidden');
+  const displayName = document.getElementById('character-display-name');
+  if (displayName) displayName.textContent = character.name || 'Ficha em movimento';
 
   // Dados básicos
   fName.value = character.name;
@@ -241,9 +256,10 @@ function renderSavesAndSkills(character, profBonus) {
           await updateCharacter(character.id, { skillProficiencies: newSkillProficiencies });
         }
         await refreshSelected();
+        setCharacterStatus('Proficiência atualizada.', 'success');
       } catch (error) {
         cb.checked = !cb.checked;
-        console.error('Não foi possível salvar a proficiência:', error);
+        setCharacterStatus(error.message || 'Não foi possível salvar a proficiência.', 'error');
       } finally {
         cb.disabled = false;
       }
@@ -327,12 +343,13 @@ async function renderSpellSlots(character) {
   container.innerHTML = '';
   
   try {
-    const slots = await api(`/spell-slots?class=${character.class || 'Paladino'}&level=${character.level}`);
+    const payload = await api(`/spell-slots?class=${encodeURIComponent(classSlug(character.class || 'paladino'))}&level=${character.level}`);
+    const slots = payload.slots || {};
     const usage = character.spellSlotsUsage || {};
     
     let totalFound = 0;
     for (let i = 1; i <= 9; i++) {
-      const count = slots[`level${i}`] || 0;
+      const count = Number(slots[String(i)] || 0);
       if (count === 0) continue;
       totalFound++;
       
@@ -352,8 +369,14 @@ async function renderSpellSlots(character) {
           const currentUsage = character.spellSlotsUsage || {};
           const levelUsage = currentUsage[i] || 0;
           const newUsage = cb.checked ? levelUsage + 1 : Math.max(0, levelUsage - 1);
-          await updateCharacter(character.id, { spellSlotsUsage: { ...currentUsage, [i]: newUsage } });
-          await refreshSelected();
+          try {
+            await updateCharacter(character.id, { spellSlotsUsage: { ...currentUsage, [i]: newUsage } });
+            await refreshSelected();
+            setCharacterStatus('Uso de slots atualizado.', 'success');
+          } catch (error) {
+            cb.checked = !cb.checked;
+            setCharacterStatus(error.message || 'Não foi possível atualizar os slots.', 'error');
+          }
         };
         row.appendChild(cb);
       }
@@ -392,14 +415,17 @@ function renderSpells(character) {
 }
 
 async function refreshSpellSearch() {
+  const character = state.currentCharacter;
+  if (!character) return;
   const q = document.getElementById('spell-search-input').value;
   const level = document.getElementById('spell-filter-level').value;
   const opt = document.getElementById('spell-filter-optional').checked;
   
-  const spells = await api(`/paladin/spells?q=${encodeURIComponent(q)}&level=${level}&optional=${opt}`);
+  const spells = await api(`/spells?class=${encodeURIComponent(classSlug(character.class || 'paladino'))}&q=${encodeURIComponent(q)}&level=${level}&optional=${opt}`);
   const list = document.getElementById('spell-list');
+  list.querySelectorAll('.search-results-overlay').forEach(node => node.remove());
   // Se houver busca, mostra resultados temporários no topo
-  if (q.trim() || level) {
+  if (q.trim() || level || opt) {
     const resultsDiv = document.createElement('div');
     resultsDiv.className = 'search-results-overlay';
     resultsDiv.innerHTML = '<h4>Resultados da busca:</h4>';
@@ -414,8 +440,8 @@ async function refreshSpellSearch() {
       };
       resultsDiv.appendChild(d);
     });
-    // Simples: limpa e mostra só a busca se estiver digitando, ou injeta no topo
-    // Para este MVP, vamos apenas alertar ou logar, e focar no CRUD funcional.
+    if (!spells.length) resultsDiv.innerHTML += '<p class="spell-search-empty">Nenhum feitiço encontrado para esta classe e filtro.</p>';
+    list.prepend(resultsDiv);
   }
 }
 
@@ -451,7 +477,10 @@ async function loadTemplates() {
 }
 
 // Event Listeners básicos
-if (fClass && fSubclass) fClass.addEventListener('change', () => { fSubclass.disabled = fClass.value !== 'Paladino'; if (fClass.value !== 'Paladino') fSubclass.value = ''; });
+if (fClass && fSubclass) fClass.addEventListener('change', () => { fSubclass.disabled = fClass.value !== 'Paladino'; if (fClass.value !== 'Paladino') fSubclass.value = ''; if (state.currentCharacter) { renderCastingStats(state.currentCharacter, Number(document.getElementById('stat-proficiency').textContent.replace('+', '')) || 2); renderSpellSlots({ ...state.currentCharacter, class: fClass.value }); } });
+
+document.getElementById('btn-refresh-spells')?.addEventListener('click', refreshSpellSearch);
+document.getElementById('spell-search-input')?.addEventListener('keydown', (event) => { if (event.key === 'Enter') { event.preventDefault(); refreshSpellSearch(); } });
 document.getElementById('btn-new-character').onclick = async () => {
   const char = await createCharacter({ name: 'Novo Herói', level: 1 });
   await refreshSelected();
@@ -460,12 +489,22 @@ document.getElementById('btn-new-character').onclick = async () => {
 
 document.getElementById('btn-save-character').onclick = async () => {
   if (!state.selectedId) return;
+  const saveButton = document.getElementById('btn-save-character');
+  saveButton.disabled = true;
+  setCharacterStatus('Salvando ficha…', 'loading');
   const data = {
     name: fName.value, class: fClass.value, subclass: fClass.value === 'Paladino' ? (fSubclass?.value || '') : '', race: fRace.value, level: Number(fLevel.value),
     attributes: Object.fromEntries(attrIds.map(a => [a, Number(document.getElementById(`attr-${a}`).value)]))
   };
-  await updateCharacter(state.selectedId, data);
-  await refreshSelected();
+  try {
+    await updateCharacter(state.selectedId, data);
+    await refreshSelected();
+    setCharacterStatus('Ficha salva com sucesso.', 'success');
+  } catch (error) {
+    setCharacterStatus(error.message || 'Não foi possível salvar a ficha.', 'error');
+  } finally {
+    saveButton.disabled = false;
+  }
 };
 
 document.getElementById('btn-delete-character').onclick = async () => {
@@ -491,6 +530,7 @@ function formatItemDetails(item) {
 
 // Start
 (async () => {
+  try { state.classesCache = await api('/classes'); } catch (error) { console.warn('Classes indisponíveis:', error); }
   await refreshSelected();
   await loadTemplates();
 })();

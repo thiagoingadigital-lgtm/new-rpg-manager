@@ -156,7 +156,8 @@ app.get('/api/paladin/reference', (req, res) => {
 
 app.get('/api/paladin/spells', (req, res) => {
   if (!paladinReference) return res.status(503).json({ error: 'Base de dados de referência indisponível' });
-  let spells = [...paladinReference.spells];
+  const requestedClass = String(req.query.class || 'paladino').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  let spells = requestedClass === 'paladino' ? paladinReference.spells.map((spell) => ({ ...spell, classes: ['Paladino'] })) : [];
   const { level, school, name, q, optional } = req.query;
   if (level) spells = spells.filter((s) => s.level === Number(level));
   if (school) spells = spells.filter((s) => s.school.toLowerCase() === String(school).toLowerCase());
@@ -245,7 +246,8 @@ app.get('/api/spell-slots', (req, res) => {
 // mas por enquanto servimos os feitiços do paladino direto do JSON, mantendo a fonte única).
 app.get('/api/spells', (req, res) => {
   if (!paladinReference) return res.status(503).json({ error: 'Base de feitiços indisponível' });
-  let spells = [...paladinReference.spells];
+  const requestedClass = String(req.query.class || 'paladino').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  let spells = requestedClass === 'paladino' ? paladinReference.spells.map((spell) => ({ ...spell, classes: ['Paladino'] })) : [];
   const { level, school, q, optional } = req.query;
   if (level) spells = spells.filter((s) => s.level === Number(level));
   if (school) spells = spells.filter((s) => s.school.toLowerCase() === String(school).toLowerCase());
