@@ -6,16 +6,12 @@
   <title>RPG Manager — Grimório Integrado</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="atlas-page grimoire-page">
-  <header class="atlas-header">
-    <a href="index.html" class="atlas-brand" aria-label="RPG Manager — início"><span class="atlas-mark" aria-hidden="true">⌁</span><span><strong>RPG MANAGER</strong><small>GRIMÓRIO INTEGRADO</small></span></a>
-    <button class="atlas-menu-button" aria-label="Abrir menu" onclick="document.body.classList.toggle('menu-open')">☰</button>
-    <nav class="atlas-nav" aria-label="Navegação principal"><a href="index.html">01 / Início</a><a href="rolagem.html">03 / Rolagem</a><a class="active" href="grimorio.html">04 / Grimório</a><a class="atlas-nav-cta" href="personagens.html">Abrir fichas</a></nav>
-  </header>
+<body class="v2-page grimoire-page">
+  <header class="v2-header"><a class="v2-logo" href="index.html" aria-label="RPG Manager — início"><span class="v2-logo-mark">⌁</span><span><b>RPG MANAGER</b><small>GRIMÓRIO INTEGRADO</small></span></a><nav aria-label="Navegação principal"><a href="index.html">Início</a><a href="rolagem.html">Rolagem</a><a class="active" href="grimorio.html">Grimório</a><a href="mapas.html">Mapas</a><a href="biblioteca.html">Biblioteca</a><a href="diario.html">Diário</a><a class="v2-nav-cta" href="personagens.html">Abrir fichas</a></nav><button class="v2-menu" type="button" aria-label="Abrir menu" onclick="document.body.classList.toggle('menu-open')">☰</button></header>
   <main>
-    <section class="grimoire-hero"><div class="atlas-kicker"><span></span> Registro arcano — biblioteca ativa</div><h1>O que foi<br /><em>escrito no fogo.</em></h1><p>Consulte a biblioteca de magias da campanha. Filtre por classe, escola, nível e propriedades para encontrar o próximo recurso da mesa.</p></section>
-    <section class="grimoire-library">
-      <div class="grimoire-toolbar"><div><div class="atlas-kicker dark"><span></span> Biblioteca de feitiços</div><h2>Consulta<br /><em>rápida.</em></h2></div><div class="grimoire-source">Fonte atual<br /><strong>SRD 5.1</strong></div></div>
+    <section class="v2-hero grimoire-hero"><span class="v2-kicker">REGISTRO ARCANO / BIBLIOTECA ATIVA</span><h1>O que foi<br /><em>escrito no fogo.</em></h1><p>Consulte a biblioteca de magias da campanha. Filtre por classe, escola, nível e propriedades para encontrar o próximo recurso da mesa.</p></section>
+    <section class="v2-content grimoire-library">
+      <div class="grimoire-toolbar"><div><span class="v2-kicker">BIBLIOTECA DE FEITIÇOS</span><h2 class="v2-title">Consulta<br /><em>rápida.</em></h2></div><div class="grimoire-source">Fonte atual<br /><strong>SRD 5.1</strong></div></div>
       <form id="spell-filters" class="grimoire-filters">
         <label class="grimoire-search">Buscar no grimório<input id="spell-query" type="search" placeholder="Nome ou palavra-chave" autocomplete="off" /></label>
         <label>Classe<select id="spell-class"><option value="">Todas as classes</option></select></label>
@@ -28,7 +24,7 @@
       <div id="spell-results" class="spell-results"><p class="dashboard-loading">Abrindo os registros arcanos...</p></div>
     </section>
   </main>
-  <footer class="atlas-footer"><a href="index.html" class="atlas-brand"><span class="atlas-mark" aria-hidden="true">⌁</span><span><strong>RPG MANAGER</strong><small>RPG MANAGER © 2026</small></span></a><div><a href="personagens.html">Personagens</a><a href="grimorio.html">Grimório</a><a href="index.html">Início</a></div></footer>
+  <footer class="v2-footer"><a class="v2-logo" href="index.html"><span class="v2-logo-mark">⌁</span><span><b>RPG MANAGER</b><small>GRIMÓRIO © 2026</small></span></a><div><a href="personagens.html">Personagens</a><a href="mapas.html">Mapas</a><a href="diario.html">Diário</a><a href="index.html">Início</a></div></footer>
   <script>
     const state = { spells: [], classes: [], classReference: [], favorites: new Set(), prepared: new Set(), characters: [], selectedCharacter: '' };
     const $ = (id) => document.getElementById(id);
