@@ -1,0 +1,1875 @@
+{
+  "schemaVersion": "races-2014.1",
+  "edition": "2014",
+  "sourceDocument": "Mapeamento de raças e características — D&D 5e (2014)",
+  "abilityScoreRule": "fixed_2014",
+  "customizationRule": {
+    "enabled": true,
+    "source": "Tasha’s Cauldron of Everything",
+    "description": "+2 em um atributo e +1 em outro, ou +1 em três atributos, somente quando autorizado pela campanha."
+  },
+  "races": [
+    {
+      "slug": "anao",
+      "name": "Anão",
+      "edition": "2014",
+      "source": "Livro do Jogador",
+      "availability": "core",
+      "abilityBonuses": {
+        "constituicao": 2
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 25
+      },
+      "languages": [
+        "Comum",
+        "Anão"
+      ],
+      "traits": [
+        {
+          "name": "Resiliência Anã",
+          "description": "Vantagem em salvamentos contra veneno e resistência a dano de veneno.",
+          "category": "resistance"
+        },
+        {
+          "name": "Treinamento de Combate Anão",
+          "description": "Proficiência com machado de batalha, machadinha, martelo leve e martelo de guerra.",
+          "category": "proficiency"
+        },
+        {
+          "name": "Proficiência em Ferramentas",
+          "description": "Proficiência com uma ferramenta de artesão.",
+          "category": "proficiency"
+        },
+        {
+          "name": "Conhecimento de Pedras",
+          "description": "Bônus de histórico em testes relacionados à alvenaria e trabalhos em pedra.",
+          "category": "skill"
+        }
+      ],
+      "subraces": [
+        {
+          "slug": "anao-da-colina",
+          "name": "Anão da Colina",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "sabedoria": 1
+          },
+          "traits": [
+            {
+              "name": "Resiliência Anã",
+              "description": "Você ganha 1 ponto de vida adicional por nível.",
+              "category": "hit-points"
+            }
+          ]
+        },
+        {
+          "slug": "anao-da-montanha",
+          "name": "Anão da Montanha",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "forca": 2
+          },
+          "traits": [
+            {
+              "name": "Treinamento de Armadura Anã",
+              "description": "Proficiência com armaduras leves e médias.",
+              "category": "proficiency"
+            }
+          ]
+        },
+        {
+          "slug": "duergar",
+          "name": "Duergar",
+          "source": "Sword Coast Adventurer’s Guide",
+          "availability": "supplement",
+          "abilityBonuses": {
+            "forca": 1
+          },
+          "traits": [
+            {
+              "name": "Visão no Escuro Superior",
+              "description": "Visão no escuro de 120 pés e sensibilidade à luz solar conforme a fonte.",
+              "category": "sense"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "elfo",
+      "name": "Elfo",
+      "edition": "2014",
+      "source": "Livro do Jogador",
+      "availability": "core",
+      "abilityBonuses": {
+        "destreza": 2
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Élfico"
+      ],
+      "traits": [
+        {
+          "name": "Visão no Escuro",
+          "description": "Visão no escuro de 60 pés.",
+          "category": "sense"
+        },
+        {
+          "name": "Sentidos Aguçados",
+          "description": "Proficiência em Percepção.",
+          "category": "proficiency"
+        },
+        {
+          "name": "Ancestralidade Feérica",
+          "description": "Vantagem contra a condição enfeitiçado e não pode ser magicamente adormecido.",
+          "category": "condition"
+        },
+        {
+          "name": "Transe",
+          "description": "Não precisa dormir; medita por quatro horas.",
+          "category": "rest"
+        }
+      ],
+      "subraces": [
+        {
+          "slug": "alto-elfo",
+          "name": "Alto elfo",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "inteligencia": 1
+          },
+          "traits": [
+            {
+              "name": "Treinamento Élfico",
+              "description": "Proficiência com armas élficas e um truque de mago.",
+              "category": "proficiency"
+            }
+          ]
+        },
+        {
+          "slug": "elfo-da-floresta",
+          "name": "Elfo da floresta",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "sabedoria": 1
+          },
+          "traits": [
+            {
+              "name": "Pés Ligeiros",
+              "description": "Deslocamento de 35 pés.",
+              "category": "movement"
+            }
+          ]
+        },
+        {
+          "slug": "drow",
+          "name": "Drow",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "carisma": 1
+          },
+          "traits": [
+            {
+              "name": "Visão no Escuro Superior",
+              "description": "Visão no escuro de 120 pés.",
+              "category": "sense"
+            },
+            {
+              "name": "Magia Drow",
+              "description": "Luzes Dançantes e progressão de magias drow.",
+              "category": "spell"
+            }
+          ]
+        },
+        {
+          "slug": "eladrin",
+          "name": "Eladrin",
+          "source": "Mordenkainen’s Tome of Foes",
+          "availability": "supplement",
+          "abilityBonuses": {
+            "carisma": 1
+          },
+          "traits": [
+            {
+              "name": "Passo Feérico",
+              "description": "Teleporte por Passo Nebuloso com efeito sazonal.",
+              "category": "movement"
+            }
+          ]
+        },
+        {
+          "slug": "shadar-kai",
+          "name": "Shadar-kai",
+          "source": "Mordenkainen’s Tome of Foes",
+          "availability": "supplement",
+          "abilityBonuses": {
+            "constituicao": 1
+          },
+          "traits": [
+            {
+              "name": "Resistência Necrótica",
+              "description": "Resistência a dano necrótico e teleporte.",
+              "category": "resistance"
+            }
+          ]
+        },
+        {
+          "slug": "elfo-do-mar",
+          "name": "Elfo do mar",
+          "source": "Mordenkainen’s Tome of Foes",
+          "availability": "supplement",
+          "abilityBonuses": {
+            "constituicao": 1
+          },
+          "traits": [
+            {
+              "name": "Anfíbio",
+              "description": "Natação de 30 pés e respiração aquática.",
+              "category": "movement"
+            }
+          ]
+        },
+        {
+          "slug": "elfo-astral",
+          "name": "Elfo astral",
+          "source": "Astral Adventurer’s Guide",
+          "availability": "supplement",
+          "abilityBonuses": {},
+          "traits": [
+            {
+              "name": "Transe Astral",
+              "description": "Truque, teleporte e proficiência diária conforme a fonte.",
+              "category": "trait"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "halfling",
+      "name": "Halfling",
+      "edition": "2014",
+      "source": "Livro do Jogador",
+      "availability": "core",
+      "abilityBonuses": {
+        "destreza": 2
+      },
+      "size": "Pequeno",
+      "speed": {
+        "walk": 25
+      },
+      "languages": [
+        "Comum",
+        "Halfling"
+      ],
+      "traits": [
+        {
+          "name": "Sortudo",
+          "description": "Quando tirar 1 em ataque, teste ou salvamento, pode rerrolar o dado.",
+          "category": "reroll"
+        },
+        {
+          "name": "Bravura",
+          "description": "Vantagem contra a condição amedrontado.",
+          "category": "condition"
+        },
+        {
+          "name": "Agilidade Halfling",
+          "description": "Pode atravessar o espaço de criaturas maiores.",
+          "category": "movement"
+        }
+      ],
+      "subraces": [
+        {
+          "slug": "pes-leves",
+          "name": "Pés-leves",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "carisma": 1
+          },
+          "traits": [
+            {
+              "name": "Furtividade Natural",
+              "description": "Pode se esconder atrás de uma criatura pelo menos uma categoria maior.",
+              "category": "skill"
+            }
+          ]
+        },
+        {
+          "slug": "robusto",
+          "name": "Robusto",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "constituicao": 1
+          },
+          "traits": [
+            {
+              "name": "Resiliência Robusta",
+              "description": "Vantagem e resistência contra veneno.",
+              "category": "resistance"
+            }
+          ]
+        },
+        {
+          "slug": "fantasma",
+          "name": "Fantasma",
+          "source": "The Wild Beyond the Witchlight",
+          "availability": "supplement",
+          "abilityBonuses": {
+            "sabedoria": 1
+          },
+          "traits": [
+            {
+              "name": "Telepatia Limitada",
+              "description": "Comunicação telepática de curto alcance.",
+              "category": "trait"
+            }
+          ]
+        },
+        {
+          "slug": "lotusden",
+          "name": "Lotusden",
+          "source": "Explorer’s Guide to Wildemount",
+          "availability": "supplement",
+          "abilityBonuses": {
+            "sabedoria": 1
+          },
+          "traits": [
+            {
+              "name": "Magia Natural",
+              "description": "Druidcraft e magias de natureza por nível.",
+              "category": "spell"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "humano",
+      "name": "Humano",
+      "edition": "2014",
+      "source": "Livro do Jogador",
+      "availability": "core",
+      "abilityBonuses": {},
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum"
+      ],
+      "traits": [
+        {
+          "name": "Aumento de Atributos",
+          "description": "+1 em cada um dos seis atributos.",
+          "category": "ability"
+        },
+        {
+          "name": "Idioma Adicional",
+          "description": "Um idioma adicional.",
+          "category": "language"
+        }
+      ],
+      "subraces": [
+        {
+          "slug": "humano-padrao",
+          "name": "Humano padrão",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "forca": 1,
+            "destreza": 1,
+            "constituicao": 1,
+            "inteligencia": 1,
+            "sabedoria": 1,
+            "carisma": 1
+          },
+          "traits": []
+        },
+        {
+          "slug": "humano-variante",
+          "name": "Humano variante",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {},
+          "traits": [
+            {
+              "name": "Aumento Flexível",
+              "description": "+1 em dois atributos.",
+              "category": "ability"
+            },
+            {
+              "name": "Perícia",
+              "description": "Uma proficiência em perícia.",
+              "category": "proficiency"
+            },
+            {
+              "name": "Talento",
+              "description": "Um talento no 1º nível quando autorizado pela campanha.",
+              "category": "feat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "draconato",
+      "name": "Draconato",
+      "edition": "2014",
+      "source": "Livro do Jogador",
+      "availability": "core",
+      "abilityBonuses": {
+        "forca": 2,
+        "carisma": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Dracônico"
+      ],
+      "traits": [
+        {
+          "name": "Ancestralidade Dracônica",
+          "description": "Escolha uma ancestralidade para definir dano e área do sopro.",
+          "category": "breath"
+        },
+        {
+          "name": "Resistência Elemental",
+          "description": "Resistência ao tipo de dano da ancestralidade.",
+          "category": "resistance"
+        },
+        {
+          "name": "Sopro",
+          "description": "Sopro baseado em salvamento de Constituição, com dano que progride com o nível.",
+          "category": "breath"
+        }
+      ],
+      "subraces": [
+        {
+          "slug": "draconblood",
+          "name": "Draconblood",
+          "source": "Explorer’s Guide to Wildemount",
+          "availability": "supplement",
+          "abilityBonuses": {
+            "inteligencia": 2,
+            "carisma": 1
+          },
+          "traits": [
+            {
+              "name": "Visão no Escuro",
+              "description": "Visão no escuro e bônus social ocasional.",
+              "category": "sense"
+            }
+          ]
+        },
+        {
+          "slug": "ravenita",
+          "name": "Ravenita",
+          "source": "Explorer’s Guide to Wildemount",
+          "availability": "supplement",
+          "abilityBonuses": {
+            "forca": 2,
+            "constituicao": 1
+          },
+          "traits": [
+            {
+              "name": "Vingança Dracônica",
+              "description": "Reação ofensiva após sofrer dano.",
+              "category": "reaction"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gnomo",
+      "name": "Gnomo",
+      "edition": "2014",
+      "source": "Livro do Jogador",
+      "availability": "core",
+      "abilityBonuses": {
+        "inteligencia": 2
+      },
+      "size": "Pequeno",
+      "speed": {
+        "walk": 25
+      },
+      "languages": [
+        "Comum",
+        "Gnômico"
+      ],
+      "traits": [
+        {
+          "name": "Visão no Escuro",
+          "description": "Visão no escuro de 60 pés.",
+          "category": "sense"
+        },
+        {
+          "name": "Astúcia Gnômica",
+          "description": "Vantagem em salvamentos de Inteligência, Sabedoria e Carisma contra magia.",
+          "category": "saving-throw"
+        }
+      ],
+      "subraces": [
+        {
+          "slug": "gnomo-da-floresta",
+          "name": "Gnomo da floresta",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "destreza": 1
+          },
+          "traits": [
+            {
+              "name": "Ilusionista Natural",
+              "description": "Comunicação limitada com animais pequenos.",
+              "category": "trait"
+            }
+          ]
+        },
+        {
+          "slug": "gnomo-das-rochas",
+          "name": "Gnomo das rochas",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "constituicao": 1
+          },
+          "traits": [
+            {
+              "name": "Artífice Gnômico",
+              "description": "Expertise em História sobre objetos mágicos.",
+              "category": "skill"
+            }
+          ]
+        },
+        {
+          "slug": "gnomo-profundo",
+          "name": "Gnomo profundo/Svirfneblin",
+          "source": "Mordenkainen’s Tome of Foes",
+          "availability": "supplement",
+          "abilityBonuses": {
+            "destreza": 1
+          },
+          "traits": [
+            {
+              "name": "Visão no Escuro Superior",
+              "description": "Visão no escuro de 120 pés.",
+              "category": "sense"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "meio-elfo",
+      "name": "Meio-elfo",
+      "edition": "2014",
+      "source": "Livro do Jogador",
+      "availability": "core",
+      "abilityBonuses": {
+        "carisma": 2
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Élfico"
+      ],
+      "traits": [
+        {
+          "name": "Visão no Escuro",
+          "description": "Visão no escuro de 60 pés.",
+          "category": "sense"
+        },
+        {
+          "name": "Ancestralidade Feérica",
+          "description": "Vantagem contra enfeitiçamento e imunidade a sono mágico.",
+          "category": "condition"
+        },
+        {
+          "name": "Versatilidade em Perícias",
+          "description": "Duas proficiências adicionais em perícias.",
+          "category": "proficiency"
+        }
+      ],
+      "subraces": [
+        {
+          "slug": "meio-elfo-base",
+          "name": "Base",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "destreza": 1,
+            "constituicao": 1
+          },
+          "traits": []
+        },
+        {
+          "slug": "marca-da-deteccao",
+          "name": "Marca da Detecção",
+          "source": "Wayfinder’s Guide to Eberron",
+          "availability": "scenario",
+          "abilityBonuses": {
+            "sabedoria": 2
+          },
+          "traits": [
+            {
+              "name": "Magia de Detecção",
+              "description": "Bônus em Investigação/Intuição e magias de detecção.",
+              "category": "spell"
+            }
+          ]
+        },
+        {
+          "slug": "marca-da-tempestade",
+          "name": "Marca da Tempestade",
+          "source": "Wayfinder’s Guide to Eberron",
+          "availability": "scenario",
+          "abilityBonuses": {
+            "carisma": 2,
+            "destreza": 1
+          },
+          "traits": [
+            {
+              "name": "Magia de Vento",
+              "description": "Bônus em Acrobacia/navegação e magias de vento.",
+              "category": "spell"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "meio-orc",
+      "name": "Meio-orc",
+      "edition": "2014",
+      "source": "Livro do Jogador",
+      "availability": "core",
+      "abilityBonuses": {
+        "forca": 2,
+        "constituicao": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Orc"
+      ],
+      "traits": [
+        {
+          "name": "Visão no Escuro",
+          "description": "Visão no escuro de 60 pés.",
+          "category": "sense"
+        },
+        {
+          "name": "Proficiência em Intimidação",
+          "description": "Proficiência em Intimidação.",
+          "category": "proficiency"
+        },
+        {
+          "name": "Resistência Implacável",
+          "description": "Evita cair a 0 PV uma vez por descanso longo.",
+          "category": "survival"
+        },
+        {
+          "name": "Ataques Selvagens",
+          "description": "Adiciona um dado de dano em um crítico corpo a corpo.",
+          "category": "critical"
+        }
+      ],
+      "subraces": [
+        {
+          "slug": "marca-da-procura",
+          "name": "Marca da Procura",
+          "source": "Wayfinder’s Guide to Eberron",
+          "availability": "scenario",
+          "abilityBonuses": {
+            "sabedoria": 2,
+            "constituicao": 1
+          },
+          "traits": [
+            {
+              "name": "Magia de Rastreamento",
+              "description": "Bônus em Percepção/Sobrevivência e magias de rastreamento.",
+              "category": "spell"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tiefling",
+      "name": "Tiefling",
+      "edition": "2014",
+      "source": "Livro do Jogador",
+      "availability": "core",
+      "abilityBonuses": {
+        "carisma": 2
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Infernal"
+      ],
+      "traits": [
+        {
+          "name": "Visão no Escuro",
+          "description": "Visão no escuro de 60 pés.",
+          "category": "sense"
+        },
+        {
+          "name": "Resistência Infernal",
+          "description": "Resistência a dano de fogo.",
+          "category": "resistance"
+        },
+        {
+          "name": "Linhagem Infernal",
+          "description": "Truque e magias de linhagem por nível.",
+          "category": "spell"
+        }
+      ],
+      "subraces": [
+        {
+          "slug": "asmodeus",
+          "name": "Asmodeus",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "inteligencia": 1
+          },
+          "traits": [
+            {
+              "name": "Linhagem de Asmodeus",
+              "description": "Thaumaturgy, Hellish Rebuke e Darkness.",
+              "category": "spell"
+            }
+          ]
+        },
+        {
+          "slug": "dispater",
+          "name": "Dispater",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "destreza": 1
+          },
+          "traits": [
+            {
+              "name": "Linhagem de Dispater",
+              "description": "Thaumaturgy, Disguise Self e Detect Thoughts.",
+              "category": "spell"
+            }
+          ]
+        },
+        {
+          "slug": "feral",
+          "name": "Feral",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "destreza": 2,
+            "inteligencia": 1
+          },
+          "traits": [
+            {
+              "name": "Linhagem Feral",
+              "description": "Ajuste de atributos sem o Carisma +2 e magias de linhagem.",
+              "category": "ability"
+            }
+          ]
+        },
+        {
+          "slug": "fierna",
+          "name": "Fierna",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "sabedoria": 1
+          },
+          "traits": [
+            {
+              "name": "Linhagem de Fierna",
+              "description": "Friends, Charm Person e Suggestion.",
+              "category": "spell"
+            }
+          ]
+        },
+        {
+          "slug": "glasya",
+          "name": "Glasya",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "destreza": 1
+          },
+          "traits": [
+            {
+              "name": "Linhagem de Glasya",
+              "description": "Minor Illusion, Disguise Self e Invisibility.",
+              "category": "spell"
+            }
+          ]
+        },
+        {
+          "slug": "levistus",
+          "name": "Levistus",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "constituicao": 1
+          },
+          "traits": [
+            {
+              "name": "Linhagem de Levistus",
+              "description": "Ray of Frost, Armor of Agathys e Darkness.",
+              "category": "spell"
+            }
+          ]
+        },
+        {
+          "slug": "zariel",
+          "name": "Zariel",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "forca": 1
+          },
+          "traits": [
+            {
+              "name": "Linhagem de Zariel",
+              "description": "Thaumaturgy, Searing Smite e Branding Smite.",
+              "category": "spell"
+            }
+          ]
+        },
+        {
+          "slug": "winged",
+          "name": "Winged",
+          "source": "Sword Coast Adventurer’s Guide",
+          "availability": "supplement",
+          "abilityBonuses": {
+            "inteligencia": 1
+          },
+          "traits": [
+            {
+              "name": "Asas",
+              "description": "Voo de 30 pés sem armadura pesada.",
+              "category": "movement"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "aarakocra",
+      "name": "Aarakocra",
+      "edition": "2014",
+      "source": "Elemental Evil Player’s Companion",
+      "availability": "supplement",
+      "abilityBonuses": {
+        "destreza": 2,
+        "sabedoria": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 25,
+        "fly": 50
+      },
+      "languages": [
+        "Comum",
+        "Auran"
+      ],
+      "traits": [
+        {
+          "name": "Voo",
+          "description": "Voo de 50 pés.",
+          "category": "movement"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "aasimar",
+      "name": "Aasimar",
+      "edition": "2014",
+      "source": "Volo’s Guide to Monsters",
+      "availability": "supplement",
+      "abilityBonuses": {
+        "carisma": 2
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Celestial"
+      ],
+      "traits": [
+        {
+          "name": "Visão no Escuro",
+          "description": "Visão no escuro de 60 pés.",
+          "category": "sense"
+        },
+        {
+          "name": "Resistência Celestial",
+          "description": "Resistência a dano necrótico e radiante.",
+          "category": "resistance"
+        }
+      ],
+      "subraces": [
+        {
+          "slug": "protetor",
+          "name": "Protetor",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "sabedoria": 1
+          },
+          "traits": [
+            {
+              "name": "Alma Radiante",
+              "description": "Transformação com asas e dano radiante.",
+              "category": "transformation"
+            }
+          ]
+        },
+        {
+          "slug": "flagelador",
+          "name": "Flagelador",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "constituicao": 1
+          },
+          "traits": [
+            {
+              "name": "Consumo Radiante",
+              "description": "Aura radiante que também causa dano ao próprio personagem.",
+              "category": "transformation"
+            }
+          ]
+        },
+        {
+          "slug": "caido",
+          "name": "Caído",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "forca": 1
+          },
+          "traits": [
+            {
+              "name": "Alma Necrótica",
+              "description": "Transformação que amedronta e causa dano necrótico.",
+              "category": "transformation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "firbolg",
+      "name": "Firbolg",
+      "edition": "2014",
+      "source": "Volo’s Guide to Monsters",
+      "availability": "supplement",
+      "abilityBonuses": {
+        "sabedoria": 2,
+        "forca": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Élfico",
+        "Gigante"
+      ],
+      "traits": [
+        {
+          "name": "Passo Oculto",
+          "description": "Invisibilidade por curto período.",
+          "category": "movement"
+        },
+        {
+          "name": "Magia Firbolg",
+          "description": "Detect Magic e Disguise Self.",
+          "category": "spell"
+        },
+        {
+          "name": "Constituição Poderosa",
+          "description": "Capacidade de carga ampliada.",
+          "category": "carry"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "genasi",
+      "name": "Genasi",
+      "edition": "2014",
+      "source": "Elemental Evil Player’s Companion",
+      "availability": "supplement",
+      "abilityBonuses": {
+        "constituicao": 2
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Primordial"
+      ],
+      "traits": [],
+      "subraces": [
+        {
+          "slug": "ar",
+          "name": "Ar",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "destreza": 1
+          },
+          "traits": [
+            {
+              "name": "Levitação",
+              "description": "Prende a respiração indefinidamente e conjura Levitate.",
+              "category": "spell"
+            }
+          ]
+        },
+        {
+          "slug": "terra",
+          "name": "Terra",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "forca": 1
+          },
+          "traits": [
+            {
+              "name": "Passo Terrestre",
+              "description": "Ignora terreno difícil natural e conjura Pass without Trace.",
+              "category": "movement"
+            }
+          ]
+        },
+        {
+          "slug": "fogo",
+          "name": "Fogo",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "inteligencia": 1
+          },
+          "traits": [
+            {
+              "name": "Resistência ao Fogo",
+              "description": "Visão no escuro, resistência a fogo e Produce Flame.",
+              "category": "resistance"
+            }
+          ]
+        },
+        {
+          "slug": "agua",
+          "name": "Água",
+          "source": null,
+          "availability": "core",
+          "abilityBonuses": {
+            "sabedoria": 1
+          },
+          "traits": [
+            {
+              "name": "Anfíbio",
+              "description": "Resistência a ácido, natação e respiração aquática.",
+              "category": "movement"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "goliath",
+      "name": "Goliath",
+      "edition": "2014",
+      "source": "Volo’s Guide to Monsters",
+      "availability": "supplement",
+      "abilityBonuses": {
+        "forca": 2,
+        "constituicao": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Gigante"
+      ],
+      "traits": [
+        {
+          "name": "Atletismo",
+          "description": "Proficiência em Atletismo.",
+          "category": "proficiency"
+        },
+        {
+          "name": "Resistência de Pedra",
+          "description": "Reduz dano uma vez por descanso curto ou longo.",
+          "category": "reaction"
+        },
+        {
+          "name": "Adaptação à Altitude",
+          "description": "Adaptação a altitude e frio.",
+          "category": "trait"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "goblin",
+      "name": "Goblin",
+      "edition": "2014",
+      "source": "Volo’s Guide to Monsters",
+      "availability": "supplement",
+      "abilityBonuses": {
+        "destreza": 2,
+        "constituicao": 1
+      },
+      "size": "Pequeno",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Goblin"
+      ],
+      "traits": [
+        {
+          "name": "Visão no Escuro",
+          "description": "Visão no escuro.",
+          "category": "sense"
+        },
+        {
+          "name": "Nimble Escape",
+          "description": "Esquivar ou Esconder como ação bônus.",
+          "category": "action"
+        },
+        {
+          "name": "Fúria do Pequeno",
+          "description": "Dano adicional contra criatura maior uma vez por descanso.",
+          "category": "damage"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "hobgoblin",
+      "name": "Hobgoblin",
+      "edition": "2014",
+      "source": "Volo’s Guide to Monsters",
+      "availability": "supplement",
+      "abilityBonuses": {
+        "constituicao": 2,
+        "inteligencia": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Goblin"
+      ],
+      "traits": [
+        {
+          "name": "Saving Face",
+          "description": "Adiciona bônus baseado nos aliados próximos a um teste falho uma vez por descanso longo.",
+          "category": "reaction"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "bugbear",
+      "name": "Bugbear",
+      "edition": "2014",
+      "source": "Volo’s Guide to Monsters",
+      "availability": "supplement",
+      "abilityBonuses": {
+        "forca": 2,
+        "destreza": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Goblin"
+      ],
+      "traits": [
+        {
+          "name": "Ataque Surpresa",
+          "description": "Dano adicional no primeiro ataque contra criatura surpreendida.",
+          "category": "damage"
+        },
+        {
+          "name": "Alcance Ampliado",
+          "description": "Alcance ampliado e capacidade de carga ampliada.",
+          "category": "combat"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "kenku",
+      "name": "Kenku",
+      "edition": "2014",
+      "source": "Volo’s Guide to Monsters",
+      "availability": "supplement",
+      "abilityBonuses": {
+        "destreza": 2,
+        "sabedoria": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Auran"
+      ],
+      "traits": [
+        {
+          "name": "Mimetismo",
+          "description": "Imita sons e vozes.",
+          "category": "trait"
+        },
+        {
+          "name": "Proficiências Kenku",
+          "description": "Duas proficiências entre Acrobacia, Enganação, Furtividade e Prestidigitação.",
+          "category": "proficiency"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "kobold",
+      "name": "Kobold",
+      "edition": "2014",
+      "source": "Volo’s Guide to Monsters",
+      "availability": "supplement",
+      "abilityBonuses": {
+        "destreza": 2,
+        "forca": -2
+      },
+      "size": "Pequeno",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Dracônico"
+      ],
+      "traits": [
+        {
+          "name": "Táticas de Matilha",
+          "description": "Vantagem quando um aliado está próximo do alvo.",
+          "category": "combat"
+        },
+        {
+          "name": "Sensibilidade à Luz Solar",
+          "description": "Desvantagem sob luz solar direta.",
+          "category": "condition"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "orc",
+      "name": "Orc",
+      "edition": "2014",
+      "source": "Volo’s Guide to Monsters",
+      "availability": "supplement",
+      "abilityBonuses": {
+        "forca": 2,
+        "constituicao": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Orc"
+      ],
+      "traits": [
+        {
+          "name": "Agressivo",
+          "description": "Move-se como ação bônus em direção a um inimigo.",
+          "category": "action"
+        },
+        {
+          "name": "Carga Ampliada",
+          "description": "Capacidade de carga ampliada.",
+          "category": "carry"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "warforged",
+      "name": "Warforged",
+      "edition": "2014",
+      "source": "Eberron: Rising from the Last War",
+      "availability": "scenario",
+      "abilityBonuses": {
+        "constituicao": 2
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum"
+      ],
+      "traits": [
+        {
+          "name": "Resiliência do Constructo",
+          "description": "Resistência a veneno, imunidade a doença e não precisa comer, beber, respirar ou dormir.",
+          "category": "immunity"
+        },
+        {
+          "name": "Proteção Integrada",
+          "description": "Bônus de CA conforme a configuração.",
+          "category": "armor"
+        },
+        {
+          "name": "Versatilidade",
+          "description": "Uma perícia e uma ferramenta.",
+          "category": "proficiency"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "changeling",
+      "name": "Changeling",
+      "edition": "2014",
+      "source": "Eberron: Rising from the Last War",
+      "availability": "scenario",
+      "abilityBonuses": {
+        "carisma": 2
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum"
+      ],
+      "traits": [
+        {
+          "name": "Mudança de Aparência",
+          "description": "Altera aparência e voz.",
+          "category": "trait"
+        },
+        {
+          "name": "Versatilidade em Perícias",
+          "description": "Duas proficiências entre Enganação, Intuição, Intimidação e Persuasão.",
+          "category": "proficiency"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "kalashtar",
+      "name": "Kalashtar",
+      "edition": "2014",
+      "source": "Eberron: Rising from the Last War",
+      "availability": "scenario",
+      "abilityBonuses": {
+        "sabedoria": 2,
+        "carisma": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Quori"
+      ],
+      "traits": [
+        {
+          "name": "Resistência Psíquica",
+          "description": "Resistência psíquica e proteção contra efeitos de sonho.",
+          "category": "resistance"
+        },
+        {
+          "name": "Telepatia",
+          "description": "Comunicação telepática.",
+          "category": "trait"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "shifter",
+      "name": "Shifter",
+      "edition": "2014",
+      "source": "Eberron: Rising from the Last War",
+      "availability": "scenario",
+      "abilityBonuses": {},
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum"
+      ],
+      "traits": [
+        {
+          "name": "Mudança Bestial",
+          "description": "Transformação concede benefícios temporários conforme a variante.",
+          "category": "transformation"
+        }
+      ],
+      "subraces": [
+        {
+          "slug": "beasthide",
+          "name": "Beasthide",
+          "source": null,
+          "availability": "scenario",
+          "abilityBonuses": {
+            "constituicao": 2,
+            "forca": 1
+          },
+          "traits": [
+            {
+              "name": "Pele Bestial",
+              "description": "PV temporários adicionais e +1 CA durante a transformação.",
+              "category": "armor"
+            }
+          ]
+        },
+        {
+          "slug": "longtooth",
+          "name": "Longtooth",
+          "source": null,
+          "availability": "scenario",
+          "abilityBonuses": {
+            "forca": 2,
+            "destreza": 1
+          },
+          "traits": [
+            {
+              "name": "Mordida Bestial",
+              "description": "Mordida durante a transformação.",
+              "category": "attack"
+            }
+          ]
+        },
+        {
+          "slug": "swiftstride",
+          "name": "Swiftstride",
+          "source": null,
+          "availability": "scenario",
+          "abilityBonuses": {
+            "destreza": 2,
+            "carisma": 1
+          },
+          "traits": [
+            {
+              "name": "Passo Rápido",
+              "description": "Velocidade adicional e reação de deslocamento.",
+              "category": "movement"
+            }
+          ]
+        },
+        {
+          "slug": "wildhunt",
+          "name": "Wildhunt",
+          "source": null,
+          "availability": "scenario",
+          "abilityBonuses": {
+            "sabedoria": 2,
+            "destreza": 1
+          },
+          "traits": [
+            {
+              "name": "Caçador Selvagem",
+              "description": "Vantagem em testes de Sabedoria e nega vantagem de inimigos próximos.",
+              "category": "combat"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "centauro",
+      "name": "Centauro",
+      "edition": "2014",
+      "source": "Guildmasters’ Guide to Ravnica",
+      "availability": "scenario",
+      "abilityBonuses": {
+        "forca": 2,
+        "sabedoria": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 40
+      },
+      "languages": [
+        "Comum",
+        "Silvestre"
+      ],
+      "traits": [
+        {
+          "name": "Cascos",
+          "description": "Ataque de cascos e capacidade de carga ampliada.",
+          "category": "attack"
+        },
+        {
+          "name": "Carga",
+          "description": "Benefícios após investir.",
+          "category": "combat"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "loxodon",
+      "name": "Loxodon",
+      "edition": "2014",
+      "source": "Guildmasters’ Guide to Ravnica",
+      "availability": "scenario",
+      "abilityBonuses": {
+        "constituicao": 2,
+        "sabedoria": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Loxodon"
+      ],
+      "traits": [
+        {
+          "name": "Armadura Natural",
+          "description": "CA natural 12 + Destreza.",
+          "category": "armor"
+        },
+        {
+          "name": "Tromba",
+          "description": "Tarefas simples com a tromba.",
+          "category": "trait"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "minotauro",
+      "name": "Minotauro",
+      "edition": "2014",
+      "source": "Guildmasters’ Guide to Ravnica",
+      "availability": "scenario",
+      "abilityBonuses": {
+        "forca": 2,
+        "constituicao": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Minotauro"
+      ],
+      "traits": [
+        {
+          "name": "Chifres",
+          "description": "Ataque de chifres, investida e empurrão.",
+          "category": "attack"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "simic-hybrid",
+      "name": "Simic Hybrid",
+      "edition": "2014",
+      "source": "Guildmasters’ Guide to Ravnica",
+      "availability": "scenario",
+      "abilityBonuses": {
+        "constituicao": 2
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Élfico ou Vedalken"
+      ],
+      "traits": [
+        {
+          "name": "Adaptação Animal",
+          "description": "Duas adaptações animais, uma no 1º e outra no 5º nível.",
+          "category": "adaptation"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "vedalken",
+      "name": "Vedalken",
+      "edition": "2014",
+      "source": "Guildmasters’ Guide to Ravnica",
+      "availability": "scenario",
+      "abilityBonuses": {
+        "inteligencia": 2,
+        "sabedoria": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Vedalken"
+      ],
+      "traits": [
+        {
+          "name": "Precisão Vedalken",
+          "description": "Perícia e ferramenta com bônus 1d4.",
+          "category": "proficiency"
+        },
+        {
+          "name": "Resistência Vedalken",
+          "description": "Vantagem em salvamentos de Inteligência, Sabedoria e Carisma.",
+          "category": "saving-throw"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "leonino",
+      "name": "Leonino",
+      "edition": "2014",
+      "source": "Mythic Odysseys of Theros",
+      "availability": "scenario",
+      "abilityBonuses": {
+        "constituicao": 2,
+        "forca": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 35
+      },
+      "languages": [
+        "Comum"
+      ],
+      "traits": [
+        {
+          "name": "Rugido Intimidador",
+          "description": "Rugido que amedronta criaturas próximas.",
+          "category": "action"
+        },
+        {
+          "name": "Garras",
+          "description": "Ataque natural de garras.",
+          "category": "attack"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "satyr",
+      "name": "Satyr",
+      "edition": "2014",
+      "source": "Mythic Odysseys of Theros",
+      "availability": "scenario",
+      "abilityBonuses": {
+        "carisma": 2,
+        "destreza": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 35
+      },
+      "languages": [
+        "Comum",
+        "Silvestre"
+      ],
+      "traits": [
+        {
+          "name": "Resistência Mágica",
+          "description": "Vantagem contra magia.",
+          "category": "saving-throw"
+        },
+        {
+          "name": "Saltador",
+          "description": "Salto ampliado.",
+          "category": "movement"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "fairy",
+      "name": "Fairy",
+      "edition": "2014",
+      "source": "The Wild Beyond the Witchlight",
+      "availability": "supplement",
+      "abilityBonuses": {},
+      "size": "Pequeno",
+      "speed": {
+        "walk": 30,
+        "fly": 30
+      },
+      "languages": [
+        "Comum",
+        "Silvestre"
+      ],
+      "traits": [
+        {
+          "name": "Voo Feérico",
+          "description": "Voo de 30 pés sem armadura média ou pesada.",
+          "category": "movement"
+        },
+        {
+          "name": "Magia Feérica",
+          "description": "Druidcraft, Faerie Fire e Enlarge/Reduce.",
+          "category": "spell"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "harengon",
+      "name": "Harengon",
+      "edition": "2014",
+      "source": "The Wild Beyond the Witchlight",
+      "availability": "supplement",
+      "abilityBonuses": {},
+      "size": "Pequeno ou Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Silvestre"
+      ],
+      "traits": [
+        {
+          "name": "Pés de Coelho",
+          "description": "Bônus de proficiência na iniciativa e salto bônus.",
+          "category": "initiative"
+        },
+        {
+          "name": "Salvamento Sortudo",
+          "description": "Reação para melhorar salvamento de Destreza.",
+          "category": "reroll"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "owlin",
+      "name": "Owlin",
+      "edition": "2014",
+      "source": "Strixhaven: A Curriculum of Chaos",
+      "availability": "scenario",
+      "abilityBonuses": {},
+      "size": "Pequeno ou Médio",
+      "speed": {
+        "walk": 30,
+        "fly": 30
+      },
+      "languages": [
+        "Comum",
+        "Auran"
+      ],
+      "traits": [
+        {
+          "name": "Voo Silencioso",
+          "description": "Voo e proficiência em Furtividade.",
+          "category": "movement"
+        },
+        {
+          "name": "Visão no Escuro Superior",
+          "description": "Visão no escuro de 120 pés.",
+          "category": "sense"
+        }
+      ],
+      "subraces": []
+    },
+    {
+      "slug": "tortle",
+      "name": "Tortle",
+      "edition": "2014",
+      "source": "The Tortle Package",
+      "availability": "supplement",
+      "abilityBonuses": {
+        "forca": 2,
+        "sabedoria": 1
+      },
+      "size": "Médio",
+      "speed": {
+        "walk": 30
+      },
+      "languages": [
+        "Comum",
+        "Aquan"
+      ],
+      "traits": [
+        {
+          "name": "Armadura Natural",
+          "description": "CA natural 17.",
+          "category": "armor"
+        },
+        {
+          "name": "Casco",
+          "description": "Defesa especial que altera ações.",
+          "category": "armor"
+        },
+        {
+          "name": "Garras",
+          "description": "Ataque natural.",
+          "category": "attack"
+        }
+      ],
+      "subraces": []
+    }
+  ]
+}

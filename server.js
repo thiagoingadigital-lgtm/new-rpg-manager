@@ -88,6 +88,7 @@ function sanitizeCharacter(body, existing = {}) {
     class: body.class ?? existing.class ?? '',
     subclass: (body.class ?? existing.class) === 'Paladino' ? (body.subclass ?? existing.subclass ?? '') : '',
     race: body.race ?? existing.race ?? '',
+    subrace: body.subrace ?? existing.subrace ?? '',
     level: Number(body.level ?? existing.level ?? 1),
     attributes: {
       forca: Number(body.attributes?.forca ?? existing.attributes?.forca ?? 10),
@@ -122,7 +123,7 @@ function sanitizeSpell(body, existing = {}) {
 // Monta o objeto completo do personagem a partir das tabelas do SQLite
 function loadCharacter(id) {
   const row = db.get(`
-    SELECT id, name, class, subclass, race, level, attributes, skillProficiencies, saveProficiencies,
+    SELECT id, name, class, subclass, race, subrace, level, attributes, skillProficiencies, saveProficiencies,
            resources, items, spellSlotsUsage, imageUrl, creationData, createdAt, updatedAt
     FROM characters WHERE id = ?
   `, [id]);
@@ -181,6 +182,11 @@ function spellsForClass(requestedClass) {
 }
 
 app.get('/api/class-reference', (req, res) => res.json(classReference));
+const raceReferenceFile = path.join(__dirname, 'data', 'race-reference.json');
+app.get('/api/race-reference', (req, res) => {
+  try { res.json(JSON.parse(fs.readFileSync(raceReferenceFile, 'utf-8'))); }
+  catch (error) { console.error('Erro ao carregar race-reference.json:', error); res.status(500).json({ error: 'Catálogo de raças indisponível' }); }
+});
 
 // ---------- Rotas: Referência da classe Paladino (mantida p/ compatibilidade do frontend) ----------
 const paladinReference = (() => {
@@ -329,11 +335,11 @@ app.post('/api/characters', (req, res) => {
   const ownerId = sessionUserId(req);
   const campaign = ownerId ? db.get('SELECT c.id FROM campaigns c JOIN campaign_members cm ON cm.campaignId = c.id WHERE cm.userId = ? ORDER BY c.createdAt LIMIT 1', [ownerId]) : null;
   db.run(`
-    INSERT INTO characters (id, name, class, subclass, race, level, attributes, skillProficiencies,
+    INSERT INTO characters (id, name, class, subclass, race, subrace, level, attributes, skillProficiencies,
                             saveProficiencies, resources, items, spellSlotsUsage, imageUrl, creationData, campaignId, ownerId, createdAt, updatedAt)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
   `, [
-    character.id, character.name, character.class, character.subclass, character.race, character.level,
+    character.id, character.name, character.class, character.subclass, character.race, character.subrace, character.level,
     JSON.stringify(character.attributes),
     JSON.stringify(character.skillProficiencies),
     JSON.stringify(character.saveProficiencies),
@@ -355,14 +361,14 @@ app.put('/api/characters/:id', (req, res) => {
 
   const updated = sanitizeCharacter(req.body || {}, existing);
   db.run(`
-    UPDATE characters SET name = ?, class = ?, subclass = ?, race = ?, level = ?,
+    UPDATE characters SET name = ?, class = ?, subclass = ?, race = ?, subrace = ?, level = ?,
                           attributes = ?, skillProficiencies = ?,
                           saveProficiencies = ?, resources = ?,
                           items = ?, spellSlotsUsage = ?,
                           imageUrl = ?, creationData = ?, updatedAt = datetime('now')
     WHERE id = ?
   `, [
-    updated.name, updated.class, updated.subclass, updated.race, updated.level,
+    updated.name, updated.class, updated.subclass, updated.race, updated.subrace, updated.level,
     JSON.stringify(updated.attributes),
     JSON.stringify(updated.skillProficiencies),
     JSON.stringify(updated.saveProficiencies),

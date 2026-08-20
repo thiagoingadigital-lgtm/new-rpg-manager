@@ -6,6 +6,7 @@ const state = {
   spellSearchCache: null,
   classesCache: [],
   classReference: [],
+  raceReference: [],
 };
 
 // ---------- API helpers ----------
@@ -29,6 +30,64 @@ const deleteCharacter = (id) => api(`/characters/${id}`, { method: 'DELETE' });
 
 function classSlug(name) {
   return String(name || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function raceByName(name) { return state.raceReference.find(race => race.name === name); }
+function selectedRaceData(name, subraceName) {
+  const base = raceByName(name);
+  if (!base) return null;
+  const subrace = (base.subraces || []).find(item => item.name === subraceName);
+  const bonuses = { ...(base.abilityBonuses || {}), ...(subrace?.abilityBonuses || {}) };
+  const traits = [...(base.traits || []), ...(subrace?.traits || [])];
+  return { ...base, selectedSubrace: subrace || null, abilityBonuses: bonuses, traits };
+}
+function effectiveAttributes(character) {
+  const attributes = { ...(character.attributes || {}) };
+  const racial = selectedRaceData(character.race, character.subrace);
+  Object.entries(racial?.abilityBonuses || {}).forEach(([key, bonus]) => { attributes[key] = Number(attributes[key] || 0) + Number(bonus || 0); });
+  return attributes;
+}
+function renderRaceReference(raceData, targetId = 'race-reference-panel') {
+  const panel = document.getElementById(targetId);
+  if (!panel) return;
+  if (!raceData) { panel.innerHTML = '<div class="class-reference-empty">Selecione uma raça para carregar características raciais.</div>'; return; }
+  const bonuses = Object.entries(raceData.abilityBonuses || {}).map(([key, value]) => `${key} ${value > 0 ? '+' : ''}${value}`).join(' · ') || 'Personalização de campanha';
+  const traits = (raceData.traits || []).map(item => `<article><span>${escapeHtml(item.category || 'TRAÇO')}</span><div><b>${escapeHtml(item.name)}</b><p>${escapeHtml(item.description || '')}</p></div></article>`).join('');
+  panel.innerHTML = `<div class="class-reference-summary"><div><span class="rebuild-kicker">RAÇA 2014 / ${escapeHtml(raceData.size || '—')}</span><h4>${escapeHtml(raceData.name)}${raceData.selectedSubrace ? ` · ${escapeHtml(raceData.selectedSubrace.name)}` : ''}</h4><p>${escapeHtml(raceData.languages?.join(' · ') || '')}</p></div><div class="class-reference-meta"><b>${escapeHtml(bonuses)}</b><small>Aumentos de atributo</small><b>${escapeHtml(String(raceData.speed?.walk || '—'))} pés</b><small>Deslocamento</small><b>${escapeHtml(raceData.availability || 'core')}</b><small>Disponibilidade</small></div></div><div class="class-reference-features"><strong>Características carregadas</strong>${traits || '<p class="class-reference-empty">Nenhuma característica estruturada cadastrada.</p>'}</div>`;
+}
+function wizardRaceByName(name) { return raceByName(name); }
+function wizardPopulateRaces() {
+  const select = document.getElementById('wizard-race');
+  if (!select) return;
+  const current = select.value;
+  select.innerHTML = '<option value="">Selecionar raça</option>' + state.raceReference.map(race => `<option value="${escapeHtml(race.name)}">${escapeHtml(race.name)}</option>`).join('');
+  select.value = current;
+  wizardSyncRace();
+}
+function wizardSyncRace() {
+  const raceSelect = document.getElementById('wizard-race');
+  const subraceSelect = document.getElementById('wizard-subrace');
+  const hint = document.getElementById('wizard-race-hint');
+  const selected = wizardRaceByName(raceSelect?.value);
+  if (!selected || !subraceSelect) { if (subraceSelect) subraceSelect.innerHTML = '<option value="">Nenhuma sub-raça</option>'; if (hint) hint.textContent = ''; renderRaceReference(null, 'wizard-race-summary'); return; }
+  const current = subraceSelect.value;
+  subraceSelect.innerHTML = '<option value="">Nenhuma sub-raça</option>' + (selected.subraces || []).map(item => `<option value="${escapeHtml(item.name)}">${escapeHtml(item.name)}</option>`).join('');
+  subraceSelect.value = (selected.subraces || []).some(item => item.name === current) ? current : '';
+  if (hint) hint.textContent = `${selected.subraces?.length || 0} opções de sub-raça/variante disponíveis.`;
+  renderRaceReference(selectedRaceData(selected.name, subraceSelect.value), 'wizard-race-summary');
+}
+function syncRaceReference() {
+  if (!fRace || !state.raceReference.length) return;
+  const current = fRace.value;
+  fRace.innerHTML = '<option value="">Selecionar raça</option>' + state.raceReference.map(race => `<option value="${escapeHtml(race.name)}">${escapeHtml(race.name)}</option>`).join('');
+  fRace.value = current;
+  const selected = raceByName(current);
+  if (fSubrace) {
+    const currentSubrace = fSubrace.value;
+    fSubrace.innerHTML = '<option value="">Nenhuma sub-raça</option>' + (selected?.subraces || []).map(item => `<option value="${escapeHtml(item.name)}">${escapeHtml(item.name)}</option>`).join('');
+    fSubrace.value = (selected?.subraces || []).some(item => item.name === currentSubrace) ? currentSubrace : '';
+  }
+  renderRaceReference(selectedRaceData(current, fSubrace?.value));
 }
 
 function syncClassReference() {
@@ -98,6 +157,7 @@ const fName = document.getElementById('f-name');
 const fClass = document.getElementById('f-class');
 const fSubclass = document.getElementById('f-subclass');
 const fRace = document.getElementById('f-race');
+const fSubrace = document.getElementById('f-subrace');
 const fLevel = document.getElementById('f-level');
 const fPortrait = document.getElementById('f-portrait');
 const portraitPlaceholder = document.getElementById('portrait-placeholder');
@@ -197,7 +257,11 @@ async function renderCharacterView(character) {
   fName.value = character.name;
   fClass.value = character.class;
   fRace.value = character.race;
+  fSubrace.value = character.subrace || '';
   fLevel.value = character.level;
+  syncRaceReference();
+  fSubrace.value = character.subrace || '';
+  renderRaceReference(selectedRaceData(character.race, character.subrace));
   syncClassReference();
   if (fSubclass) fSubclass.value = character.subclass || '';
 
@@ -212,9 +276,11 @@ async function renderCharacterView(character) {
     btnRemoveImage.classList.add('hidden');
   }
 
+  // Atributos efetivos = base salvo + bônus racial, sem alterar o valor-base persistido
+  const displayCharacter = { ...character, attributes: effectiveAttributes(character) };
   // Atributos
   attrIds.forEach((attr) => {
-    const score = character.attributes[attr];
+    const score = displayCharacter.attributes[attr];
     const input = document.getElementById(`attr-${attr}`);
     const badge = document.getElementById(`mod-${attr}`);
     input.value = score;
@@ -225,10 +291,10 @@ async function renderCharacterView(character) {
   const profBonus = await api(`/proficiency?level=${character.level}`).then(r => r.bonus);
   document.getElementById('stat-proficiency').textContent = `+${profBonus}`;
   
-  const dexMod = calculateModifier(character.attributes.destreza);
+  const dexMod = calculateModifier(displayCharacter.attributes.destreza);
   document.getElementById('stat-initiative').textContent = formatModifier(dexMod);
   
-  const wisMod = calculateModifier(character.attributes.sabedoria);
+  const wisMod = calculateModifier(displayCharacter.attributes.sabedoria);
   document.getElementById('stat-passive-perception').textContent = 10 + wisMod + (character.skillProficiencies?.percepcao?.proficient ? profBonus : 0);
 
   // CA
@@ -247,13 +313,13 @@ async function renderCharacterView(character) {
   });
   document.getElementById('stat-ac').textContent = baseAC;
 
-  renderSavesAndSkills(character, profBonus);
+  renderSavesAndSkills(displayCharacter, profBonus);
   renderFeatures(character);
   renderResources(character);
   renderInventory(character);
-  renderCastingStats(character, profBonus);
-  renderSpellSlots(character);
-  renderSpells(character);
+  renderCastingStats(displayCharacter, profBonus);
+  renderSpellSlots(displayCharacter);
+  renderSpells(displayCharacter);
 }
 
 function renderSavesAndSkills(character, profBonus) {
@@ -600,6 +666,7 @@ function openCreationWizard() {
   wizardForm?.reset();
   wizardSetAttributes({ forca: 15, destreza: 14, constituicao: 13, inteligencia: 12, sabedoria: 10, carisma: 8 });
   wizardPopulateClasses();
+  wizardPopulateRaces();
   wizardRender();
   if (creationWizard?.showModal) creationWizard.showModal();
 }
@@ -614,13 +681,22 @@ async function submitCreationWizard(event) {
   if (!wizardCurrentFieldsValid()) return;
   const get = id => document.getElementById(id)?.value?.trim() || '';
   const attributes = Object.fromEntries(['forca','destreza','constituicao','inteligencia','sabedoria','carisma'].map(key => [key, Number(document.getElementById(`wizard-${key}`).value) || 10]));
-  const payload = { name: get('wizard-name'), class: get('wizard-class'), subclass: get('wizard-subclass'), race: get('wizard-race'), level: Math.min(20, Math.max(1, Number(get('wizard-level')) || 1)), attributes, creationData: { version: '2014.3', status: 'complete', campaign: { level: Number(get('wizard-level')) || 1, books: get('wizard-books'), abilityMethod: get('wizard-ability-method') }, concept: get('wizard-concept'), motivation: get('wizard-motivation'), groupRelation: get('wizard-group'), subrace: get('wizard-subrace'), background: get('wizard-background'), originNotes: get('wizard-origin-notes'), alignment: get('wizard-alignment'), completedAt: new Date().toISOString() } };
+  const selectedWizardRace = selectedRaceData(get('wizard-race'), get('wizard-subrace'));
+  const payload = { name: get('wizard-name'), class: get('wizard-class'), subclass: get('wizard-subclass'), race: get('wizard-race'), subrace: get('wizard-subrace'), racialData: selectedWizardRace, level: Math.min(20, Math.max(1, Number(get('wizard-level')) || 1)), attributes, creationData: { version: '2014.4', status: 'complete', racialReference: selectedWizardRace ? { slug: selectedWizardRace.slug, subrace: selectedWizardRace.selectedSubrace?.slug || '', edition: selectedWizardRace.edition } : null, campaign: { level: Number(get('wizard-level')) || 1, books: get('wizard-books'), abilityMethod: get('wizard-ability-method') }, concept: get('wizard-concept'), motivation: get('wizard-motivation'), groupRelation: get('wizard-group'), subrace: get('wizard-subrace'), background: get('wizard-background'), originNotes: get('wizard-origin-notes'), alignment: get('wizard-alignment'), completedAt: new Date().toISOString() } };
   const submit = document.getElementById('wizard-submit');
   if (submit) { submit.disabled = true; submit.textContent = 'Criando…'; }
   try { const char = await createCharacter(payload); closeCreationWizard(); await refreshSelected(); await selectCharacter(char.id); setCharacterStatus('Ficha criada seguindo o fluxo D&D 5e 2014.'); } catch (error) { const summary = document.getElementById('wizard-summary'); if (summary) summary.insertAdjacentHTML('beforeend', `<p class="wizard-error">${escapeHtml(error.message)}</p>`); } finally { if (submit) { submit.disabled = false; submit.textContent = 'Criar ficha'; } }
 }
 
 // Event Listeners básicos
+function previewRaceChange() {
+  syncRaceReference();
+  renderRaceReference(selectedRaceData(fRace.value, fSubrace?.value));
+  if (state.currentCharacter) renderCharacterView({ ...state.currentCharacter, race: fRace.value, subrace: fSubrace?.value || '' });
+  scheduleCharacterAutosave();
+}
+if (fRace) fRace.addEventListener('change', previewRaceChange);
+if (fSubrace) fSubrace.addEventListener('change', previewRaceChange);
 if (fClass && fSubclass) fClass.addEventListener('change', async () => { syncClassReference(); if (state.currentCharacter) { state.currentCharacter.class = fClass.value; state.currentCharacter.subclass = ''; renderCastingStats({ ...state.currentCharacter, class: fClass.value }, Number(document.getElementById('stat-proficiency').textContent.replace('+', '')) || 2); renderSpellSlots({ ...state.currentCharacter, class: fClass.value }); await refreshSpellSearch(); } });
 fLevel?.addEventListener('input', () => renderClassReference());
 
@@ -631,6 +707,8 @@ document.getElementById('wizard-close')?.addEventListener('click', closeCreation
 document.getElementById('wizard-back')?.addEventListener('click', () => { if (wizardStep > 0) { wizardStep -= 1; wizardRender(); } });
 document.getElementById('wizard-next')?.addEventListener('click', () => { if (wizardCurrentFieldsValid() && wizardStep < wizardSteps.length - 1) { wizardStep += 1; wizardRender(); } });
 document.getElementById('wizard-class')?.addEventListener('change', wizardSyncClass);
+document.getElementById('wizard-race')?.addEventListener('change', wizardSyncRace);
+document.getElementById('wizard-subrace')?.addEventListener('change', wizardSyncRace);
 document.getElementById('wizard-level')?.addEventListener('input', wizardSyncClass);
 document.getElementById('wizard-ability-method')?.addEventListener('change', (event) => {
   const note = document.getElementById('wizard-ability-note');
@@ -646,7 +724,7 @@ document.getElementById('btn-save-character').onclick = async () => {
   saveButton.disabled = true;
   setCharacterStatus('Salvando ficha…', 'loading');
   const data = {
-    name: fName.value, class: fClass.value, subclass: fClass.value === 'Paladino' ? (fSubclass?.value || '') : '', race: fRace.value, level: Number(fLevel.value),
+    name: fName.value, class: fClass.value, subclass: fClass.value === 'Paladino' ? (fSubclass?.value || '') : '', race: fRace.value, subrace: fSubrace?.value || '', level: Number(fLevel.value),
     attributes: Object.fromEntries(attrIds.map(a => [a, Number(document.getElementById(`attr-${a}`).value)]))
   };
   try {
@@ -705,7 +783,7 @@ function scheduleCharacterAutosave() {
   setCharacterStatus('Alterações pendentes…', 'loading');
   autosaveTimer = window.setTimeout(() => document.getElementById('btn-save-character')?.click(), 850);
 }
-[fName, fClass, fSubclass, fRace, fLevel, ...attrIds.map(attr => document.getElementById(`attr-${attr}`))].forEach(field => field?.addEventListener('change', scheduleCharacterAutosave));
+[fName, fClass, fSubclass, fRace, fSubrace, fLevel, ...attrIds.map(attr => document.getElementById(`attr-${attr}`))].forEach(field => field?.addEventListener('change', scheduleCharacterAutosave));
 
 // Utils
 function escapeHtml(s) {
@@ -724,6 +802,7 @@ function formatItemDetails(item) {
 (async () => {
   try { state.classesCache = await api('/classes'); } catch (error) { console.warn('Classes indisponíveis:', error); }
   try { const reference = await api('/class-reference'); state.classReference = reference.classes || []; syncClassReference(); } catch (error) { console.warn('Catálogo de classes indisponível:', error); }
+  try { const reference = await api('/race-reference'); state.raceReference = reference.races || []; syncRaceReference(); } catch (error) { console.warn('Catálogo de raças indisponível:', error); }
   await refreshSelected();
   await loadTemplates();
 })();
