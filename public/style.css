@@ -1079,3 +1079,39 @@ body:not(.atlas-page) .empty-state { color:rgba(244,239,231,.6); }
   .auth-user { text-align: left; }
   .auth-cta { min-height: 34px; padding: 8px 11px; }
 }
+
+/* RPG Manager — Contraste de itens: nenhuma informação depende apenas da cor herdada do card. */
+.character-main .item-row,
+.rebuild-panel .item-row,
+.v2-panel:not(.dark) .item-row,
+.v2-panel:not(.dark) .inventory-item { background: #f1e4d4; color: #241a1c; border-color: #bda9a1; }
+.character-main .item-row .item-name,
+.character-main .item-row .item-desc,
+.character-main .item-row .item-type-badge,
+.character-main .item-row .item-quantity,
+.rebuild-panel .item-row .item-name,
+.rebuild-panel .item-row .item-desc,
+.rebuild-panel .item-row .item-type-badge,
+.v2-panel:not(.dark) .item-row .item-name,
+.v2-panel:not(.dark) .item-row .item-desc { color: #241a1c; opacity: 1; }
+.character-main .item-row .item-desc,
+.rebuild-panel .item-row .item-desc { font-weight: 500; }
+.character-main .item-row .item-type-badge,
+.rebuild-panel .item-row .item-type-badge { background: #fffaf3; border-color: #a88f86; }
+.character-main .item-row button,
+.rebuild-panel .item-row button,
+.v2-panel:not(.dark) .item-row button { color: #7d2428; font-weight: 700; }
+.character-main .item-row button:hover,
+.rebuild-panel .item-row button:hover,
+.v2-panel:not(.dark) .item-row button:hover { background: #d9272e; color: #fffaf3; }
+.character-main .item-row.is-active,
+.rebuild-panel .item-row.is-active { outline-color: #8a5a00; }
+.rebuild-shell .campaign-row { color: #241a1c; }
+.rebuild-shell .campaign-row small { color: #5f403d; opacity: 1; }
+.rebuild-shell .v2-panel.dark .campaign-row { color: #f5eee4; }
+.rebuild-shell .v2-panel.dark .campaign-row small { color: #d7bbb1; }
+.spell-card { color: #241a1c; }
+.spell-card h3, .spell-card .spell-meta, .spell-card .spell-tags { color: #241a1c; }
+.spell-card .spell-meta span, .spell-card .spell-tags small { color: #5f403d; }
+.spell-card .spell-tags em { color: #7d2428; background: #f1e4d4; border-color: #bda9a1; }
+.spell-card.is-favorite { background: #fffaf3; }

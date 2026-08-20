@@ -46,3 +46,10 @@
 - [x] Criar script compartilhado de estado de autenticação
 - [x] Integrar CTA de login, usuário e logout nas telas
 - [x] Validar redirecionamento contextual e responsividade
+
+## Auditoria de contraste e legibilidade
+
+- [x] Auditar cores de texto, fundos, badges e itens
+- [x] Corrigir combinações de contraste insuficiente
+- [x] Validar estados hover, foco, selecionado e desabilitado
+- [x] Verificar responsividade e ausência de regressões
