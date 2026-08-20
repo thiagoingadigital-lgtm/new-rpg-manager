@@ -1065,3 +1065,17 @@ body:not(.atlas-page) .empty-state { color:rgba(244,239,231,.6); }
 #campaign-dialog{border:0;background:transparent;padding:0;max-width:min(520px,calc(100vw - 24px))}
 #campaign-dialog::backdrop{background:rgba(36,26,28,.7)}
 @media(max-width:800px){.campaign-layout{grid-template-columns:1fr}.campaign-members-head{display:grid;align-items:start}.campaign-members-head>div{display:grid;grid-template-columns:1fr 1fr}.campaign-members-head input{grid-column:1/-1}.campaign-members-head button{grid-column:1/-1}.campaign-page .calc-table{font-size:.82rem;display:block;overflow-x:auto;white-space:nowrap}}
+
+/* RPG Manager — Auth UI: CTA persistente, contraste alto e leitura clara em todas as telas. */
+.auth-ui-slot { display: inline-flex; align-items: center; gap: 12px; margin-left: auto; min-height: 38px; }
+.auth-loading { color: inherit; opacity: .62; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
+.auth-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 38px; padding: 9px 14px; border: 1px solid currentColor; background: transparent; color: inherit; font: inherit; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; cursor: pointer; transition: background .18s ease, color .18s ease, transform .18s ease; }
+.auth-cta:hover { background: var(--copper, #d9272e); color: var(--paper, #fffaf3); transform: translateY(-1px); }
+.auth-user { display: grid; gap: 2px; color: inherit; text-align: right; }
+.auth-user small { font-size: .58rem; letter-spacing: .12em; opacity: .62; }
+.auth-user strong { max-width: 150px; overflow: hidden; font-size: .78rem; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 760px) {
+  .auth-ui-slot { width: 100%; margin: 10px 0 0; justify-content: space-between; }
+  .auth-user { text-align: left; }
+  .auth-cta { min-height: 34px; padding: 8px 11px; }
+}

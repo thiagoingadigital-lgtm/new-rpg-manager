@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="v2-page grimoire-page">
-  <header class="v2-header"><a class="v2-logo" href="index.html" aria-label="RPG Manager — início"><span class="v2-logo-mark">⌁</span><span><b>RPG MANAGER</b><small>GRIMÓRIO INTEGRADO</small></span></a><nav aria-label="Navegação principal"><a href="index.html">Início</a><a href="rolagem.html">Rolagem</a><a class="active" href="grimorio.html">Grimório</a><a href="mapas.html">Mapas</a><a href="biblioteca.html">Biblioteca</a><a href="diario.html">Diário</a><a class="v2-nav-cta" href="personagens.html">Abrir fichas</a></nav><button class="v2-menu" type="button" aria-label="Abrir menu" onclick="document.body.classList.toggle('menu-open')">☰</button></header>
+  <header class="v2-header"><a class="v2-logo" href="index.html" aria-label="RPG Manager — início"><span class="v2-logo-mark">⌁</span><span><b>RPG MANAGER</b><small>GRIMÓRIO INTEGRADO</small></span></a><nav aria-label="Navegação principal"><a href="index.html">Início</a><a href="rolagem.html">Rolagem</a><a class="active" href="grimorio.html">Grimório</a><a href="mapas.html">Mapas</a><a href="biblioteca.html">Biblioteca</a><a href="diario.html">Diário</a><a class="v2-nav-cta" href="personagens.html">Abrir fichas</a><div class="auth-ui-slot" data-auth-slot aria-live="polite"><span class="auth-loading">Verificando sessão…</span></div></nav><button class="v2-menu" type="button" aria-label="Abrir menu" onclick="document.body.classList.toggle('menu-open')">☰</button></header>
   <main>
     <section class="v2-hero grimoire-hero"><span class="v2-kicker">REGISTRO ARCANO / BIBLIOTECA ATIVA</span><h1>O que foi<br /><em>escrito no fogo.</em></h1><p>Consulte a biblioteca de magias da campanha. Filtre por classe, escola, nível e propriedades para encontrar o próximo recurso da mesa.</p></section>
     <section class="v2-content grimoire-library">
@@ -52,5 +52,5 @@
     $('spell-results').addEventListener('change', event => { const checkbox = event.target.closest('.spell-prepared'); if (!checkbox || !state.selectedCharacter) return; const name = decodeURIComponent(checkbox.dataset.spell); if (checkbox.checked) state.prepared.add(name); else state.prepared.delete(name); fetch(`/api/v2/characters/${state.selectedCharacter}/prepared-spells`, {method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({spellName:name,prepared:checkbox.checked})}).catch(()=>{}); render(); });
     $('spell-filters').addEventListener('input', render); $('spell-filters').addEventListener('change', render); $('spell-filters').addEventListener('reset', () => setTimeout(render)); loadPersonalData(); loadData();
   </script>
-</body>
+<script src="auth-ui.js" defer></script></body>
 </html>

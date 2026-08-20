@@ -39,3 +39,10 @@
 - [x] Criar testes de integração para anônimo, ownership e claim legado
 - [x] Confirmar que `/api/v2/*` não sofreu alterações
 - [x] Rodar todos os testes existentes
+
+## Login em todas as telas
+
+- [x] Auditar páginas HTML, navegação e cabeçalhos existentes
+- [x] Criar script compartilhado de estado de autenticação
+- [x] Integrar CTA de login, usuário e logout nas telas
+- [x] Validar redirecionamento contextual e responsividade
