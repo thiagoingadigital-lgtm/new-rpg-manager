@@ -7,6 +7,7 @@ const state = {
   classesCache: [],
   classReference: [],
   raceReference: [],
+  backgroundReference: [],
 };
 
 // ---------- API helpers ----------
@@ -33,6 +34,39 @@ function classSlug(name) {
 }
 
 function raceByName(name) { return state.raceReference.find(race => race.name === name); }
+function backgroundByName(name) { return state.backgroundReference.find(item => item.name === name); }
+function selectedBackgroundData(name, variantName) {
+  const base = backgroundByName(name);
+  if (!base) return null;
+  const variant = (base.variants || []).find(item => item.name === variantName);
+  return { ...base, selectedVariant: variant || null, feature: variant?.feature || base.feature, featureDescription: variant?.description || base.featureDescription };
+}
+function renderBackgroundReference(background, targetId = 'wizard-background-summary') {
+  const panel = document.getElementById(targetId);
+  if (!panel) return;
+  if (!background) { panel.innerHTML = '<div class="class-reference-empty">Selecione um background para carregar proficiências e equipamento.</div>'; return; }
+  panel.innerHTML = `<div class="class-reference-summary"><div><span class="rebuild-kicker">BACKGROUND 2014</span><h4>${escapeHtml(background.name)}${background.selectedVariant ? ` · ${escapeHtml(background.selectedVariant.name)}` : ''}</h4><p>${escapeHtml(background.featureDescription || '')}</p></div><div class="class-reference-meta"><b>${escapeHtml((background.skills || []).map(skillLabel).join(' · '))}</b><small>Perícias automáticas</small><b>${escapeHtml((background.toolChoices || []).join(' · ') || '—')}</b><small>Ferramentas / escolhas</small><b>${escapeHtml((background.equipment || []).join(' · '))}</b><small>Equipamento inicial</small></div></div><div class="class-reference-features"><strong>Característica narrativa</strong><p>${escapeHtml(background.feature || '—')}</p></div>`;
+}
+function wizardPopulateBackgrounds() {
+  const select = document.getElementById('wizard-background');
+  if (!select) return;
+  const current = select.value;
+  select.innerHTML = '<option value="">Selecionar background</option>' + state.backgroundReference.map(item => `<option value="${escapeHtml(item.name)}">${escapeHtml(item.name)}</option>`).join('');
+  select.value = current;
+  wizardSyncBackground();
+}
+function wizardSyncBackground() {
+  const select = document.getElementById('wizard-background');
+  const variant = document.getElementById('wizard-background-variant');
+  const hint = document.getElementById('wizard-background-hint');
+  const selected = backgroundByName(select?.value);
+  if (!selected) { if (variant) variant.innerHTML = '<option value="">Nenhuma variante</option>'; if (hint) hint.textContent = ''; renderBackgroundReference(null); return; }
+  const current = variant.value;
+  variant.innerHTML = '<option value="">Nenhuma variante</option>' + (selected.variants || []).map(item => `<option value="${escapeHtml(item.name)}">${escapeHtml(item.name)}</option>`).join('');
+  variant.value = (selected.variants || []).some(item => item.name === current) ? current : '';
+  if (hint) hint.textContent = `${selected.skills.length} perícias automáticas · ${selected.languageCount || 0} idioma(s) à escolha${selected.variants?.length ? ` · ${selected.variants.length} variante(s)` : ''}.`;
+  renderBackgroundReference(selectedBackgroundData(selected.name, variant.value));
+}
 function selectedRaceData(name, subraceName) {
   const base = raceByName(name);
   if (!base) return null;
@@ -665,6 +699,10 @@ function wizardCurrentFieldsValid() {
   for (const field of required) {
     if (!field.checkValidity()) { field.reportValidity(); return false; }
   }
+  if (wizardStep === 2) {
+    const background = selectedBackgroundData(document.getElementById('wizard-background')?.value, document.getElementById('wizard-background-variant')?.value);
+    if (!background) { setCharacterStatus('Selecione um background para continuar.', 'error'); return false; }
+  }
   if (wizardStep === 3) {
     const selectedClass = wizardClassByName(document.getElementById('wizard-class')?.value);
     const classCount = Number(selectedClass?.skillChoiceCount || 0);
@@ -683,9 +721,10 @@ function wizardCurrentFieldsValid() {
 function wizardSummary() {
   const get = id => document.getElementById(id)?.value?.trim() || '—';
   const cls = wizardClassByName(get('wizard-class'));
+  const background = selectedBackgroundData(get('wizard-background'), get('wizard-background-variant'));
   const subclass = get('wizard-subclass');
   const attrs = ['forca','destreza','constituicao','inteligencia','sabedoria','carisma'].map(key => `${key}: ${get(`wizard-${key}`)}`).join(' · ');
-  return `<dl><div><dt>Nome</dt><dd>${escapeHtml(get('wizard-name'))}</dd></div><div><dt>Origem</dt><dd>${escapeHtml(get('wizard-race'))}${get('wizard-subrace') !== '—' ? ` / ${escapeHtml(get('wizard-subrace'))}` : ''}</dd></div><div><dt>Classe</dt><dd>${escapeHtml(get('wizard-class'))} · nível ${escapeHtml(get('wizard-level'))}</dd></div><div><dt>Subclasse</dt><dd>${escapeHtml(subclass)}</dd></div><div><dt>Antecedente</dt><dd>${escapeHtml(get('wizard-background'))}</dd></div><div><dt>Atributos</dt><dd>${escapeHtml(attrs)}</dd></div></dl><p>${cls ? `A ficha carregará automaticamente o núcleo de ${escapeHtml(cls.name)}, as features até o nível ${get('wizard-level')} e a progressão aplicável.` : 'Selecione uma classe para concluir.'}</p>`;
+  return `<dl><div><dt>Nome</dt><dd>${escapeHtml(get('wizard-name'))}</dd></div><div><dt>Origem</dt><dd>${escapeHtml(get('wizard-race'))}${get('wizard-subrace') !== '—' ? ` / ${escapeHtml(get('wizard-subrace'))}` : ''}</dd></div><div><dt>Classe</dt><dd>${escapeHtml(get('wizard-class'))} · nível ${escapeHtml(get('wizard-level'))}</dd></div><div><dt>Subclasse</dt><dd>${escapeHtml(subclass)}</dd></div><div><dt>Antecedente</dt><dd>${escapeHtml(background?.name || get('wizard-background'))}${background?.selectedVariant ? ` · ${escapeHtml(background.selectedVariant.name)}` : ''}</dd></div><div><dt>Atributos</dt><dd>${escapeHtml(attrs)}</dd></div></dl><p>${cls ? `A ficha carregará automaticamente o núcleo de ${escapeHtml(cls.name)}, as features até o nível ${get('wizard-level')} e a progressão aplicável.` : 'Selecione uma classe para concluir.'}</p>`;
 }
 function wizardRender() {
   wizardSteps.forEach((step, index) => step.classList.toggle('hidden', index !== wizardStep));
@@ -723,12 +762,15 @@ async function submitCreationWizard(event) {
   const attributes = Object.fromEntries(['forca','destreza','constituicao','inteligencia','sabedoria','carisma'].map(key => [key, Number(document.getElementById(`wizard-${key}`).value) || 10]));
   const selectedWizardRace = selectedRaceData(get('wizard-race'), get('wizard-subrace'));
   const selectedWizardClass = wizardClassByName(get('wizard-class'));
+  const selectedWizardBackground = selectedBackgroundData(get('wizard-background'), get('wizard-background-variant'));
   const wizardSkills = wizardSelectedSkills();
   const classSkills = wizardSkills.filter(key => document.querySelector(`#wizard-skill-options input[data-choice-group="class"][value="${CSS.escape(key)}"]`));
   const raceSkills = wizardSkills.filter(key => document.querySelector(`#wizard-skill-options input[data-choice-group="race"][value="${CSS.escape(key)}"]`));
-  const skillProficiencies = Object.fromEntries([...new Set([...classSkills, ...raceSkills, ...(selectedWizardRace?.proficiencies || []), ...(selectedWizardRace?.selectedSubrace?.proficiencies || [])])].map(key => [key, { proficient: true, expertise: false, source: 'creation-2014' }]));
+  const backgroundSkills = selectedWizardBackground?.skills || [];
+  const skillProficiencies = Object.fromEntries([...new Set([...classSkills, ...raceSkills, ...backgroundSkills, ...(selectedWizardRace?.proficiencies || []), ...(selectedWizardRace?.selectedSubrace?.proficiencies || [])])].map(key => [key, { proficient: true, expertise: false, source: backgroundSkills.includes(key) ? 'background-2014' : 'creation-2014' }]));
   const saveProficiencies = Object.fromEntries((selectedWizardClass?.savingThrows || []).map(key => [key, true]));
-  const payload = { name: get('wizard-name'), class: get('wizard-class'), subclass: get('wizard-subclass'), race: get('wizard-race'), subrace: get('wizard-subrace'), racialData: selectedWizardRace, skillProficiencies, saveProficiencies, level: Math.min(20, Math.max(1, Number(get('wizard-level')) || 1)), attributes, creationData: { version: '2014.4', status: 'complete', racialReference: selectedWizardRace ? { slug: selectedWizardRace.slug, subrace: selectedWizardRace.selectedSubrace?.slug || '', edition: selectedWizardRace.edition } : null, campaign: { level: Number(get('wizard-level')) || 1, books: get('wizard-books'), abilityMethod: get('wizard-ability-method') }, concept: get('wizard-concept'), motivation: get('wizard-motivation'), groupRelation: get('wizard-group'), subrace: get('wizard-subrace'), background: get('wizard-background'), originNotes: get('wizard-origin-notes'), alignment: get('wizard-alignment'), completedAt: new Date().toISOString() } };
+  const backgroundItems = (selectedWizardBackground?.equipment || []).map((name, index) => ({ id: `background-${selectedWizardBackground.slug}-${index}`, name, type: 'outro', quantity: 1, description: `Equipamento inicial de ${selectedWizardBackground.name}`, equipped: false }));
+  const payload = { name: get('wizard-name'), class: get('wizard-class'), subclass: get('wizard-subclass'), race: get('wizard-race'), subrace: get('wizard-subrace'), racialData: selectedWizardRace, backgroundData: selectedWizardBackground, skillProficiencies, saveProficiencies, items: backgroundItems, level: Math.min(20, Math.max(1, Number(get('wizard-level')) || 1)), attributes, creationData: { version: '2014.5', status: 'complete', racialReference: selectedWizardRace ? { slug: selectedWizardRace.slug, subrace: selectedWizardRace.selectedSubrace?.slug || '', edition: selectedWizardRace.edition } : null, backgroundReference: selectedWizardBackground ? { slug: selectedWizardBackground.slug, variant: selectedWizardBackground.selectedVariant?.slug || '', edition: selectedWizardBackground.edition } : null, campaign: { level: Number(get('wizard-level')) || 1, books: get('wizard-books'), abilityMethod: get('wizard-ability-method') }, concept: get('wizard-concept'), motivation: get('wizard-motivation'), groupRelation: get('wizard-group'), subrace: get('wizard-subrace'), background: get('wizard-background'), originNotes: get('wizard-origin-notes'), alignment: get('wizard-alignment'), completedAt: new Date().toISOString() } };
   const submit = document.getElementById('wizard-submit');
   if (submit) { submit.disabled = true; submit.textContent = 'Criando…'; }
   try { const char = await createCharacter(payload); closeCreationWizard(); await refreshSelected(); await selectCharacter(char.id); setCharacterStatus('Ficha criada seguindo o fluxo D&D 5e 2014.'); } catch (error) { const summary = document.getElementById('wizard-summary'); if (summary) summary.insertAdjacentHTML('beforeend', `<p class="wizard-error">${escapeHtml(error.message)}</p>`); } finally { if (submit) { submit.disabled = false; submit.textContent = 'Criar ficha'; } }
@@ -750,6 +792,8 @@ document.getElementById('btn-refresh-spells')?.addEventListener('click', refresh
 document.getElementById('spell-search-input')?.addEventListener('keydown', (event) => { if (event.key === 'Enter') { event.preventDefault(); refreshSpellSearch(); } });
 document.getElementById('btn-new-character').onclick = () => openCreationWizard();
 document.getElementById('wizard-close')?.addEventListener('click', closeCreationWizard);
+document.getElementById('wizard-background')?.addEventListener('change', wizardSyncBackground);
+document.getElementById('wizard-background-variant')?.addEventListener('change', wizardSyncBackground);
 document.getElementById('wizard-back')?.addEventListener('click', () => { if (wizardStep > 0) { wizardStep -= 1; wizardRender(); } });
 document.getElementById('wizard-next')?.addEventListener('click', () => { if (wizardCurrentFieldsValid() && wizardStep < wizardSteps.length - 1) { wizardStep += 1; wizardRender(); } });
 document.getElementById('wizard-class')?.addEventListener('change', wizardSyncClass);
@@ -851,6 +895,7 @@ function formatItemDetails(item) {
   try { state.classesCache = await api('/classes'); } catch (error) { console.warn('Classes indisponíveis:', error); }
   try { const reference = await api('/class-reference'); state.classReference = reference.classes || []; syncClassReference(); } catch (error) { console.warn('Catálogo de classes indisponível:', error); }
   try { const reference = await api('/race-reference'); state.raceReference = reference.races || []; syncRaceReference(); } catch (error) { console.warn('Catálogo de raças indisponível:', error); }
+  try { const reference = await api('/background-reference'); state.backgroundReference = reference.backgrounds || []; wizardPopulateBackgrounds(); } catch (error) { console.warn('Catálogo de backgrounds indisponível:', error); }
   await refreshSelected();
   await loadTemplates();
 })();

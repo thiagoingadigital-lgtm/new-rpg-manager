@@ -187,6 +187,11 @@ app.get('/api/race-reference', (req, res) => {
   try { res.json(JSON.parse(fs.readFileSync(raceReferenceFile, 'utf-8'))); }
   catch (error) { console.error('Erro ao carregar race-reference.json:', error); res.status(500).json({ error: 'Catálogo de raças indisponível' }); }
 });
+const backgroundReferenceFile = path.join(__dirname, 'data', 'background-reference.json');
+app.get('/api/background-reference', (req, res) => {
+  try { res.json(JSON.parse(fs.readFileSync(backgroundReferenceFile, 'utf-8'))); }
+  catch (error) { console.error('Erro ao carregar background-reference.json:', error); res.status(500).json({ error: 'Catálogo de backgrounds indisponível' }); }
+});
 
 // ---------- Rotas: Referência da classe Paladino (mantida p/ compatibilidade do frontend) ----------
 const paladinReference = (() => {

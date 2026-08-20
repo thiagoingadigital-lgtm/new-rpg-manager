@@ -1,0 +1,350 @@
+{
+  "version": "2014.1",
+  "source": "Mapeamento de backgrounds D&D 5e 2014",
+  "backgrounds": [
+    {
+      "name": "Acólito",
+      "slug": "acolito",
+      "edition": "2014",
+      "skills": [
+        "intuicao",
+        "religiao"
+      ],
+      "toolChoices": [],
+      "languageCount": 2,
+      "tools": [],
+      "equipment": [
+        "símbolo sagrado",
+        "livro ou roda de orações",
+        "incensos",
+        "vestimentas",
+        "roupas comuns",
+        "15 PO"
+      ],
+      "feature": "Abrigo dos Fiéis",
+      "featureDescription": "Templos da mesma fé podem oferecer cura, cuidados e assistência não perigosa."
+    },
+    {
+      "name": "Charlatão",
+      "slug": "charlatao",
+      "edition": "2014",
+      "skills": [
+        "enganacao",
+        "prestidigitacao"
+      ],
+      "toolChoices": [
+        "kit-disfarce",
+        "kit-falsificacao"
+      ],
+      "languageCount": 0,
+      "tools": [],
+      "equipment": [
+        "roupas finas",
+        "kit de disfarce",
+        "ferramentas de trapaça",
+        "roupas comuns",
+        "15 PO"
+      ],
+      "feature": "Identidade Falsa",
+      "featureDescription": "Mantém uma segunda identidade com documentos e contatos."
+    },
+    {
+      "name": "Criminoso",
+      "slug": "criminoso",
+      "edition": "2014",
+      "skills": [
+        "enganacao",
+        "furtividade"
+      ],
+      "toolChoices": [
+        "conjunto-jogo",
+        "ferramentas-ladrao"
+      ],
+      "languageCount": 0,
+      "tools": [],
+      "equipment": [
+        "pé de cabra",
+        "roupas escuras com capuz",
+        "15 PO"
+      ],
+      "feature": "Contato Criminal",
+      "featureDescription": "Possui um contato confiável ligado a uma rede criminosa.",
+      "variants": [
+        {
+          "name": "Espião",
+          "slug": "espiao",
+          "description": "Reinterpreta a atividade criminosa como espionagem ou venda de segredos."
+        }
+      ]
+    },
+    {
+      "name": "Artista",
+      "slug": "artista",
+      "edition": "2014",
+      "skills": [
+        "acrobacia",
+        "atuacao"
+      ],
+      "toolChoices": [
+        "kit-disfarce",
+        "instrumento-musical"
+      ],
+      "languageCount": 0,
+      "tools": [],
+      "equipment": [
+        "instrumento musical",
+        "favor de admirador",
+        "fantasia",
+        "roupas comuns",
+        "15 PO"
+      ],
+      "feature": "Pela Demanda Popular",
+      "featureDescription": "Consegue encontrar hospedagem e comida gratuitas ou de baixo custo apresentando-se.",
+      "variants": [
+        {
+          "name": "Gladiador",
+          "slug": "gladiador",
+          "description": "Troca o instrumento musical por ferramentas de artesão apropriadas."
+        }
+      ]
+    },
+    {
+      "name": "Artesão de Guilda",
+      "slug": "artesao-guilda",
+      "edition": "2014",
+      "skills": [
+        "intuicao",
+        "persuasao"
+      ],
+      "toolChoices": [
+        "ferramenta-artesao"
+      ],
+      "languageCount": 1,
+      "tools": [],
+      "equipment": [
+        "ferramenta de artesão",
+        "carta de apresentação da guilda",
+        "roupas de viajante",
+        "15 PO"
+      ],
+      "feature": "Membro da Guilda",
+      "featureDescription": "Pode contar com a guilda para hospedagem, alimentação e apoio social.",
+      "variants": [
+        {
+          "name": "Mercador de Guilda",
+          "slug": "mercador-guilda",
+          "description": "Representa alguém que negocia e transporta mercadorias."
+        }
+      ]
+    },
+    {
+      "name": "Herói do Povo",
+      "slug": "heroi-povo",
+      "edition": "2014",
+      "skills": [
+        "adestrarAnimais",
+        "sobrevivencia"
+      ],
+      "toolChoices": [
+        "ferramenta-artesao",
+        "veiculos-terrestres"
+      ],
+      "languageCount": 0,
+      "tools": [],
+      "equipment": [
+        "ferramentas",
+        "pá",
+        "panela de ferro",
+        "roupas comuns",
+        "10 PO"
+      ],
+      "feature": "Hospitalidade Rústica",
+      "featureDescription": "Encontra abrigo e proteção entre pessoas comuns."
+    },
+    {
+      "name": "Eremita",
+      "slug": "eremita",
+      "edition": "2014",
+      "skills": [
+        "medicina",
+        "religiao"
+      ],
+      "toolChoices": [
+        "kit-herbalismo"
+      ],
+      "languageCount": 1,
+      "tools": [],
+      "equipment": [
+        "estojo de pergaminhos",
+        "cobertor de inverno",
+        "roupas comuns",
+        "kit de herbalismo",
+        "5 PO"
+      ],
+      "feature": "Descoberta",
+      "featureDescription": "Realizou uma descoberta importante sobre o cosmos, uma força sobrenatural, um lugar secreto ou ameaça.",
+      "variants": [
+        {
+          "name": "Recluso",
+          "slug": "recluso",
+          "description": "Representa isolamento por exílio, doença, luto, voto ou pesquisa."
+        }
+      ]
+    },
+    {
+      "name": "Nobre",
+      "slug": "nobre",
+      "edition": "2014",
+      "skills": [
+        "historia",
+        "persuasao"
+      ],
+      "toolChoices": [
+        "conjunto-jogo"
+      ],
+      "languageCount": 1,
+      "tools": [],
+      "equipment": [
+        "roupas finas",
+        "anel de sinete",
+        "pergaminho de genealogia",
+        "25 PO"
+      ],
+      "feature": "Posição de Privilégio",
+      "featureDescription": "É recebido pela alta sociedade e pode obter audiência com nobres.",
+      "variants": [
+        {
+          "name": "Cavaleiro",
+          "slug": "cavaleiro",
+          "description": "Enfatiza serviço militar, vassalagem, brasão e lealdade."
+        }
+      ]
+    },
+    {
+      "name": "Forasteiro",
+      "slug": "forasteiro",
+      "edition": "2014",
+      "skills": [
+        "atletismo",
+        "sobrevivencia"
+      ],
+      "toolChoices": [
+        "instrumento-musical"
+      ],
+      "languageCount": 1,
+      "tools": [],
+      "equipment": [
+        "cajado",
+        "armadilha de caça",
+        "troféu de animal",
+        "roupas de viajante",
+        "bolsa",
+        "10 PO"
+      ],
+      "feature": "Andarilho",
+      "featureDescription": "Possui memória excelente de mapas e encontra comida e água para o grupo."
+    },
+    {
+      "name": "Sábio",
+      "slug": "sabio",
+      "edition": "2014",
+      "skills": [
+        "arcanismo",
+        "historia"
+      ],
+      "toolChoices": [],
+      "languageCount": 2,
+      "tools": [],
+      "equipment": [
+        "tinta",
+        "pena",
+        "faca pequena",
+        "carta de colega falecido",
+        "roupas comuns",
+        "10 PO"
+      ],
+      "feature": "Pesquisador",
+      "featureDescription": "Sabe onde e com quem obter informações desconhecidas."
+    },
+    {
+      "name": "Marinheiro",
+      "slug": "marinheiro",
+      "edition": "2014",
+      "skills": [
+        "atletismo",
+        "percepcao"
+      ],
+      "toolChoices": [
+        "ferramentas-navegador",
+        "veiculos-aquaticos"
+      ],
+      "languageCount": 0,
+      "tools": [],
+      "equipment": [
+        "beliche",
+        "corda de seda",
+        "amuleto de sorte",
+        "roupas comuns",
+        "10 PO"
+      ],
+      "feature": "Passagem de Navio",
+      "featureDescription": "Consegue passagem gratuita em navios para si e companheiros.",
+      "variants": [
+        {
+          "name": "Pirata",
+          "slug": "pirata",
+          "description": "Reinterpreta a reputação marítima como saque, perseguição e recompensa criminal."
+        }
+      ]
+    },
+    {
+      "name": "Soldado",
+      "slug": "soldado",
+      "edition": "2014",
+      "skills": [
+        "atletismo",
+        "intimidacao"
+      ],
+      "toolChoices": [
+        "conjunto-jogo",
+        "veiculos-terrestres"
+      ],
+      "languageCount": 0,
+      "tools": [],
+      "equipment": [
+        "insígnia de patente",
+        "troféu de inimigo",
+        "dados ou cartas",
+        "roupas comuns",
+        "10 PO"
+      ],
+      "feature": "Patente Militar",
+      "featureDescription": "Pode obter acesso a acampamentos amigáveis e requisitar equipamento simples ou cavalos."
+    },
+    {
+      "name": "Órfão",
+      "slug": "orfao",
+      "edition": "2014",
+      "skills": [
+        "prestidigitacao",
+        "furtividade"
+      ],
+      "toolChoices": [
+        "ferramentas-ladrao",
+        "kit-disfarce"
+      ],
+      "languageCount": 0,
+      "tools": [],
+      "equipment": [
+        "faca pequena",
+        "mapa da cidade de origem",
+        "animal de estimação",
+        "lembrança dos pais",
+        "roupas comuns",
+        "10 PO"
+      ],
+      "feature": "Segredos da Cidade",
+      "featureDescription": "Conhece passagens secretas e caminhos rápidos em cidades conhecidas."
+    }
+  ]
+}
