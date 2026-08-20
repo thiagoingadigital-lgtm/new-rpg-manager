@@ -1,5 +1,5 @@
 {
-  "version": "2014.1",
+  "version": "2014.2",
   "source": "mapeamento_dnd5e_2014",
   "edition": "2014",
   "classes": [
@@ -1143,6 +1143,13 @@
           "edition": "2014",
           "status": "core",
           "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "lorde-dragao",
+          "name": "Lorde Dragão",
+          "edition": "2014",
+          "status": "custom",
+          "source": "RPG Manager"
         }
       ],
       "features": [
@@ -2002,5 +2009,8 @@
         }
       ]
     }
+  ],
+  "customOptions": [
+    "Lorde Dragão"
   ]
 }
