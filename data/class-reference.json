@@ -127,7 +127,20 @@
           "edition": "2014"
         }
       ],
-      "subclassLevel": 3
+      "subclassLevel": 3,
+      "savingThrows": [
+        "constituicao",
+        "inteligencia"
+      ],
+      "skillChoices": [
+        "arcanismo",
+        "historia",
+        "investigacao",
+        "medicina",
+        "natureza",
+        "prestidigitacao"
+      ],
+      "skillChoiceCount": 2
     },
     {
       "slug": "barbaro",
@@ -296,7 +309,20 @@
           "edition": "2014"
         }
       ],
-      "subclassLevel": 3
+      "subclassLevel": 3,
+      "savingThrows": [
+        "forca",
+        "constituicao"
+      ],
+      "skillChoices": [
+        "adestrarAnimais",
+        "atletismo",
+        "intimidacao",
+        "natureza",
+        "percepcao",
+        "sobrevivencia"
+      ],
+      "skillChoiceCount": 2
     },
     {
       "slug": "bardo",
@@ -450,7 +476,24 @@
           "edition": "2014"
         }
       ],
-      "subclassLevel": 3
+      "subclassLevel": 3,
+      "savingThrows": [
+        "destreza",
+        "carisma"
+      ],
+      "skillChoices": [
+        "acrobacia",
+        "adestrarAnimais",
+        "atuacao",
+        "enganacao",
+        "furtividade",
+        "intimidacao",
+        "intuicao",
+        "percepcao",
+        "persuasao",
+        "prestidigitacao"
+      ],
+      "skillChoiceCount": 3
     },
     {
       "slug": "clerigo",
@@ -606,7 +649,19 @@
           "edition": "2014"
         }
       ],
-      "subclassLevel": 1
+      "subclassLevel": 1,
+      "savingThrows": [
+        "sabedoria",
+        "carisma"
+      ],
+      "skillChoices": [
+        "historia",
+        "intuicao",
+        "medicina",
+        "persuasao",
+        "religiao"
+      ],
+      "skillChoiceCount": 2
     },
     {
       "slug": "druida",
@@ -721,7 +776,22 @@
           "edition": "2014"
         }
       ],
-      "subclassLevel": 2
+      "subclassLevel": 2,
+      "savingThrows": [
+        "inteligencia",
+        "sabedoria"
+      ],
+      "skillChoices": [
+        "adestrarAnimais",
+        "arcanismo",
+        "intuicao",
+        "medicina",
+        "natureza",
+        "percepcao",
+        "religiao",
+        "sobrevivencia"
+      ],
+      "skillChoiceCount": 2
     },
     {
       "slug": "guerreiro",
@@ -873,7 +943,22 @@
           "edition": "2014"
         }
       ],
-      "subclassLevel": 3
+      "subclassLevel": 3,
+      "savingThrows": [
+        "forca",
+        "constituicao"
+      ],
+      "skillChoices": [
+        "acrobacia",
+        "adestrarAnimais",
+        "atletismo",
+        "historia",
+        "intimidacao",
+        "intuicao",
+        "percepcao",
+        "sobrevivencia"
+      ],
+      "skillChoiceCount": 2
     },
     {
       "slug": "monge",
@@ -1073,7 +1158,20 @@
           "edition": "2014"
         }
       ],
-      "subclassLevel": 3
+      "subclassLevel": 3,
+      "savingThrows": [
+        "forca",
+        "destreza"
+      ],
+      "skillChoices": [
+        "acrobacia",
+        "atletismo",
+        "historia",
+        "intuicao",
+        "religiao",
+        "furtividade"
+      ],
+      "skillChoiceCount": 2
     },
     {
       "slug": "paladino",
@@ -1241,7 +1339,20 @@
           "edition": "2014"
         }
       ],
-      "subclassLevel": 3
+      "subclassLevel": 3,
+      "savingThrows": [
+        "sabedoria",
+        "carisma"
+      ],
+      "skillChoices": [
+        "atletismo",
+        "intimidacao",
+        "intuicao",
+        "medicina",
+        "persuasao",
+        "religiao"
+      ],
+      "skillChoiceCount": 2
     },
     {
       "slug": "patrulheiro",
@@ -1403,7 +1514,22 @@
           "edition": "2014"
         }
       ],
-      "subclassLevel": 3
+      "subclassLevel": 3,
+      "savingThrows": [
+        "forca",
+        "destreza"
+      ],
+      "skillChoices": [
+        "adestrarAnimais",
+        "atletismo",
+        "furtividade",
+        "intuicao",
+        "investigacao",
+        "natureza",
+        "percepcao",
+        "sobrevivencia"
+      ],
+      "skillChoiceCount": 3
     },
     {
       "slug": "ladino",
@@ -1572,7 +1698,24 @@
           "edition": "2014"
         }
       ],
-      "subclassLevel": 3
+      "subclassLevel": 3,
+      "savingThrows": [
+        "destreza",
+        "inteligencia"
+      ],
+      "skillChoices": [
+        "acrobacia",
+        "atletismo",
+        "atuacao",
+        "enganacao",
+        "furtividade",
+        "intimidacao",
+        "intuicao",
+        "investigacao",
+        "percepcao",
+        "prestidigitacao"
+      ],
+      "skillChoiceCount": 4
     },
     {
       "slug": "feiticeiro",
@@ -1702,7 +1845,20 @@
           "edition": "2014"
         }
       ],
-      "subclassLevel": 1
+      "subclassLevel": 1,
+      "savingThrows": [
+        "constituicao",
+        "carisma"
+      ],
+      "skillChoices": [
+        "arcanismo",
+        "enganacao",
+        "intuicao",
+        "intimidacao",
+        "persuasao",
+        "religiao"
+      ],
+      "skillChoiceCount": 2
     },
     {
       "slug": "bruxo",
@@ -1871,7 +2027,20 @@
           "edition": "2014"
         }
       ],
-      "subclassLevel": 1
+      "subclassLevel": 1,
+      "savingThrows": [
+        "sabedoria",
+        "carisma"
+      ],
+      "skillChoices": [
+        "arcanismo",
+        "historia",
+        "intimidacao",
+        "investigacao",
+        "natureza",
+        "religiao"
+      ],
+      "skillChoiceCount": 2
     },
     {
       "slug": "mago",
@@ -2020,10 +2189,24 @@
           "edition": "2014"
         }
       ],
-      "subclassLevel": 2
+      "subclassLevel": 2,
+      "savingThrows": [
+        "inteligencia",
+        "sabedoria"
+      ],
+      "skillChoices": [
+        "arcanismo",
+        "historia",
+        "intuicao",
+        "investigacao",
+        "medicina",
+        "religiao"
+      ],
+      "skillChoiceCount": 2
     }
   ],
   "customOptions": [
     "Lorde Dragão"
-  ]
+  ],
+  "proficiencySchemaVersion": "2014.1"
 }

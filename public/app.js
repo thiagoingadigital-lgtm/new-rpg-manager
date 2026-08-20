@@ -75,6 +75,7 @@ function wizardSyncRace() {
   subraceSelect.value = (selected.subraces || []).some(item => item.name === current) ? current : '';
   if (hint) hint.textContent = `${selected.subraces?.length || 0} opções de sub-raça/variante disponíveis.`;
   renderRaceReference(selectedRaceData(selected.name, subraceSelect.value), 'wizard-race-summary');
+  wizardSyncSkillChoices();
 }
 function syncRaceReference() {
   if (!fRace || !state.raceReference.length) return;
@@ -323,21 +324,26 @@ async function renderCharacterView(character) {
 }
 
 function renderSavesAndSkills(character, profBonus) {
-  const saveProfs = character.saveProficiencies || {};
-  const skillProfs = character.skillProficiencies || {};
+  const selectedClass = state.classReference.find(cls => cls.name === character.class);
+  const saveProfs = Object.fromEntries((selectedClass?.savingThrows || Object.keys(character.saveProficiencies || {})).map(key => [key, true]));
+  const racial = selectedRaceData(character.race, character.subrace);
+  const fixedRacial = [...(racial?.proficiencies || []), ...(racial?.selectedSubrace?.proficiencies || [])];
+  const skillProfs = { ...(character.skillProficiencies || {}) };
+  fixedRacial.forEach(key => { if (SKILLS.some(skill => skill.key === key)) skillProfs[key] = { ...(skillProfs[key] || {}), proficient: true, source: 'race' }; });
+  const allowedSkills = new Set([...(selectedClass?.skillChoices || []), ...(racial?.proficiencyChoices || []), ...(racial?.selectedSubrace?.proficiencyChoices || []), ...fixedRacial]);
 
   savesTable.innerHTML = attrIds.map(attr => {
     const mod = calculateModifier(character.attributes[attr]);
     const proficient = Boolean(saveProfs[attr]);
     const total = mod + (proficient ? profBonus : 0);
     return `<tr>
-      <td><input type="checkbox" class="prof-toggle" data-kind="save" data-key="${attr}" ${proficient ? 'checked' : ''}></td>
+      <td><input type="checkbox" class="prof-toggle" data-kind="save" data-key="${attr}" ${proficient ? 'checked' : ''} disabled aria-label="Salvaguarda definida pela classe"></td>
       <td>${ABILITY_LABELS[attr]}</td>
       <td class="total-val">${formatModifier(total)}</td>
     </tr>`;
   }).join('');
 
-  skillsTable.innerHTML = SKILLS.map(s => {
+  skillsTable.innerHTML = SKILLS.filter(s => allowedSkills.has(s.key)).map(s => {
     const mod = calculateModifier(character.attributes[s.ability]);
     const proficient = Boolean(skillProfs[s.key]?.proficient);
     const total = mod + (proficient ? profBonus : 0);
@@ -603,6 +609,30 @@ function wizardPopulateClasses() {
   select.value = current;
   wizardSyncClass();
 }
+function skillLabel(key) { return (typeof SKILLS !== 'undefined' ? SKILLS.find(item => item.key === key)?.label : null) || key; }
+function wizardSelectedSkills() { return [...document.querySelectorAll('#wizard-skill-options input:checked')].map(input => input.value); }
+function wizardSyncSkillChoices() {
+  const selectedClass = wizardClassByName(document.getElementById('wizard-class')?.value);
+  const race = selectedRaceData(document.getElementById('wizard-race')?.value, document.getElementById('wizard-subrace')?.value);
+  const options = document.getElementById('wizard-skill-options');
+  const hint = document.getElementById('wizard-skill-hint');
+  if (!options) return;
+  if (!selectedClass) { options.innerHTML = ''; if (hint) hint.textContent = 'Escolha uma classe para carregar as opções.'; return; }
+  const classChoices = selectedClass.skillChoices || [];
+  const raceChoices = race?.proficiencyChoices || race?.selectedSubrace?.proficiencyChoices || [];
+  const classCount = Number(selectedClass.skillChoiceCount || 0);
+  const raceCount = Number(race?.proficiencyChoiceCount || race?.selectedSubrace?.proficiencyChoiceCount || 0);
+  const selected = new Set(wizardSelectedSkills());
+  const fixedRace = [...(race?.proficiencies || []), ...(race?.selectedSubrace?.proficiencies || [])];
+  const group = (title, keys, count, prefix) => keys.length ? `<div class="wizard-skill-group"><strong>${title}</strong><small>Escolha ${count || 0}.</small>${keys.map(key => `<label><input type="checkbox" name="wizard-skill" value="${escapeHtml(key)}" data-choice-group="${prefix}" ${selected.has(key) ? 'checked' : ''}><span>${escapeHtml(skillLabel(key))}</span></label>`).join('')}</div>` : '';
+  options.innerHTML = group('Escolhas da classe', classChoices, classCount, 'class') + group('Escolhas da raça', raceChoices, raceCount, 'race') + (fixedRace.length ? `<p class="wizard-fixed-proficiencies"><b>Automáticas pela raça:</b> ${fixedRace.map(escapeHtml).join(', ')}</p>` : '');
+  options.querySelectorAll('input').forEach(input => input.addEventListener('change', () => {
+    const groupInputs = [...options.querySelectorAll(`input[data-choice-group="${input.dataset.choiceGroup}"]`)];
+    const limit = input.dataset.choiceGroup === 'class' ? classCount : raceCount;
+    if (limit && groupInputs.filter(item => item.checked).length > limit) { input.checked = false; setCharacterStatus(`Escolha no máximo ${limit} perícia(s) nesta categoria.`, 'error'); }
+  }));
+  if (hint) hint.textContent = `Salvaguardas automáticas: ${(selectedClass.savingThrows || []).map(key => ABILITY_LABELS[key] || key).join(' e ') || 'não definidas'} · ${classCount} escolha(s) de classe${raceCount ? ` · ${raceCount} escolha(s) de raça` : ''}.`;
+}
 function wizardSyncClass() {
   const classSelect = document.getElementById('wizard-class');
   const subclassSelect = document.getElementById('wizard-subclass');
@@ -626,6 +656,7 @@ function wizardSyncClass() {
   subclassSelect.value = names.includes(current) && unlocked ? current : '';
   if (hint) hint.textContent = unlocked ? `Escolha disponível no nível ${unlockLevel}.` : `Esta classe libera a subclasse no nível ${unlockLevel}.`;
   if (summary) summary.innerHTML = `<strong>${escapeHtml(selected.name)}</strong><span>${escapeHtml(selected.primaryAbility || '—')} · ${escapeHtml(selected.hitDie || '—')} · ${escapeHtml(selected.role || '—')}</span><small>${escapeHtml(selected.description || '')}</small>`;
+  wizardSyncSkillChoices();
 }
 function wizardCurrentFieldsValid() {
   const step = wizardSteps[wizardStep];
@@ -633,6 +664,15 @@ function wizardCurrentFieldsValid() {
   const required = [...step.querySelectorAll('[required]')];
   for (const field of required) {
     if (!field.checkValidity()) { field.reportValidity(); return false; }
+  }
+  if (wizardStep === 3) {
+    const selectedClass = wizardClassByName(document.getElementById('wizard-class')?.value);
+    const classCount = Number(selectedClass?.skillChoiceCount || 0);
+    const classSelected = [...document.querySelectorAll('#wizard-skill-options input[data-choice-group="class"]:checked')].length;
+    const race = selectedRaceData(document.getElementById('wizard-race')?.value, document.getElementById('wizard-subrace')?.value);
+    const raceCount = Number(race?.proficiencyChoiceCount || race?.selectedSubrace?.proficiencyChoiceCount || 0);
+    const raceSelected = [...document.querySelectorAll('#wizard-skill-options input[data-choice-group="race"]:checked')].length;
+    if (classSelected !== classCount || raceSelected !== raceCount) { setCharacterStatus(`Conclua as escolhas de perícias: ${classCount} de classe e ${raceCount} de raça.`, 'error'); return false; }
   }
   if (wizardStep === 4) {
     const values = ['forca','destreza','constituicao','inteligencia','sabedoria','carisma'].map(key => Number(document.getElementById(`wizard-${key}`).value));
@@ -658,7 +698,7 @@ function wizardRender() {
   document.getElementById('wizard-back')?.classList.toggle('hidden', wizardStep === 0);
   document.getElementById('wizard-next')?.classList.toggle('hidden', wizardStep === wizardSteps.length - 1);
   document.getElementById('wizard-submit')?.classList.toggle('hidden', wizardStep !== wizardSteps.length - 1);
-  if (wizardStep === 3) wizardSyncClass();
+  if (wizardStep === 3) { wizardSyncClass(); wizardSyncSkillChoices(); }
   if (wizardStep === 5) { const summary = document.getElementById('wizard-summary'); if (summary) summary.innerHTML = wizardSummary(); }
 }
 function openCreationWizard() {
@@ -682,7 +722,13 @@ async function submitCreationWizard(event) {
   const get = id => document.getElementById(id)?.value?.trim() || '';
   const attributes = Object.fromEntries(['forca','destreza','constituicao','inteligencia','sabedoria','carisma'].map(key => [key, Number(document.getElementById(`wizard-${key}`).value) || 10]));
   const selectedWizardRace = selectedRaceData(get('wizard-race'), get('wizard-subrace'));
-  const payload = { name: get('wizard-name'), class: get('wizard-class'), subclass: get('wizard-subclass'), race: get('wizard-race'), subrace: get('wizard-subrace'), racialData: selectedWizardRace, level: Math.min(20, Math.max(1, Number(get('wizard-level')) || 1)), attributes, creationData: { version: '2014.4', status: 'complete', racialReference: selectedWizardRace ? { slug: selectedWizardRace.slug, subrace: selectedWizardRace.selectedSubrace?.slug || '', edition: selectedWizardRace.edition } : null, campaign: { level: Number(get('wizard-level')) || 1, books: get('wizard-books'), abilityMethod: get('wizard-ability-method') }, concept: get('wizard-concept'), motivation: get('wizard-motivation'), groupRelation: get('wizard-group'), subrace: get('wizard-subrace'), background: get('wizard-background'), originNotes: get('wizard-origin-notes'), alignment: get('wizard-alignment'), completedAt: new Date().toISOString() } };
+  const selectedWizardClass = wizardClassByName(get('wizard-class'));
+  const wizardSkills = wizardSelectedSkills();
+  const classSkills = wizardSkills.filter(key => document.querySelector(`#wizard-skill-options input[data-choice-group="class"][value="${CSS.escape(key)}"]`));
+  const raceSkills = wizardSkills.filter(key => document.querySelector(`#wizard-skill-options input[data-choice-group="race"][value="${CSS.escape(key)}"]`));
+  const skillProficiencies = Object.fromEntries([...new Set([...classSkills, ...raceSkills, ...(selectedWizardRace?.proficiencies || []), ...(selectedWizardRace?.selectedSubrace?.proficiencies || [])])].map(key => [key, { proficient: true, expertise: false, source: 'creation-2014' }]));
+  const saveProficiencies = Object.fromEntries((selectedWizardClass?.savingThrows || []).map(key => [key, true]));
+  const payload = { name: get('wizard-name'), class: get('wizard-class'), subclass: get('wizard-subclass'), race: get('wizard-race'), subrace: get('wizard-subrace'), racialData: selectedWizardRace, skillProficiencies, saveProficiencies, level: Math.min(20, Math.max(1, Number(get('wizard-level')) || 1)), attributes, creationData: { version: '2014.4', status: 'complete', racialReference: selectedWizardRace ? { slug: selectedWizardRace.slug, subrace: selectedWizardRace.selectedSubrace?.slug || '', edition: selectedWizardRace.edition } : null, campaign: { level: Number(get('wizard-level')) || 1, books: get('wizard-books'), abilityMethod: get('wizard-ability-method') }, concept: get('wizard-concept'), motivation: get('wizard-motivation'), groupRelation: get('wizard-group'), subrace: get('wizard-subrace'), background: get('wizard-background'), originNotes: get('wizard-origin-notes'), alignment: get('wizard-alignment'), completedAt: new Date().toISOString() } };
   const submit = document.getElementById('wizard-submit');
   if (submit) { submit.disabled = true; submit.textContent = 'Criando…'; }
   try { const char = await createCharacter(payload); closeCreationWizard(); await refreshSelected(); await selectCharacter(char.id); setCharacterStatus('Ficha criada seguindo o fluxo D&D 5e 2014.'); } catch (error) { const summary = document.getElementById('wizard-summary'); if (summary) summary.insertAdjacentHTML('beforeend', `<p class="wizard-error">${escapeHtml(error.message)}</p>`); } finally { if (submit) { submit.disabled = false; submit.textContent = 'Criar ficha'; } }
@@ -697,7 +743,7 @@ function previewRaceChange() {
 }
 if (fRace) fRace.addEventListener('change', previewRaceChange);
 if (fSubrace) fSubrace.addEventListener('change', previewRaceChange);
-if (fClass && fSubclass) fClass.addEventListener('change', async () => { syncClassReference(); if (state.currentCharacter) { state.currentCharacter.class = fClass.value; state.currentCharacter.subclass = ''; renderCastingStats({ ...state.currentCharacter, class: fClass.value }, Number(document.getElementById('stat-proficiency').textContent.replace('+', '')) || 2); renderSpellSlots({ ...state.currentCharacter, class: fClass.value }); await refreshSpellSearch(); } });
+if (fClass && fSubclass) fClass.addEventListener('change', async () => { syncClassReference(); if (state.currentCharacter) { const selectedClass = state.classReference.find(cls => cls.name === fClass.value); const saveProficiencies = Object.fromEntries((selectedClass?.savingThrows || []).map(key => [key, true])); state.currentCharacter = { ...state.currentCharacter, class: fClass.value, subclass: '', saveProficiencies }; await renderCharacterView(state.currentCharacter); await refreshSpellSearch(); scheduleCharacterAutosave(); } });
 fLevel?.addEventListener('input', () => renderClassReference());
 
 document.getElementById('btn-refresh-spells')?.addEventListener('click', refreshSpellSearch);
@@ -723,8 +769,10 @@ document.getElementById('btn-save-character').onclick = async () => {
   const saveButton = document.getElementById('btn-save-character');
   saveButton.disabled = true;
   setCharacterStatus('Salvando ficha…', 'loading');
+  const selectedClass = state.classReference.find(cls => cls.name === fClass.value);
   const data = {
     name: fName.value, class: fClass.value, subclass: fClass.value === 'Paladino' ? (fSubclass?.value || '') : '', race: fRace.value, subrace: fSubrace?.value || '', level: Number(fLevel.value),
+    saveProficiencies: Object.fromEntries((selectedClass?.savingThrows || []).map(key => [key, true])),
     attributes: Object.fromEntries(attrIds.map(a => [a, Number(document.getElementById(`attr-${a}`).value)]))
   };
   try {

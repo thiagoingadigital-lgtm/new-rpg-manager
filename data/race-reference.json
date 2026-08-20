@@ -63,7 +63,9 @@
               "description": "Você ganha 1 ponto de vida adicional por nível.",
               "category": "hit-points"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "anao-da-montanha",
@@ -79,7 +81,9 @@
               "description": "Proficiência com armaduras leves e médias.",
               "category": "proficiency"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "duergar",
@@ -95,8 +99,17 @@
               "description": "Visão no escuro de 120 pés e sensibilidade à luz solar conforme a fonte.",
               "category": "sense"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         }
+      ],
+      "proficiencyChoices": [],
+      "proficiencies": [
+        "machado-de-batalha",
+        "machadinha",
+        "martelo-leve",
+        "martelo-de-guerra"
       ]
     },
     {
@@ -153,7 +166,9 @@
               "description": "Proficiência com armas élficas e um truque de mago.",
               "category": "proficiency"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "elfo-da-floresta",
@@ -169,7 +184,9 @@
               "description": "Deslocamento de 35 pés.",
               "category": "movement"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "drow",
@@ -190,7 +207,9 @@
               "description": "Luzes Dançantes e progressão de magias drow.",
               "category": "spell"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "eladrin",
@@ -206,7 +225,9 @@
               "description": "Teleporte por Passo Nebuloso com efeito sazonal.",
               "category": "movement"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "shadar-kai",
@@ -222,7 +243,9 @@
               "description": "Resistência a dano necrótico e teleporte.",
               "category": "resistance"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "elfo-do-mar",
@@ -238,7 +261,9 @@
               "description": "Natação de 30 pés e respiração aquática.",
               "category": "movement"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "elfo-astral",
@@ -252,8 +277,14 @@
               "description": "Truque, teleporte e proficiência diária conforme a fonte.",
               "category": "trait"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         }
+      ],
+      "proficiencyChoices": [],
+      "proficiencies": [
+        "percepcao"
       ]
     },
     {
@@ -305,7 +336,11 @@
               "description": "Pode se esconder atrás de uma criatura pelo menos uma categoria maior.",
               "category": "skill"
             }
-          ]
+          ],
+          "proficiencies": [
+            "furtividade"
+          ],
+          "proficiencyChoices": []
         },
         {
           "slug": "robusto",
@@ -321,7 +356,9 @@
               "description": "Vantagem e resistência contra veneno.",
               "category": "resistance"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "fantasma",
@@ -337,7 +374,9 @@
               "description": "Comunicação telepática de curto alcance.",
               "category": "trait"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "lotusden",
@@ -353,9 +392,13 @@
               "description": "Druidcraft e magias de natureza por nível.",
               "category": "spell"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         }
-      ]
+      ],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "humano",
@@ -397,7 +440,9 @@
             "sabedoria": 1,
             "carisma": 1
           },
-          "traits": []
+          "traits": [],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "humano-variante",
@@ -421,9 +466,33 @@
               "description": "Um talento no 1º nível quando autorizado pela campanha.",
               "category": "feat"
             }
-          ]
+          ],
+          "proficiencyChoices": [
+            "acrobacia",
+            "adestrarAnimais",
+            "arcanismo",
+            "atletismo",
+            "atuacao",
+            "enganacao",
+            "furtividade",
+            "historia",
+            "intimidacao",
+            "intuicao",
+            "investigacao",
+            "medicina",
+            "natureza",
+            "percepcao",
+            "persuasao",
+            "prestidigitacao",
+            "religiao",
+            "sobrevivencia"
+          ],
+          "proficiencyChoiceCount": 1,
+          "proficiencies": []
         }
-      ]
+      ],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "draconato",
@@ -476,7 +545,9 @@
               "description": "Visão no escuro e bônus social ocasional.",
               "category": "sense"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "ravenita",
@@ -493,9 +564,13 @@
               "description": "Reação ofensiva após sofrer dano.",
               "category": "reaction"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         }
-      ]
+      ],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "gnomo",
@@ -541,7 +616,9 @@
               "description": "Comunicação limitada com animais pequenos.",
               "category": "trait"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "gnomo-das-rochas",
@@ -557,7 +634,11 @@
               "description": "Expertise em História sobre objetos mágicos.",
               "category": "skill"
             }
-          ]
+          ],
+          "proficiencies": [
+            "ferramentas-de-artifice"
+          ],
+          "proficiencyChoices": []
         },
         {
           "slug": "gnomo-profundo",
@@ -573,9 +654,13 @@
               "description": "Visão no escuro de 120 pés.",
               "category": "sense"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         }
-      ]
+      ],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "meio-elfo",
@@ -621,7 +706,9 @@
             "destreza": 1,
             "constituicao": 1
           },
-          "traits": []
+          "traits": [],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "marca-da-deteccao",
@@ -637,7 +724,9 @@
               "description": "Bônus em Investigação/Intuição e magias de detecção.",
               "category": "spell"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "marca-da-tempestade",
@@ -654,9 +743,33 @@
               "description": "Bônus em Acrobacia/navegação e magias de vento.",
               "category": "spell"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         }
-      ]
+      ],
+      "proficiencyChoices": [
+        "acrobacia",
+        "adestrarAnimais",
+        "arcanismo",
+        "atletismo",
+        "atuacao",
+        "enganacao",
+        "furtividade",
+        "historia",
+        "intimidacao",
+        "intuicao",
+        "investigacao",
+        "medicina",
+        "natureza",
+        "percepcao",
+        "persuasao",
+        "prestidigitacao",
+        "religiao",
+        "sobrevivencia"
+      ],
+      "proficiencies": [],
+      "proficiencyChoiceCount": 2
     },
     {
       "slug": "meio-orc",
@@ -714,8 +827,14 @@
               "description": "Bônus em Percepção/Sobrevivência e magias de rastreamento.",
               "category": "spell"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         }
+      ],
+      "proficiencyChoices": [],
+      "proficiencies": [
+        "intimidacao"
       ]
     },
     {
@@ -767,7 +886,9 @@
               "description": "Thaumaturgy, Hellish Rebuke e Darkness.",
               "category": "spell"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "dispater",
@@ -783,7 +904,9 @@
               "description": "Thaumaturgy, Disguise Self e Detect Thoughts.",
               "category": "spell"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "feral",
@@ -800,7 +923,9 @@
               "description": "Ajuste de atributos sem o Carisma +2 e magias de linhagem.",
               "category": "ability"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "fierna",
@@ -816,7 +941,9 @@
               "description": "Friends, Charm Person e Suggestion.",
               "category": "spell"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "glasya",
@@ -832,7 +959,9 @@
               "description": "Minor Illusion, Disguise Self e Invisibility.",
               "category": "spell"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "levistus",
@@ -848,7 +977,9 @@
               "description": "Ray of Frost, Armor of Agathys e Darkness.",
               "category": "spell"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "zariel",
@@ -864,7 +995,9 @@
               "description": "Thaumaturgy, Searing Smite e Branding Smite.",
               "category": "spell"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "winged",
@@ -880,9 +1013,13 @@
               "description": "Voo de 30 pés sem armadura pesada.",
               "category": "movement"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         }
-      ]
+      ],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "aarakocra",
@@ -910,7 +1047,9 @@
           "category": "movement"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "aasimar",
@@ -956,7 +1095,9 @@
               "description": "Transformação com asas e dano radiante.",
               "category": "transformation"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "flagelador",
@@ -972,7 +1113,9 @@
               "description": "Aura radiante que também causa dano ao próprio personagem.",
               "category": "transformation"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "caido",
@@ -988,9 +1131,13 @@
               "description": "Transformação que amedronta e causa dano necrótico.",
               "category": "transformation"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         }
-      ]
+      ],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "firbolg",
@@ -1028,7 +1175,9 @@
           "category": "carry"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "genasi",
@@ -1063,7 +1212,9 @@
               "description": "Prende a respiração indefinidamente e conjura Levitate.",
               "category": "spell"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "terra",
@@ -1079,7 +1230,9 @@
               "description": "Ignora terreno difícil natural e conjura Pass without Trace.",
               "category": "movement"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "fogo",
@@ -1095,7 +1248,9 @@
               "description": "Visão no escuro, resistência a fogo e Produce Flame.",
               "category": "resistance"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "agua",
@@ -1111,9 +1266,13 @@
               "description": "Resistência a ácido, natação e respiração aquática.",
               "category": "movement"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         }
-      ]
+      ],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "goliath",
@@ -1150,7 +1309,11 @@
           "category": "trait"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": [
+        "atletismo"
+      ]
     },
     {
       "slug": "goblin",
@@ -1187,7 +1350,9 @@
           "category": "damage"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "hobgoblin",
@@ -1214,7 +1379,9 @@
           "category": "reaction"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "bugbear",
@@ -1246,7 +1413,9 @@
           "category": "combat"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "kenku",
@@ -1278,7 +1447,15 @@
           "category": "proficiency"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [
+        "acrobacia",
+        "enganacao",
+        "furtividade",
+        "prestidigitacao"
+      ],
+      "proficiencies": [],
+      "proficiencyChoiceCount": 2
     },
     {
       "slug": "kobold",
@@ -1310,7 +1487,9 @@
           "category": "condition"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "orc",
@@ -1342,7 +1521,9 @@
           "category": "carry"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "warforged",
@@ -1377,7 +1558,9 @@
           "category": "proficiency"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "changeling",
@@ -1407,7 +1590,9 @@
           "category": "proficiency"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "kalashtar",
@@ -1439,7 +1624,9 @@
           "category": "trait"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "shifter",
@@ -1478,7 +1665,9 @@
               "description": "PV temporários adicionais e +1 CA durante a transformação.",
               "category": "armor"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "longtooth",
@@ -1495,7 +1684,9 @@
               "description": "Mordida durante a transformação.",
               "category": "attack"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "swiftstride",
@@ -1512,7 +1703,9 @@
               "description": "Velocidade adicional e reação de deslocamento.",
               "category": "movement"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         },
         {
           "slug": "wildhunt",
@@ -1529,9 +1722,13 @@
               "description": "Vantagem em testes de Sabedoria e nega vantagem de inimigos próximos.",
               "category": "combat"
             }
-          ]
+          ],
+          "proficiencies": [],
+          "proficiencyChoices": []
         }
-      ]
+      ],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "centauro",
@@ -1563,7 +1760,9 @@
           "category": "combat"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "loxodon",
@@ -1595,7 +1794,9 @@
           "category": "trait"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "minotauro",
@@ -1622,7 +1823,9 @@
           "category": "attack"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "simic-hybrid",
@@ -1648,7 +1851,9 @@
           "category": "adaptation"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "vedalken",
@@ -1680,7 +1885,9 @@
           "category": "saving-throw"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "leonino",
@@ -1711,7 +1918,9 @@
           "category": "attack"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "satyr",
@@ -1743,7 +1952,9 @@
           "category": "movement"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "fairy",
@@ -1773,7 +1984,9 @@
           "category": "spell"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "harengon",
@@ -1802,7 +2015,9 @@
           "category": "reroll"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "owlin",
@@ -1832,7 +2047,9 @@
           "category": "sense"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     },
     {
       "slug": "tortle",
@@ -1869,7 +2086,10 @@
           "category": "attack"
         }
       ],
-      "subraces": []
+      "subraces": [],
+      "proficiencyChoices": [],
+      "proficiencies": []
     }
-  ]
+  ],
+  "proficiencySchemaVersion": "2014.1"
 }
