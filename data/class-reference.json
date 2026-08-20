@@ -1,5 +1,5 @@
 {
-  "version": "2014.2",
+  "version": "2014.3",
   "source": "mapeamento_dnd5e_2014",
   "edition": "2014",
   "classes": [
@@ -126,7 +126,8 @@
           "source": "mapeamento_dnd5e_2014",
           "edition": "2014"
         }
-      ]
+      ],
+      "subclassLevel": 3
     },
     {
       "slug": "barbaro",
@@ -294,7 +295,8 @@
           "source": "mapeamento_dnd5e_2014",
           "edition": "2014"
         }
-      ]
+      ],
+      "subclassLevel": 3
     },
     {
       "slug": "bardo",
@@ -447,7 +449,8 @@
           "source": "mapeamento_dnd5e_2014",
           "edition": "2014"
         }
-      ]
+      ],
+      "subclassLevel": 3
     },
     {
       "slug": "clerigo",
@@ -602,7 +605,8 @@
           "source": "mapeamento_dnd5e_2014",
           "edition": "2014"
         }
-      ]
+      ],
+      "subclassLevel": 1
     },
     {
       "slug": "druida",
@@ -716,7 +720,8 @@
           "source": "mapeamento_dnd5e_2014",
           "edition": "2014"
         }
-      ]
+      ],
+      "subclassLevel": 2
     },
     {
       "slug": "guerreiro",
@@ -867,7 +872,8 @@
           "source": "mapeamento_dnd5e_2014",
           "edition": "2014"
         }
-      ]
+      ],
+      "subclassLevel": 3
     },
     {
       "slug": "monge",
@@ -1066,7 +1072,8 @@
           "source": "mapeamento_dnd5e_2014",
           "edition": "2014"
         }
-      ]
+      ],
+      "subclassLevel": 3
     },
     {
       "slug": "paladino",
@@ -1233,7 +1240,8 @@
           "source": "mapeamento_dnd5e_2014",
           "edition": "2014"
         }
-      ]
+      ],
+      "subclassLevel": 3
     },
     {
       "slug": "patrulheiro",
@@ -1394,7 +1402,8 @@
           "source": "mapeamento_dnd5e_2014",
           "edition": "2014"
         }
-      ]
+      ],
+      "subclassLevel": 3
     },
     {
       "slug": "ladino",
@@ -1562,7 +1571,8 @@
           "source": "mapeamento_dnd5e_2014",
           "edition": "2014"
         }
-      ]
+      ],
+      "subclassLevel": 3
     },
     {
       "slug": "feiticeiro",
@@ -1691,7 +1701,8 @@
           "source": "mapeamento_dnd5e_2014",
           "edition": "2014"
         }
-      ]
+      ],
+      "subclassLevel": 1
     },
     {
       "slug": "bruxo",
@@ -1859,7 +1870,8 @@
           "source": "mapeamento_dnd5e_2014",
           "edition": "2014"
         }
-      ]
+      ],
+      "subclassLevel": 1
     },
     {
       "slug": "mago",
@@ -2007,7 +2019,8 @@
           "source": "mapeamento_dnd5e_2014",
           "edition": "2014"
         }
-      ]
+      ],
+      "subclassLevel": 2
     }
   ],
   "customOptions": [

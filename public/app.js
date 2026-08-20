@@ -517,17 +517,128 @@ async function loadTemplates() {
   } catch(e) {}
 }
 
+// ---------- Assistente guiado de criação D&D 5e 2014 ----------
+const creationWizard = document.getElementById('creation-wizard');
+const wizardForm = document.getElementById('creation-wizard-form');
+const wizardSteps = [...document.querySelectorAll('.wizard-step')];
+const wizardTitles = ['Alinhar a campanha', 'Definir o conceito', 'Escolher a origem', 'Escolher a classe', 'Determinar atributos', 'Revisar a ficha'];
+const wizardLabels = ['CAMPANHA', 'CONCEITO', 'ORIGEM', 'CLASSE', 'ATRIBUTOS', 'REVISÃO'];
+let wizardStep = 0;
+
+function wizardClassByName(name) { return state.classReference.find(item => item.name === name); }
+function wizardSetAttributes(values) {
+  Object.entries(values).forEach(([key, value]) => { const input = document.getElementById(`wizard-${key}`); if (input) input.value = value; });
+}
+function wizardPopulateClasses() {
+  const select = document.getElementById('wizard-class');
+  if (!select) return;
+  const current = select.value;
+  select.innerHTML = '<option value="">Selecionar classe</option>' + state.classReference.map(cls => `<option value="${escapeHtml(cls.name)}">${escapeHtml(cls.name)}</option>`).join('');
+  select.value = current;
+  wizardSyncClass();
+}
+function wizardSyncClass() {
+  const classSelect = document.getElementById('wizard-class');
+  const subclassSelect = document.getElementById('wizard-subclass');
+  const hint = document.getElementById('wizard-subclass-hint');
+  const summary = document.getElementById('wizard-class-summary');
+  const selected = wizardClassByName(classSelect?.value);
+  const level = Math.max(1, Number(document.getElementById('wizard-level')?.value) || 1);
+  if (!selected || !subclassSelect) {
+    if (subclassSelect) { subclassSelect.innerHTML = '<option value="">Nenhuma subclasse neste nível</option>'; subclassSelect.disabled = true; }
+    if (hint) hint.textContent = '';
+    if (summary) summary.innerHTML = '<span>Escolha uma classe para carregar dado de vida, atributo principal, função e progressão.</span>';
+    return;
+  }
+  const current = subclassSelect.value;
+  const unlockLevel = Number(selected.subclassLevel || 3);
+  const unlocked = level >= unlockLevel;
+  const subclasses = selected.subclasses || [];
+  subclassSelect.innerHTML = '<option value="">Nenhuma subclasse</option>' + subclasses.map(item => { const name = typeof item === 'string' ? item : item.name; return `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`; }).join('');
+  subclassSelect.disabled = !unlocked || !subclasses.length;
+  const names = subclasses.map(item => typeof item === 'string' ? item : item.name);
+  subclassSelect.value = names.includes(current) && unlocked ? current : '';
+  if (hint) hint.textContent = unlocked ? `Escolha disponível no nível ${unlockLevel}.` : `Esta classe libera a subclasse no nível ${unlockLevel}.`;
+  if (summary) summary.innerHTML = `<strong>${escapeHtml(selected.name)}</strong><span>${escapeHtml(selected.primaryAbility || '—')} · ${escapeHtml(selected.hitDie || '—')} · ${escapeHtml(selected.role || '—')}</span><small>${escapeHtml(selected.description || '')}</small>`;
+}
+function wizardCurrentFieldsValid() {
+  const step = wizardSteps[wizardStep];
+  if (!step) return true;
+  const required = [...step.querySelectorAll('[required]')];
+  for (const field of required) {
+    if (!field.checkValidity()) { field.reportValidity(); return false; }
+  }
+  if (wizardStep === 4) {
+    const values = ['forca','destreza','constituicao','inteligencia','sabedoria','carisma'].map(key => Number(document.getElementById(`wizard-${key}`).value));
+    if (values.some(value => value < 1 || value > 30)) { setCharacterStatus('Use valores de habilidade entre 1 e 30.', 'error'); return false; }
+  }
+  return true;
+}
+function wizardSummary() {
+  const get = id => document.getElementById(id)?.value?.trim() || '—';
+  const cls = wizardClassByName(get('wizard-class'));
+  const subclass = get('wizard-subclass');
+  const attrs = ['forca','destreza','constituicao','inteligencia','sabedoria','carisma'].map(key => `${key}: ${get(`wizard-${key}`)}`).join(' · ');
+  return `<dl><div><dt>Nome</dt><dd>${escapeHtml(get('wizard-name'))}</dd></div><div><dt>Origem</dt><dd>${escapeHtml(get('wizard-race'))}${get('wizard-subrace') !== '—' ? ` / ${escapeHtml(get('wizard-subrace'))}` : ''}</dd></div><div><dt>Classe</dt><dd>${escapeHtml(get('wizard-class'))} · nível ${escapeHtml(get('wizard-level'))}</dd></div><div><dt>Subclasse</dt><dd>${escapeHtml(subclass)}</dd></div><div><dt>Antecedente</dt><dd>${escapeHtml(get('wizard-background'))}</dd></div><div><dt>Atributos</dt><dd>${escapeHtml(attrs)}</dd></div></dl><p>${cls ? `A ficha carregará automaticamente o núcleo de ${escapeHtml(cls.name)}, as features até o nível ${get('wizard-level')} e a progressão aplicável.` : 'Selecione uma classe para concluir.'}</p>`;
+}
+function wizardRender() {
+  wizardSteps.forEach((step, index) => step.classList.toggle('hidden', index !== wizardStep));
+  const label = document.getElementById('wizard-step-label');
+  const title = document.getElementById('wizard-step-title');
+  const bar = document.getElementById('wizard-progress-bar');
+  if (label) label.textContent = `${String(wizardStep + 1).padStart(2, '0')} / ${wizardLabels[wizardStep]}`;
+  if (title) title.textContent = wizardTitles[wizardStep];
+  if (bar) bar.style.width = `${((wizardStep + 1) / wizardSteps.length) * 100}%`;
+  document.getElementById('wizard-back')?.classList.toggle('hidden', wizardStep === 0);
+  document.getElementById('wizard-next')?.classList.toggle('hidden', wizardStep === wizardSteps.length - 1);
+  document.getElementById('wizard-submit')?.classList.toggle('hidden', wizardStep !== wizardSteps.length - 1);
+  if (wizardStep === 3) wizardSyncClass();
+  if (wizardStep === 5) { const summary = document.getElementById('wizard-summary'); if (summary) summary.innerHTML = wizardSummary(); }
+}
+function openCreationWizard() {
+  wizardStep = 0;
+  wizardForm?.reset();
+  wizardSetAttributes({ forca: 15, destreza: 14, constituicao: 13, inteligencia: 12, sabedoria: 10, carisma: 8 });
+  wizardPopulateClasses();
+  wizardRender();
+  if (creationWizard?.showModal) creationWizard.showModal();
+}
+function closeCreationWizard() { if (creationWizard?.open) creationWizard.close(); }
+function rollWizardAttributes() {
+  const rolls = Array.from({ length: 6 }, () => { const dice = Array.from({ length: 4 }, () => Math.floor(Math.random() * 6) + 1).sort((a,b) => b-a); return dice.slice(0, 3).reduce((sum, value) => sum + value, 0); }).sort((a,b) => b-a);
+  wizardSetAttributes({ forca: rolls[0], destreza: rolls[1], constituicao: rolls[2], inteligencia: rolls[3], sabedoria: rolls[4], carisma: rolls[5] });
+  const note = document.getElementById('wizard-ability-note'); if (note) note.textContent = `Rolagem 4d6 concluída: ${rolls.join(', ')}. Distribua ou ajuste os valores conforme a mesa.`;
+}
+async function submitCreationWizard(event) {
+  event.preventDefault();
+  if (!wizardCurrentFieldsValid()) return;
+  const get = id => document.getElementById(id)?.value?.trim() || '';
+  const attributes = Object.fromEntries(['forca','destreza','constituicao','inteligencia','sabedoria','carisma'].map(key => [key, Number(document.getElementById(`wizard-${key}`).value) || 10]));
+  const payload = { name: get('wizard-name'), class: get('wizard-class'), subclass: get('wizard-subclass'), race: get('wizard-race'), level: Math.min(20, Math.max(1, Number(get('wizard-level')) || 1)), attributes, creationData: { version: '2014.3', status: 'complete', campaign: { level: Number(get('wizard-level')) || 1, books: get('wizard-books'), abilityMethod: get('wizard-ability-method') }, concept: get('wizard-concept'), motivation: get('wizard-motivation'), groupRelation: get('wizard-group'), subrace: get('wizard-subrace'), background: get('wizard-background'), originNotes: get('wizard-origin-notes'), alignment: get('wizard-alignment'), completedAt: new Date().toISOString() } };
+  const submit = document.getElementById('wizard-submit');
+  if (submit) { submit.disabled = true; submit.textContent = 'Criando…'; }
+  try { const char = await createCharacter(payload); closeCreationWizard(); await refreshSelected(); await selectCharacter(char.id); setCharacterStatus('Ficha criada seguindo o fluxo D&D 5e 2014.'); } catch (error) { const summary = document.getElementById('wizard-summary'); if (summary) summary.insertAdjacentHTML('beforeend', `<p class="wizard-error">${escapeHtml(error.message)}</p>`); } finally { if (submit) { submit.disabled = false; submit.textContent = 'Criar ficha'; } }
+}
+
 // Event Listeners básicos
 if (fClass && fSubclass) fClass.addEventListener('change', async () => { syncClassReference(); if (state.currentCharacter) { state.currentCharacter.class = fClass.value; state.currentCharacter.subclass = ''; renderCastingStats({ ...state.currentCharacter, class: fClass.value }, Number(document.getElementById('stat-proficiency').textContent.replace('+', '')) || 2); renderSpellSlots({ ...state.currentCharacter, class: fClass.value }); await refreshSpellSearch(); } });
 fLevel?.addEventListener('input', () => renderClassReference());
 
 document.getElementById('btn-refresh-spells')?.addEventListener('click', refreshSpellSearch);
 document.getElementById('spell-search-input')?.addEventListener('keydown', (event) => { if (event.key === 'Enter') { event.preventDefault(); refreshSpellSearch(); } });
-document.getElementById('btn-new-character').onclick = async () => {
-  const char = await createCharacter({ name: 'Novo Herói', level: 1 });
-  await refreshSelected();
-  await selectCharacter(char.id);
-};
+document.getElementById('btn-new-character').onclick = () => openCreationWizard();
+document.getElementById('wizard-close')?.addEventListener('click', closeCreationWizard);
+document.getElementById('wizard-back')?.addEventListener('click', () => { if (wizardStep > 0) { wizardStep -= 1; wizardRender(); } });
+document.getElementById('wizard-next')?.addEventListener('click', () => { if (wizardCurrentFieldsValid() && wizardStep < wizardSteps.length - 1) { wizardStep += 1; wizardRender(); } });
+document.getElementById('wizard-class')?.addEventListener('change', wizardSyncClass);
+document.getElementById('wizard-level')?.addEventListener('input', wizardSyncClass);
+document.getElementById('wizard-ability-method')?.addEventListener('change', (event) => {
+  const note = document.getElementById('wizard-ability-note');
+  if (note) note.textContent = event.target.value === 'standard' ? 'O conjunto padrão 15, 14, 13, 12, 10 e 8 será preenchido automaticamente.' : event.target.value === 'point-buy' ? 'Registre os valores dentro do limite de 27 pontos; a validação detalhada poderá ser refinada na próxima etapa.' : event.target.value === 'roll' ? 'Gere seis resultados de 4d6 descartando o menor dado e distribua-os entre os atributos.' : 'Defina manualmente os seis valores permitidos pela mesa.';
+  if (event.target.value === 'standard') wizardSetAttributes({ forca: 15, destreza: 14, constituicao: 13, inteligencia: 12, sabedoria: 10, carisma: 8 });
+});
+document.getElementById('wizard-roll-attributes')?.addEventListener('click', rollWizardAttributes);
+wizardForm?.addEventListener('submit', submitCreationWizard);
 
 document.getElementById('btn-save-character').onclick = async () => {
   if (!state.selectedId) return;

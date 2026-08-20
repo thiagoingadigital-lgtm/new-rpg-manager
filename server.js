@@ -105,6 +105,7 @@ function sanitizeCharacter(body, existing = {}) {
     spells: body.spells ?? existing.spells ?? [],
     spellSlotsUsage: body.spellSlotsUsage ?? existing.spellSlotsUsage ?? {},
     imageUrl: body.imageUrl ?? existing.imageUrl ?? null,
+    creationData: body.creationData ?? existing.creationData ?? {},
   };
 }
 
@@ -122,7 +123,7 @@ function sanitizeSpell(body, existing = {}) {
 function loadCharacter(id) {
   const row = db.get(`
     SELECT id, name, class, subclass, race, level, attributes, skillProficiencies, saveProficiencies,
-           resources, items, spellSlotsUsage, imageUrl, createdAt, updatedAt
+           resources, items, spellSlotsUsage, imageUrl, creationData, createdAt, updatedAt
     FROM characters WHERE id = ?
   `, [id]);
   if (!row) return null;
@@ -139,6 +140,7 @@ function loadCharacter(id) {
     resources: JSON.parse(row.resources),
     items: JSON.parse(row.items),
     spellSlotsUsage: JSON.parse(row.spellSlotsUsage),
+    creationData: JSON.parse(row.creationData || '{}'),
     features,
     spells,
   };
@@ -328,8 +330,8 @@ app.post('/api/characters', (req, res) => {
   const campaign = ownerId ? db.get('SELECT c.id FROM campaigns c JOIN campaign_members cm ON cm.campaignId = c.id WHERE cm.userId = ? ORDER BY c.createdAt LIMIT 1', [ownerId]) : null;
   db.run(`
     INSERT INTO characters (id, name, class, subclass, race, level, attributes, skillProficiencies,
-                            saveProficiencies, resources, items, spellSlotsUsage, imageUrl, campaignId, ownerId, createdAt, updatedAt)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
+                            saveProficiencies, resources, items, spellSlotsUsage, imageUrl, creationData, campaignId, ownerId, createdAt, updatedAt)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
   `, [
     character.id, character.name, character.class, character.subclass, character.race, character.level,
     JSON.stringify(character.attributes),
@@ -339,6 +341,7 @@ app.post('/api/characters', (req, res) => {
     JSON.stringify(character.items),
     JSON.stringify(character.spellSlotsUsage),
     character.imageUrl,
+    JSON.stringify(character.creationData),
     campaign?.id || null,
     ownerId,
   ]);
@@ -356,7 +359,7 @@ app.put('/api/characters/:id', (req, res) => {
                           attributes = ?, skillProficiencies = ?,
                           saveProficiencies = ?, resources = ?,
                           items = ?, spellSlotsUsage = ?,
-                          imageUrl = ?, updatedAt = datetime('now')
+                          imageUrl = ?, creationData = ?, updatedAt = datetime('now')
     WHERE id = ?
   `, [
     updated.name, updated.class, updated.subclass, updated.race, updated.level,
@@ -367,6 +370,7 @@ app.put('/api/characters/:id', (req, res) => {
     JSON.stringify(updated.items),
     JSON.stringify(updated.spellSlotsUsage),
     updated.imageUrl,
+    JSON.stringify(updated.creationData),
     updated.id,
     ]);
   const actorId = sessionUserId(req);
