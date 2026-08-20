@@ -187,6 +187,11 @@ app.get('/api/race-reference', (req, res) => {
   try { res.json(JSON.parse(fs.readFileSync(raceReferenceFile, 'utf-8'))); }
   catch (error) { console.error('Erro ao carregar race-reference.json:', error); res.status(500).json({ error: 'Catálogo de raças indisponível' }); }
 });
+const itemReferenceFile = path.join(__dirname, 'data', 'item-reference.json');
+app.get('/api/item-reference', (req, res) => {
+  try { res.json(JSON.parse(fs.readFileSync(itemReferenceFile, 'utf-8'))); }
+  catch (error) { console.error('Erro ao carregar item-reference.json:', error); res.status(500).json({ error: 'Catálogo de itens indisponível' }); }
+});
 const backgroundReferenceFile = path.join(__dirname, 'data', 'background-reference.json');
 app.get('/api/background-reference', (req, res) => {
   try { res.json(JSON.parse(fs.readFileSync(backgroundReferenceFile, 'utf-8'))); }

@@ -1,0 +1,1414 @@
+{
+  "version": "2014.1",
+  "edition": "D&D 5e 2014",
+  "items": [
+    {
+      "slug": "clava",
+      "name": "Clava",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d4",
+      "damageType": "concussão",
+      "weight": 2,
+      "cost": "PP",
+      "properties": [
+        "leve"
+      ],
+      "details": {
+        "damage": "1d4",
+        "damageType": "concussão",
+        "properties": "leve",
+        "proficiencyCategory": "simples",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "adaga",
+      "name": "Adaga",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d4",
+      "damageType": "perfurante",
+      "weight": 1,
+      "cost": "2 PO",
+      "properties": [
+        "acuidade",
+        "leve",
+        "arremesso 20/60"
+      ],
+      "details": {
+        "damage": "1d4",
+        "damageType": "perfurante",
+        "properties": "acuidade, leve, arremesso 20/60",
+        "proficiencyCategory": "simples",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "porrete-grande",
+      "name": "Porrete grande",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d8",
+      "damageType": "concussão",
+      "weight": 10,
+      "cost": "2 PP",
+      "properties": [
+        "duas mãos"
+      ],
+      "details": {
+        "damage": "1d8",
+        "damageType": "concussão",
+        "properties": "duas mãos",
+        "proficiencyCategory": "simples",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "machadinha",
+      "name": "Machadinha",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d6",
+      "damageType": "cortante",
+      "weight": 2,
+      "cost": "5 PO",
+      "properties": [
+        "leve",
+        "arremesso 20/60"
+      ],
+      "details": {
+        "damage": "1d6",
+        "damageType": "cortante",
+        "properties": "leve, arremesso 20/60",
+        "proficiencyCategory": "simples",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "azagaia",
+      "name": "Azagaia",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d6",
+      "damageType": "perfurante",
+      "weight": 2,
+      "cost": "5 PP",
+      "properties": [
+        "arremesso 30/120"
+      ],
+      "details": {
+        "damage": "1d6",
+        "damageType": "perfurante",
+        "properties": "arremesso 30/120",
+        "proficiencyCategory": "simples",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "martelo-leve",
+      "name": "Martelo leve",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d4",
+      "damageType": "concussão",
+      "weight": 2,
+      "cost": "2 PO",
+      "properties": [
+        "leve",
+        "arremesso 20/60"
+      ],
+      "details": {
+        "damage": "1d4",
+        "damageType": "concussão",
+        "properties": "leve, arremesso 20/60",
+        "proficiencyCategory": "simples",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "maca",
+      "name": "Maça",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d6",
+      "damageType": "concussão",
+      "weight": 4,
+      "cost": "5 PO",
+      "properties": [],
+      "details": {
+        "damage": "1d6",
+        "damageType": "concussão",
+        "properties": "",
+        "proficiencyCategory": "simples",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "bordao",
+      "name": "Bordão",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d6",
+      "damageType": "concussão",
+      "weight": 4,
+      "cost": "2 PP",
+      "properties": [
+        "versátil 1d8"
+      ],
+      "details": {
+        "damage": "1d6",
+        "damageType": "concussão",
+        "properties": "versátil 1d8",
+        "proficiencyCategory": "simples",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "foice",
+      "name": "Foice",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d4",
+      "damageType": "cortante",
+      "weight": 2,
+      "cost": "1 PO",
+      "properties": [
+        "leve"
+      ],
+      "details": {
+        "damage": "1d4",
+        "damageType": "cortante",
+        "properties": "leve",
+        "proficiencyCategory": "simples",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "lanca",
+      "name": "Lança",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d6",
+      "damageType": "perfurante",
+      "weight": 3,
+      "cost": "1 PO",
+      "properties": [
+        "arremesso 20/60",
+        "versátil 1d8"
+      ],
+      "details": {
+        "damage": "1d6",
+        "damageType": "perfurante",
+        "properties": "arremesso 20/60, versátil 1d8",
+        "proficiencyCategory": "simples",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "besta-leve",
+      "name": "Besta leve",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "à-distância",
+      "damage": "1d8",
+      "damageType": "perfurante",
+      "weight": 5,
+      "cost": "25 PO",
+      "properties": [
+        "munição 80/320",
+        "recarga",
+        "duas mãos"
+      ],
+      "details": {
+        "damage": "1d8",
+        "damageType": "perfurante",
+        "properties": "munição 80/320, recarga, duas mãos",
+        "proficiencyCategory": "simples",
+        "rangeType": "à-distância"
+      }
+    },
+    {
+      "slug": "dardo",
+      "name": "Dardo",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "à-distância",
+      "damage": "1d4",
+      "damageType": "perfurante",
+      "weight": 0.25,
+      "cost": "5 PC",
+      "properties": [
+        "acuidade",
+        "arremesso 20/60"
+      ],
+      "details": {
+        "damage": "1d4",
+        "damageType": "perfurante",
+        "properties": "acuidade, arremesso 20/60",
+        "proficiencyCategory": "simples",
+        "rangeType": "à-distância"
+      }
+    },
+    {
+      "slug": "arco-curto",
+      "name": "Arco curto",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "à-distância",
+      "damage": "1d6",
+      "damageType": "perfurante",
+      "weight": 2,
+      "cost": "25 PO",
+      "properties": [
+        "munição 80/320",
+        "duas mãos"
+      ],
+      "details": {
+        "damage": "1d6",
+        "damageType": "perfurante",
+        "properties": "munição 80/320, duas mãos",
+        "proficiencyCategory": "simples",
+        "rangeType": "à-distância"
+      }
+    },
+    {
+      "slug": "funda",
+      "name": "Funda",
+      "type": "arma",
+      "category": "simples",
+      "rangeType": "à-distância",
+      "damage": "1d4",
+      "damageType": "concussão",
+      "weight": 0,
+      "cost": "1 PP",
+      "properties": [
+        "munição 30/120"
+      ],
+      "details": {
+        "damage": "1d4",
+        "damageType": "concussão",
+        "properties": "munição 30/120",
+        "proficiencyCategory": "simples",
+        "rangeType": "à-distância"
+      }
+    },
+    {
+      "slug": "machado-de-batalha",
+      "name": "Machado de batalha",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d8",
+      "damageType": "cortante",
+      "weight": 4,
+      "cost": "10 PO",
+      "properties": [
+        "versátil 1d10"
+      ],
+      "details": {
+        "damage": "1d8",
+        "damageType": "cortante",
+        "properties": "versátil 1d10",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "glaive",
+      "name": "Glaive",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d10",
+      "damageType": "cortante",
+      "weight": 6,
+      "cost": "20 PO",
+      "properties": [
+        "pesada",
+        "alcance",
+        "duas mãos"
+      ],
+      "details": {
+        "damage": "1d10",
+        "damageType": "cortante",
+        "properties": "pesada, alcance, duas mãos",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "machado-grande",
+      "name": "Machado grande",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d12",
+      "damageType": "cortante",
+      "weight": 7,
+      "cost": "30 PO",
+      "properties": [
+        "pesada",
+        "duas mãos"
+      ],
+      "details": {
+        "damage": "1d12",
+        "damageType": "cortante",
+        "properties": "pesada, duas mãos",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "espada-grande",
+      "name": "Espada grande",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "2d6",
+      "damageType": "cortante",
+      "weight": 6,
+      "cost": "50 PO",
+      "properties": [
+        "pesada",
+        "duas mãos"
+      ],
+      "details": {
+        "damage": "2d6",
+        "damageType": "cortante",
+        "properties": "pesada, duas mãos",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "alabarda",
+      "name": "Alabarda",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d10",
+      "damageType": "cortante",
+      "weight": 6,
+      "cost": "20 PO",
+      "properties": [
+        "pesada",
+        "alcance",
+        "duas mãos"
+      ],
+      "details": {
+        "damage": "1d10",
+        "damageType": "cortante",
+        "properties": "pesada, alcance, duas mãos",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "lanca-de-cavalaria",
+      "name": "Lança de cavalaria",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d12",
+      "damageType": "perfurante",
+      "weight": 6,
+      "cost": "10 PO",
+      "properties": [
+        "alcance",
+        "especial"
+      ],
+      "details": {
+        "damage": "1d12",
+        "damageType": "perfurante",
+        "properties": "alcance, especial",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "espada-longa",
+      "name": "Espada longa",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d8",
+      "damageType": "cortante",
+      "weight": 3,
+      "cost": "15 PO",
+      "properties": [
+        "versátil 1d10"
+      ],
+      "details": {
+        "damage": "1d8",
+        "damageType": "cortante",
+        "properties": "versátil 1d10",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "malho",
+      "name": "Malho",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "2d6",
+      "damageType": "concussão",
+      "weight": 10,
+      "cost": "10 PO",
+      "properties": [
+        "pesada",
+        "duas mãos"
+      ],
+      "details": {
+        "damage": "2d6",
+        "damageType": "concussão",
+        "properties": "pesada, duas mãos",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "maca-estrela",
+      "name": "Maça-estrela",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d8",
+      "damageType": "perfurante",
+      "weight": 4,
+      "cost": "15 PO",
+      "properties": [],
+      "details": {
+        "damage": "1d8",
+        "damageType": "perfurante",
+        "properties": "",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "pique",
+      "name": "Pique",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d10",
+      "damageType": "perfurante",
+      "weight": 18,
+      "cost": "5 PO",
+      "properties": [
+        "pesada",
+        "alcance",
+        "duas mãos"
+      ],
+      "details": {
+        "damage": "1d10",
+        "damageType": "perfurante",
+        "properties": "pesada, alcance, duas mãos",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "rapieira",
+      "name": "Rapieira",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d8",
+      "damageType": "perfurante",
+      "weight": 2,
+      "cost": "25 PO",
+      "properties": [
+        "acuidade"
+      ],
+      "details": {
+        "damage": "1d8",
+        "damageType": "perfurante",
+        "properties": "acuidade",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "cimitarra",
+      "name": "Cimitarra",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d6",
+      "damageType": "cortante",
+      "weight": 3,
+      "cost": "25 PO",
+      "properties": [
+        "acuidade",
+        "leve"
+      ],
+      "details": {
+        "damage": "1d6",
+        "damageType": "cortante",
+        "properties": "acuidade, leve",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "espada-curta",
+      "name": "Espada curta",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d6",
+      "damageType": "perfurante",
+      "weight": 2,
+      "cost": "10 PO",
+      "properties": [
+        "acuidade",
+        "leve"
+      ],
+      "details": {
+        "damage": "1d6",
+        "damageType": "perfurante",
+        "properties": "acuidade, leve",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "tridente",
+      "name": "Tridente",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d6",
+      "damageType": "perfurante",
+      "weight": 4,
+      "cost": "5 PO",
+      "properties": [
+        "arremesso 20/60",
+        "versátil 1d8"
+      ],
+      "details": {
+        "damage": "1d6",
+        "damageType": "perfurante",
+        "properties": "arremesso 20/60, versátil 1d8",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "picareta-de-guerra",
+      "name": "Picareta de guerra",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d8",
+      "damageType": "perfurante",
+      "weight": 2,
+      "cost": "5 PO",
+      "properties": [],
+      "details": {
+        "damage": "1d8",
+        "damageType": "perfurante",
+        "properties": "",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "martelo-de-guerra",
+      "name": "Martelo de guerra",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d8",
+      "damageType": "concussão",
+      "weight": 2,
+      "cost": "15 PO",
+      "properties": [
+        "versátil 1d10"
+      ],
+      "details": {
+        "damage": "1d8",
+        "damageType": "concussão",
+        "properties": "versátil 1d10",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "chicote",
+      "name": "Chicote",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "corpo-a-corpo",
+      "damage": "1d4",
+      "damageType": "cortante",
+      "weight": 3,
+      "cost": "2 PO",
+      "properties": [
+        "acuidade",
+        "alcance"
+      ],
+      "details": {
+        "damage": "1d4",
+        "damageType": "cortante",
+        "properties": "acuidade, alcance",
+        "proficiencyCategory": "marcial",
+        "rangeType": "corpo-a-corpo"
+      }
+    },
+    {
+      "slug": "zarabatana",
+      "name": "Zarabatana",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "à-distância",
+      "damage": "1",
+      "damageType": "perfurante",
+      "weight": 1,
+      "cost": "10 PO",
+      "properties": [
+        "munição 25/100",
+        "recarga"
+      ],
+      "details": {
+        "damage": "1",
+        "damageType": "perfurante",
+        "properties": "munição 25/100, recarga",
+        "proficiencyCategory": "marcial",
+        "rangeType": "à-distância"
+      }
+    },
+    {
+      "slug": "besta-de-mao",
+      "name": "Besta de mão",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "à-distância",
+      "damage": "1d6",
+      "damageType": "perfurante",
+      "weight": 3,
+      "cost": "75 PO",
+      "properties": [
+        "munição 30/120",
+        "leve",
+        "recarga"
+      ],
+      "details": {
+        "damage": "1d6",
+        "damageType": "perfurante",
+        "properties": "munição 30/120, leve, recarga",
+        "proficiencyCategory": "marcial",
+        "rangeType": "à-distância"
+      }
+    },
+    {
+      "slug": "besta-pesada",
+      "name": "Besta pesada",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "à-distância",
+      "damage": "1d10",
+      "damageType": "perfurante",
+      "weight": 18,
+      "cost": "50 PO",
+      "properties": [
+        "munição 100/400",
+        "pesada",
+        "recarga",
+        "duas mãos"
+      ],
+      "details": {
+        "damage": "1d10",
+        "damageType": "perfurante",
+        "properties": "munição 100/400, pesada, recarga, duas mãos",
+        "proficiencyCategory": "marcial",
+        "rangeType": "à-distância"
+      }
+    },
+    {
+      "slug": "arco-longo",
+      "name": "Arco longo",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "à-distância",
+      "damage": "1d8",
+      "damageType": "perfurante",
+      "weight": 2,
+      "cost": "50 PO",
+      "properties": [
+        "munição 150/600",
+        "pesada",
+        "duas mãos"
+      ],
+      "details": {
+        "damage": "1d8",
+        "damageType": "perfurante",
+        "properties": "munição 150/600, pesada, duas mãos",
+        "proficiencyCategory": "marcial",
+        "rangeType": "à-distância"
+      }
+    },
+    {
+      "slug": "rede",
+      "name": "Rede",
+      "type": "arma",
+      "category": "marcial",
+      "rangeType": "à-distância",
+      "damage": "—",
+      "damageType": "especial",
+      "weight": 3,
+      "cost": "1 PO",
+      "properties": [
+        "especial",
+        "arremesso 5/15"
+      ],
+      "details": {
+        "damage": "—",
+        "damageType": "especial",
+        "properties": "especial, arremesso 5/15",
+        "proficiencyCategory": "marcial",
+        "rangeType": "à-distância"
+      }
+    },
+    {
+      "slug": "acolchoada",
+      "name": "Acolchoada",
+      "type": "armadura",
+      "category": "Leve",
+      "weight": 8,
+      "cost": "5 PO",
+      "details": {
+        "baseAC": 11,
+        "armorType": "Leve",
+        "dexCap": null,
+        "strengthMin": 0,
+        "stealthDisadvantage": true
+      }
+    },
+    {
+      "slug": "couro",
+      "name": "Couro",
+      "type": "armadura",
+      "category": "Leve",
+      "weight": 10,
+      "cost": "10 PO",
+      "details": {
+        "baseAC": 11,
+        "armorType": "Leve",
+        "dexCap": null,
+        "strengthMin": 0,
+        "stealthDisadvantage": false
+      }
+    },
+    {
+      "slug": "couro-batido",
+      "name": "Couro batido",
+      "type": "armadura",
+      "category": "Leve",
+      "weight": 13,
+      "cost": "45 PO",
+      "details": {
+        "baseAC": 12,
+        "armorType": "Leve",
+        "dexCap": null,
+        "strengthMin": 0,
+        "stealthDisadvantage": false
+      }
+    },
+    {
+      "slug": "peles",
+      "name": "Peles",
+      "type": "armadura",
+      "category": "Média",
+      "weight": 12,
+      "cost": "10 PO",
+      "details": {
+        "baseAC": 12,
+        "armorType": "Média",
+        "dexCap": 2,
+        "strengthMin": 0,
+        "stealthDisadvantage": false
+      }
+    },
+    {
+      "slug": "camisa-de-cota",
+      "name": "Camisa de cota",
+      "type": "armadura",
+      "category": "Média",
+      "weight": 20,
+      "cost": "50 PO",
+      "details": {
+        "baseAC": 13,
+        "armorType": "Média",
+        "dexCap": 2,
+        "strengthMin": 0,
+        "stealthDisadvantage": false
+      }
+    },
+    {
+      "slug": "brunea",
+      "name": "Brunea",
+      "type": "armadura",
+      "category": "Média",
+      "weight": 45,
+      "cost": "50 PO",
+      "details": {
+        "baseAC": 14,
+        "armorType": "Média",
+        "dexCap": 2,
+        "strengthMin": 0,
+        "stealthDisadvantage": false
+      }
+    },
+    {
+      "slug": "peitoral",
+      "name": "Peitoral",
+      "type": "armadura",
+      "category": "Média",
+      "weight": 20,
+      "cost": "400 PO",
+      "details": {
+        "baseAC": 14,
+        "armorType": "Média",
+        "dexCap": 2,
+        "strengthMin": 0,
+        "stealthDisadvantage": false
+      }
+    },
+    {
+      "slug": "meia-armadura",
+      "name": "Meia-armadura",
+      "type": "armadura",
+      "category": "Média",
+      "weight": 40,
+      "cost": "750 PO",
+      "details": {
+        "baseAC": 15,
+        "armorType": "Média",
+        "dexCap": 2,
+        "strengthMin": 0,
+        "stealthDisadvantage": true
+      }
+    },
+    {
+      "slug": "cota-de-anéis",
+      "name": "Cota de anéis",
+      "type": "armadura",
+      "category": "Pesada",
+      "weight": 40,
+      "cost": "30 PO",
+      "details": {
+        "baseAC": 14,
+        "armorType": "Pesada",
+        "dexCap": 0,
+        "strengthMin": 0,
+        "stealthDisadvantage": true
+      }
+    },
+    {
+      "slug": "cota-de-malha",
+      "name": "Cota de malha",
+      "type": "armadura",
+      "category": "Pesada",
+      "weight": 55,
+      "cost": "75 PO",
+      "details": {
+        "baseAC": 16,
+        "armorType": "Pesada",
+        "dexCap": 0,
+        "strengthMin": 13,
+        "stealthDisadvantage": true
+      }
+    },
+    {
+      "slug": "cota-de-talas",
+      "name": "Cota de talas",
+      "type": "armadura",
+      "category": "Pesada",
+      "weight": 60,
+      "cost": "200 PO",
+      "details": {
+        "baseAC": 17,
+        "armorType": "Pesada",
+        "dexCap": 0,
+        "strengthMin": 15,
+        "stealthDisadvantage": true
+      }
+    },
+    {
+      "slug": "placas",
+      "name": "Placas",
+      "type": "armadura",
+      "category": "Pesada",
+      "weight": 65,
+      "cost": "1.500 PO",
+      "details": {
+        "baseAC": 18,
+        "armorType": "Pesada",
+        "dexCap": 0,
+        "strengthMin": 15,
+        "stealthDisadvantage": true
+      }
+    },
+    {
+      "slug": "escudo",
+      "name": "Escudo",
+      "type": "escudo",
+      "category": "escudo",
+      "weight": 6,
+      "cost": "10 PO",
+      "details": {
+        "acBonus": 2
+      }
+    },
+    {
+      "slug": "flechas",
+      "name": "Flechas",
+      "type": "outro",
+      "category": "munição",
+      "quantity": 20,
+      "weight": 1,
+      "cost": "1 PO",
+      "details": {
+        "description": "Munição conforme o mapeamento D&D 5e 2014."
+      }
+    },
+    {
+      "slug": "agulhas-de-zarabatana",
+      "name": "Agulhas de zarabatana",
+      "type": "outro",
+      "category": "munição",
+      "quantity": 50,
+      "weight": 1,
+      "cost": "1 PO",
+      "details": {
+        "description": "Munição conforme o mapeamento D&D 5e 2014."
+      }
+    },
+    {
+      "slug": "virotes",
+      "name": "Virotes",
+      "type": "outro",
+      "category": "munição",
+      "quantity": 20,
+      "weight": 1.5,
+      "cost": "1 PO",
+      "details": {
+        "description": "Munição conforme o mapeamento D&D 5e 2014."
+      }
+    },
+    {
+      "slug": "balas-de-funda",
+      "name": "Balas de funda",
+      "type": "outro",
+      "category": "munição",
+      "quantity": 20,
+      "weight": 1.5,
+      "cost": "4 PC",
+      "details": {
+        "description": "Munição conforme o mapeamento D&D 5e 2014."
+      }
+    },
+    {
+      "slug": "mochila",
+      "name": "Mochila",
+      "type": "outro",
+      "category": "armazenamento",
+      "details": {
+        "description": "Equipamento de aventura: armazenamento."
+      }
+    },
+    {
+      "slug": "barril",
+      "name": "Barril",
+      "type": "outro",
+      "category": "armazenamento",
+      "details": {
+        "description": "Equipamento de aventura: armazenamento."
+      }
+    },
+    {
+      "slug": "cesto",
+      "name": "Cesto",
+      "type": "outro",
+      "category": "armazenamento",
+      "details": {
+        "description": "Equipamento de aventura: armazenamento."
+      }
+    },
+    {
+      "slug": "saco",
+      "name": "Saco",
+      "type": "outro",
+      "category": "armazenamento",
+      "details": {
+        "description": "Equipamento de aventura: armazenamento."
+      }
+    },
+    {
+      "slug": "baú",
+      "name": "Baú",
+      "type": "outro",
+      "category": "armazenamento",
+      "details": {
+        "description": "Equipamento de aventura: armazenamento."
+      }
+    },
+    {
+      "slug": "bolsa",
+      "name": "Bolsa",
+      "type": "outro",
+      "category": "armazenamento",
+      "details": {
+        "description": "Equipamento de aventura: armazenamento."
+      }
+    },
+    {
+      "slug": "aljava",
+      "name": "Aljava",
+      "type": "outro",
+      "category": "armazenamento",
+      "details": {
+        "description": "Equipamento de aventura: armazenamento."
+      }
+    },
+    {
+      "slug": "garrafa",
+      "name": "Garrafa",
+      "type": "outro",
+      "category": "armazenamento",
+      "details": {
+        "description": "Equipamento de aventura: armazenamento."
+      }
+    },
+    {
+      "slug": "frasco",
+      "name": "Frasco",
+      "type": "outro",
+      "category": "armazenamento",
+      "details": {
+        "description": "Equipamento de aventura: armazenamento."
+      }
+    },
+    {
+      "slug": "jarro",
+      "name": "Jarro",
+      "type": "outro",
+      "category": "armazenamento",
+      "details": {
+        "description": "Equipamento de aventura: armazenamento."
+      }
+    },
+    {
+      "slug": "balde",
+      "name": "Balde",
+      "type": "outro",
+      "category": "armazenamento",
+      "details": {
+        "description": "Equipamento de aventura: armazenamento."
+      }
+    },
+    {
+      "slug": "saco-de-dormir",
+      "name": "Saco de dormir",
+      "type": "outro",
+      "category": "acampamento",
+      "details": {
+        "description": "Equipamento de aventura: acampamento."
+      }
+    },
+    {
+      "slug": "cobertor",
+      "name": "Cobertor",
+      "type": "outro",
+      "category": "acampamento",
+      "details": {
+        "description": "Equipamento de aventura: acampamento."
+      }
+    },
+    {
+      "slug": "barraca-para-duas-pessoas",
+      "name": "Barraca para duas pessoas",
+      "type": "outro",
+      "category": "acampamento",
+      "details": {
+        "description": "Equipamento de aventura: acampamento."
+      }
+    },
+    {
+      "slug": "roupas-comuns",
+      "name": "Roupas comuns",
+      "type": "outro",
+      "category": "acampamento",
+      "details": {
+        "description": "Equipamento de aventura: acampamento."
+      }
+    },
+    {
+      "slug": "roupas-finas",
+      "name": "Roupas finas",
+      "type": "outro",
+      "category": "acampamento",
+      "details": {
+        "description": "Equipamento de aventura: acampamento."
+      }
+    },
+    {
+      "slug": "roupas-de-viajante",
+      "name": "Roupas de viajante",
+      "type": "outro",
+      "category": "acampamento",
+      "details": {
+        "description": "Equipamento de aventura: acampamento."
+      }
+    },
+    {
+      "slug": "panela-de-ferro",
+      "name": "Panela de ferro",
+      "type": "outro",
+      "category": "acampamento",
+      "details": {
+        "description": "Equipamento de aventura: acampamento."
+      }
+    },
+    {
+      "slug": "kit-de-refeição",
+      "name": "Kit de refeição",
+      "type": "outro",
+      "category": "acampamento",
+      "details": {
+        "description": "Equipamento de aventura: acampamento."
+      }
+    },
+    {
+      "slug": "rações",
+      "name": "Rações",
+      "type": "outro",
+      "category": "acampamento",
+      "details": {
+        "description": "Equipamento de aventura: acampamento."
+      }
+    },
+    {
+      "slug": "corda-de-cânhamo",
+      "name": "Corda de cânhamo",
+      "type": "outro",
+      "category": "escalada",
+      "details": {
+        "description": "Equipamento de aventura: escalada."
+      }
+    },
+    {
+      "slug": "corda-de-seda",
+      "name": "Corda de seda",
+      "type": "outro",
+      "category": "escalada",
+      "details": {
+        "description": "Equipamento de aventura: escalada."
+      }
+    },
+    {
+      "slug": "pitão",
+      "name": "Pitão",
+      "type": "outro",
+      "category": "escalada",
+      "details": {
+        "description": "Equipamento de aventura: escalada."
+      }
+    },
+    {
+      "slug": "gancho",
+      "name": "Gancho",
+      "type": "outro",
+      "category": "escalada",
+      "details": {
+        "description": "Equipamento de aventura: escalada."
+      }
+    },
+    {
+      "slug": "kit-de-escalada",
+      "name": "Kit de escalada",
+      "type": "outro",
+      "category": "escalada",
+      "details": {
+        "description": "Equipamento de aventura: escalada."
+      }
+    },
+    {
+      "slug": "escada",
+      "name": "Escada",
+      "type": "outro",
+      "category": "escalada",
+      "details": {
+        "description": "Equipamento de aventura: escalada."
+      }
+    },
+    {
+      "slug": "vara-de-10-pés",
+      "name": "Vara de 10 pés",
+      "type": "outro",
+      "category": "escalada",
+      "details": {
+        "description": "Equipamento de aventura: escalada."
+      }
+    },
+    {
+      "slug": "aríete-portátil",
+      "name": "Aríete portátil",
+      "type": "outro",
+      "category": "escalada",
+      "details": {
+        "description": "Equipamento de aventura: escalada."
+      }
+    },
+    {
+      "slug": "martelo-e-marreta",
+      "name": "Martelo e marreta",
+      "type": "outro",
+      "category": "escalada",
+      "details": {
+        "description": "Equipamento de aventura: escalada."
+      }
+    },
+    {
+      "slug": "vela",
+      "name": "Vela",
+      "type": "outro",
+      "category": "luz",
+      "details": {
+        "description": "Equipamento de aventura: luz."
+      }
+    },
+    {
+      "slug": "lamparina",
+      "name": "Lamparina",
+      "type": "outro",
+      "category": "luz",
+      "details": {
+        "description": "Equipamento de aventura: luz."
+      }
+    },
+    {
+      "slug": "lanterna-de-foco",
+      "name": "Lanterna de foco",
+      "type": "outro",
+      "category": "luz",
+      "details": {
+        "description": "Equipamento de aventura: luz."
+      }
+    },
+    {
+      "slug": "lanterna-coberta",
+      "name": "Lanterna coberta",
+      "type": "outro",
+      "category": "luz",
+      "details": {
+        "description": "Equipamento de aventura: luz."
+      }
+    },
+    {
+      "slug": "óleo",
+      "name": "Óleo",
+      "type": "outro",
+      "category": "luz",
+      "details": {
+        "description": "Equipamento de aventura: luz."
+      }
+    },
+    {
+      "slug": "caixa-de-pederneira",
+      "name": "Caixa de pederneira",
+      "type": "outro",
+      "category": "luz",
+      "details": {
+        "description": "Equipamento de aventura: luz."
+      }
+    },
+    {
+      "slug": "tocha",
+      "name": "Tocha",
+      "type": "outro",
+      "category": "luz",
+      "details": {
+        "description": "Equipamento de aventura: luz."
+      }
+    },
+    {
+      "slug": "ácido",
+      "name": "Ácido",
+      "type": "outro",
+      "category": "cura",
+      "details": {
+        "description": "Equipamento de aventura: cura."
+      }
+    },
+    {
+      "slug": "fogo-alquímico",
+      "name": "Fogo alquímico",
+      "type": "outro",
+      "category": "cura",
+      "details": {
+        "description": "Equipamento de aventura: cura."
+      }
+    },
+    {
+      "slug": "antitoxina",
+      "name": "Antitoxina",
+      "type": "outro",
+      "category": "cura",
+      "details": {
+        "description": "Equipamento de aventura: cura."
+      }
+    },
+    {
+      "slug": "água-benta",
+      "name": "Água benta",
+      "type": "outro",
+      "category": "cura",
+      "details": {
+        "description": "Equipamento de aventura: cura."
+      }
+    },
+    {
+      "slug": "veneno-básico",
+      "name": "Veneno básico",
+      "type": "outro",
+      "category": "cura",
+      "details": {
+        "description": "Equipamento de aventura: cura."
+      }
+    },
+    {
+      "slug": "kit-de-curandeiro",
+      "name": "Kit de curandeiro",
+      "type": "outro",
+      "category": "cura",
+      "details": {
+        "description": "Equipamento de aventura: cura."
+      }
+    },
+    {
+      "slug": "poção-de-cura",
+      "name": "Poção de cura",
+      "type": "outro",
+      "category": "cura",
+      "details": {
+        "description": "Equipamento de aventura: cura."
+      }
+    }
+  ]
+}

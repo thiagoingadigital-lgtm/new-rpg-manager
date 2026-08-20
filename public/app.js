@@ -8,6 +8,7 @@ const state = {
   classReference: [],
   raceReference: [],
   backgroundReference: [],
+  itemReference: [],
 };
 
 // ---------- API helpers ----------
@@ -29,6 +30,60 @@ const createCharacter = (data) => api('/characters', { method: 'POST', body: JSO
 const updateCharacter = (id, data) => api(`/characters/${id}`, { method: 'PUT', body: JSON.stringify(data) });
 const deleteCharacter = (id) => api(`/characters/${id}`, { method: 'DELETE' });
 
+function itemByName(name) { return state.itemReference.find(item => item.name === name); }
+function populateItemReference() {
+  const list = document.getElementById('item-reference-options');
+  if (list) list.innerHTML = state.itemReference.map(item => `<option value="${escapeHtml(item.name)}">${escapeHtml(item.type)} · ${escapeHtml(item.category || '')}</option>`).join('');
+}
+function applyItemReference(item) {
+  if (!item) return;
+  const type = document.getElementById('new-item-type');
+  const name = document.getElementById('new-item-name');
+  if (type) type.value = item.type;
+  if (name) name.value = item.name;
+  if (item.type === 'arma') {
+    document.getElementById('field-arma-damage').value = item.details.damage || '';
+    document.getElementById('field-arma-damage-type').value = item.details.damageType || '';
+    document.getElementById('field-arma-properties').value = (item.details.properties || '').replace(/, /g, ', ');
+  }
+  if (item.type === 'armadura') {
+    document.getElementById('field-armadura-ac').value = item.details.baseAC || '';
+    document.getElementById('field-armadura-type').value = item.details.armorType || '';
+    document.getElementById('field-armadura-stealth').checked = Boolean(item.details.stealthDisadvantage);
+  }
+  if (item.type === 'escudo') document.getElementById('field-escudo-bonus').value = item.details.acBonus || '';
+}
+function equippedItemDetails(character) { return (character.items || []).filter(item => item.equipped).map(item => item.details || {}); }
+function classCanUseItem(character, item) {
+  const name = String(character.class || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const catalog = itemByName(item.name) || item;
+  if (item.type === 'arma') return catalog.category === 'simples' || ['barbaro','guerreiro','paladino','patrulheiro'].some(key => name.includes(key));
+  if (item.type === 'armadura') return catalog.category === 'Leve' || ['barbaro','clerigo','druida','guerreiro','paladino'].some(key => name.includes(key));
+  return true;
+}
+function weaponComputed(character, item, profBonus) {
+  const catalog = itemByName(item.name) || item;
+  const details = item.details || catalog.details || {};
+  const props = String(details.properties || '').toLowerCase();
+  const ranged = catalog.rangeType === 'à-distância' || /munição|arremesso/.test(props);
+  const finesse = props.includes('acuidade');
+  const strMod = calculateModifier(character.attributes.forca);
+  const dexMod = calculateModifier(character.attributes.destreza);
+  const ability = ranged ? dexMod : (finesse ? Math.max(strMod, dexMod) : strMod);
+  const proficient = classCanUseItem(character, catalog);
+  return { ability, proficient, attack: ability + (proficient ? profBonus : 0), damage: `${details.damage || catalog.damage || '1d4'} ${details.damageType || catalog.damageType || ''}`.trim(), range: props.match(/(?:munição|arremesso)\s+\d+\/\d+/i)?.[0] || 'corpo a corpo' };
+}
+function addCatalogItemFromForm() {
+  const character = state.currentCharacter;
+  if (!character) return;
+  const catalog = itemByName(document.getElementById('new-item-name')?.value);
+  const type = document.getElementById('new-item-type')?.value || catalog?.type || 'outro';
+  const details = catalog?.details ? { ...catalog.details } : {};
+  if (type === 'arma') Object.assign(details, { damage: details.damage || document.getElementById('field-arma-damage')?.value || '1d4', damageType: details.damageType || document.getElementById('field-arma-damage-type')?.value || '', properties: details.properties || document.getElementById('field-arma-properties')?.value || '' });
+  if (type === 'armadura') Object.assign(details, { baseAC: details.baseAC || Number(document.getElementById('field-armadura-ac')?.value || 10), armorType: details.armorType || document.getElementById('field-armadura-type')?.value || 'Leve', stealthDisadvantage: details.stealthDisadvantage || document.getElementById('field-armadura-stealth')?.checked || false });
+  if (type === 'escudo') details.acBonus = details.acBonus || Number(document.getElementById('field-escudo-bonus')?.value || 2);
+  return addItem(character.id, { type, name: document.getElementById('new-item-name')?.value || 'Novo item', quantity: Number(document.getElementById('new-item-quantity')?.value || 1), notes: document.getElementById('new-item-notes')?.value || '', equipped: Boolean(document.getElementById('new-item-equipped')?.checked), details });
+}
 function classSlug(name) {
   return String(name || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
@@ -332,21 +387,29 @@ async function renderCharacterView(character) {
   const wisMod = calculateModifier(displayCharacter.attributes.sabedoria);
   document.getElementById('stat-passive-perception').textContent = 10 + wisMod + (character.skillProficiencies?.percepcao?.proficient ? profBonus : 0);
 
-  // CA
+  // CA automática: armadura, limite de Destreza, escudo, requisito de Força e proficiência.
   let baseAC = 10 + dexMod;
+  let armorPenalty = 0;
+  let armorWarning = '';
+
   (character.items || []).forEach(item => {
     if (!item.equipped) return;
     if (item.type === 'armadura') {
       const armorAC = parseInt(item.details?.baseAC) || 10;
       const type = item.details?.armorType;
+      const dexCap = Number(item.details?.dexCap);
+      if (!classCanUseItem(character, item)) { armorWarning = 'Sem proficiência na armadura'; return; }
       if (type === 'Leve') baseAC = armorAC + dexMod;
-      else if (type === 'Média') baseAC = armorAC + Math.min(2, dexMod);
+      else if (type === 'Média') baseAC = armorAC + Math.min(Number.isFinite(dexCap) && dexCap > 0 ? dexCap : 2, dexMod);
       else if (type === 'Pesada') baseAC = armorAC;
+      if (Number(item.details?.strengthMin || 0) > Number(displayCharacter.attributes.forca || 10)) armorPenalty = 10;
     } else if (item.type === 'escudo') {
       baseAC += parseInt(item.details?.acBonus) || 2;
     }
   });
   document.getElementById('stat-ac').textContent = baseAC;
+  const acNote = document.getElementById('stat-ac')?.parentElement;
+  if (acNote) acNote.title = armorWarning ? `${armorWarning}; CA calculada sem a armadura.` : armorPenalty ? 'Deslocamento reduzido em 10 pés por requisito de Força.' : 'CA calculada automaticamente pelo equipamento.';
 
   renderSavesAndSkills(displayCharacter, profBonus);
   renderFeatures(character);
@@ -451,6 +514,9 @@ function renderInventory(character) {
     const li = document.createElement('li');
     li.className = 'item-row inventory-item';
     const details = formatItemDetails(item);
+    const catalog = itemByName(item.name);
+    const weaponStats = catalog?.type === 'arma' ? weaponComputed(character, item, Math.max(2, 2 + Math.floor((Number(character.level || 1) - 1) / 4))) : null;
+    const proficiency = catalog?.type === 'arma' && !classCanUseItem(character, catalog) ? 'Sem proficiência: bônus de proficiência não é aplicado.' : '';
     li.innerHTML = `
       <div class="inventory-item-header">
         <span class="item-type-badge">${ITEM_TYPE_LABELS[item.type]}</span>
@@ -459,6 +525,8 @@ function renderInventory(character) {
         <button class="btn-remove">✕</button>
       </div>
       ${details ? `<div class="inventory-item-details">${escapeHtml(details)}</div>` : ''}
+      ${proficiency ? `<small class="inventory-warning">${escapeHtml(proficiency)}</small>` : ''}
+      ${weaponStats ? `<small class="inventory-derived">Ataque ${escapeHtml(formatModifier(weaponStats.attack))} · Dano ${escapeHtml(weaponStats.damage)} · ${escapeHtml(weaponStats.range)}</small>` : ''}
     `;
     const cb = li.querySelector('.equip-cb');
     if(cb) cb.onchange = async () => { await updateItem(character.id, item.id, { ...item, equipped: cb.checked }); await refreshSelected(); };
@@ -794,6 +862,8 @@ document.getElementById('btn-new-character').onclick = () => openCreationWizard(
 document.getElementById('wizard-close')?.addEventListener('click', closeCreationWizard);
 document.getElementById('wizard-background')?.addEventListener('change', wizardSyncBackground);
 document.getElementById('wizard-background-variant')?.addEventListener('change', wizardSyncBackground);
+document.getElementById('new-item-name')?.addEventListener('change', (event) => applyItemReference(itemByName(event.target.value)));
+document.getElementById('btn-add-item')?.addEventListener('click', async () => { try { await addCatalogItemFromForm(); await refreshSelected(); ['new-item-name','new-item-notes'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; }); setCharacterStatus('Item adicionado com cálculos automáticos.', 'success'); } catch (error) { setCharacterStatus(error.message || 'Não foi possível adicionar o item.', 'error'); } });
 document.getElementById('wizard-back')?.addEventListener('click', () => { if (wizardStep > 0) { wizardStep -= 1; wizardRender(); } });
 document.getElementById('wizard-next')?.addEventListener('click', () => { if (wizardCurrentFieldsValid() && wizardStep < wizardSteps.length - 1) { wizardStep += 1; wizardRender(); } });
 document.getElementById('wizard-class')?.addEventListener('change', wizardSyncClass);
@@ -896,6 +966,7 @@ function formatItemDetails(item) {
   try { const reference = await api('/class-reference'); state.classReference = reference.classes || []; syncClassReference(); } catch (error) { console.warn('Catálogo de classes indisponível:', error); }
   try { const reference = await api('/race-reference'); state.raceReference = reference.races || []; syncRaceReference(); } catch (error) { console.warn('Catálogo de raças indisponível:', error); }
   try { const reference = await api('/background-reference'); state.backgroundReference = reference.backgrounds || []; wizardPopulateBackgrounds(); } catch (error) { console.warn('Catálogo de backgrounds indisponível:', error); }
+  try { const reference = await api('/item-reference'); state.itemReference = reference.items || []; populateItemReference(); } catch (error) { console.warn('Catálogo de itens indisponível:', error); }
   await refreshSelected();
   await loadTemplates();
 })();

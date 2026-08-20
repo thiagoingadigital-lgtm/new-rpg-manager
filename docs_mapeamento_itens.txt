@@ -1,0 +1,541 @@
+Mapeamento de itens — D&D 5e (2014)
+Autor: Manus AI
+Escopo: itens e categorias do capítulo de equipamentos do Player’s Handbook da D&D 5e
+de 2014.
+Fonte normativa principal: capítulo de equipamentos das Basic Rules (2014), que
+reproduz o núcleo de regras de equipamento da edição.[1]
+  Este documento organiza os itens por tipo e resume seu funcionamento. Ele não inclui
+  itens mágicos do Dungeon Master’s Guide, tesouros aleatórios, equipamentos de
+  suplementos ou armas de fogo opcionais. Um item comum pode receber efeitos mágicos
+  em outras partes das regras, mas isso não altera sua categoria básica aqui.
+
+1. Árvore de categorias
+  Plain Text
+  Equipamento de personagem
+  │
+  ├── Armaduras e escudos
+  │   ├── Armaduras leves
+  │   ├── Armaduras médias
+  │   ├── Armaduras pesadas
+  │   └── Escudos
+  │
+  ├── Armas
+  │   ├── Simples corpo a corpo
+  │   ├── Simples à distância
+  │   ├── Marciais corpo a corpo
+  │   ├── Marciais à distância
+  │   ├── Munição
+  │   └── Armas improvisadas, prateadas e especiais
+  │
+  ├── Equipamento de aventura
+  │   ├── Focos de conjuração
+  │   ├── Componentes e armazenamento
+  │   ├── Exploração e acampamento
+  │   ├── Ferramentas de contenção e escalada
+  │   ├── Luz, fogo e líquidos
+  │   ├── Cura, venenos e substâncias
+  │   ├── Documentos, escrita e comunicação
+  │   └── Itens gerais
+  │
+  ├── Ferramentas
+  │   ├── Ferramentas de artesão
+  │   ├── Kits especializados
+  │   ├── Instrumentos musicais
+  │   ├── Jogos
+  │   └── Veículos
+  │
+  ├── Pacotes de equipamento
+  │   ├── de aventureiro
+  │   ├── de diplomata
+  │   ├── de explorador
+  │   ├── de sacerdote
+  │   ├── de estudioso
+  │   └── de masmorra
+  │
+  ├── Montarias e veículos
+  │   ├── Montarias terrestres
+  │   ├── Animais de carga
+  │   ├── Equipamento de montaria
+  │   ├── Veículos terrestres
+  │   └── Embarcações
+  │
+  ├── Mercadorias e moeda
+  │
+  └── Bugigangas
+
+
+
+
+2. Funcionamento geral dos itens
+A ficha normalmente registra o nome do item, quantidade, peso e propriedades relevantes.
+O equipamento inicial pode vir da classe e do background, ou ser comprado com o dinheiro
+inicial previsto pelas regras. Se a personagem comprar equipamento com dinheiro, não
+recebe simultaneamente o pacote inicial equivalente da classe; a mesma lógica aparece no
+background.[1] [2]
+O peso é contado em libras. A capacidade de carga padrão é 15 vezes o valor de Força em
+libras. Empurrar, arrastar ou levantar pode permitir valores maiores, conforme a regra geral
+de carga. O Mestre pode usar a variante de carga para impor penalidades quando o limite é
+excedido.
+ Campo da ficha                                Pergunta que responde
+ Quantidade                                    Quantas unidades o personagem possui?
+ Peso                                         Quanto cada unidade pesa e qual o peso
+                                              total?
+ Custo                                        Quanto custa comprar ou substituir o item?
+ Proficiência                                 O personagem sabe usar esse tipo de item de
+                                              maneira eficaz?
+ Propriedades                                 O item exige duas mãos, tem alcance, pode
+                                              ser arremessado, dá bônus de CA etc.?
+ Estado                                       Está carregado, vestido, empunhado, preso,
+                                              quebrado ou consumido?
+
+
+
+3. Armaduras e escudos
+A armadura determina a Classe de Armadura. A personagem só adiciona o bônus de
+proficiência ao usar uma armadura com a qual é proficiente. Vestir ou retirar armadura
+exige tempo; armaduras pesadas normalmente levam mais tempo que leves.[1]
+3.1 Tabela de armaduras
+ Categoria      Item        CA          Força        Furtividade Peso            Custo
+                                        mínima
+ Leve           Acolchoada 11 + Des     —            Desvantage 8 lb             5 PO
+                                                     m
+ Leve           Couro       11 + Des    —            —          10 lb            10 PO
+ Leve           Couro       12 + Des    —            —             13 lb         45 PO
+                batido
+ Média          Peles       12 + Des,   —            —             12 lb         10 PO
+                            máx. +2
+ Média          Camisa de   13 + Des,   —            —             20 lb         50 PO
+                cota        máx. +2
+ Média          Brunea      14 + Des,   —            —             45 lb         50 PO
+                            máx. +2
+ Média          Peitoral    14 + Des,   —            —             20 lb         400 PO
+                            máx. +2
+ Média        Meia-        15 + Des,    —            Desvantage   40 lb        750 PO
+              armadura     máx. +2                   m
+ Pesada       Cota de      14           —            Desvantage   40 lb        30 PO
+              anéis                                  m
+ Pesada       Cota de      16           Força 13     Desvantage   55 lb        75 PO
+              malha                                  m
+ Pesada       Cota de      17           Força 15     Desvantage   60 lb        200 PO
+              talas                                  m
+ Pesada       Placas       18           Força 15     Desvantage   65 lb        1.500 PO
+                                                     m
+ Escudo       Escudo       +2 CA        —            —            6 lb         10 PO
+
+Armadura leve: soma todo o modificador de Destreza à CA.
+Armadura média: soma o modificador de Destreza até o limite indicado, normalmente +2.
+Armadura pesada: não soma Destreza à CA.
+Força mínima: se a personagem não atingir o valor indicado, seu deslocamento é reduzido
+em 10 pés.
+Desvantagem em Furtividade: aplica desvantagem aos testes de Destreza (Furtividade).
+3.2 Regras de uso
+Uma personagem pode beneficiar-se de apenas uma armadura e um escudo ao mesmo
+tempo, salvo regra específica. O escudo exige uma mão. Para lançar magias com
+componentes somáticos, a mão ocupada pelo escudo pode criar conflito, a menos que a
+personagem possua uma mão livre ou uma interação permitida pela regra de foco e
+componentes.
+
+4. Armas
+As armas são divididas em simples e marciais, além de corpo a corpo e à distância. A
+proficiência permite adicionar o bônus de proficiência à jogada de ataque. Sem
+proficiência, a personagem ainda pode tentar atacar, mas não soma esse bônus.[1]
+4.1 Armas simples corpo a corpo
+Arma             Dano             Peso     Propriedades       Custo
+Clava            1d4 concussão    2 lb     Leve               1 PP
+Adaga            1d4 perfurante   1 lb     Acuidade, leve,    2 PO
+                                           arremesso 20/60
+Porrete grande   1d8 concussão    10 lb    Duas mãos          2 PP
+Machadinha       1d6 cortante     2 lb     Leve, arremesso    5 PO
+                                           20/60
+Azagaia          1d6 perfurante   2 lb     Arremesso 30/120   5 PP
+Martelo leve     1d4 concussão    2 lb     Leve, arremesso    2 PO
+                                           20/60
+Maça             1d6 concussão    4 lb     —                  5 PO
+Bordão           1d6 concussão    4 lb     Versátil 1d8       2 PP
+Foice            1d4 cortante     2 lb     Leve               1 PO
+Lança            1d6 perfurante   3 lb     Arremesso 20/60,   1 PO
+                                           versátil 1d8
+
+
+4.2 Armas simples à distância
+Arma             Dano             Peso     Propriedades       Custo
+                                           Munição 80/320,
+Besta leve       1d8 perfurante   5 lb     recarga, duas      25 PO
+                                           mãos
+Dardo            1d4 perfurante   1/4 lb   Acuidade,          5 PC
+                                           arremesso 20/60
+Arco curto       1d6 perfurante   2 lb     Munição 80/320,    25 PO
+                                           duas mãos
+Funda            1d4 concussão    —        Munição 30/120     1 PP
+
+
+4.3 Armas marciais corpo a corpo
+Arma              Dano              Peso    Propriedades       Custo
+Machado de        1d8 cortante      4 lb    Versátil 1d10      10 PO
+batalha
+Mangual           1d8 concussão     2 lb    —                  10 PO
+Glaive            1d10 cortante     6 lb    Pesada, alcance,   20 PO
+                                            duas mãos
+Machado grande 1d12 cortante        7 lb    Pesada, duas       30 PO
+                                            mãos
+Espada grande     2d6 cortante      6 lb    Pesada, duas       50 PO
+                                            mãos
+Alabarda          1d10 cortante     6 lb    Pesada, alcance,   20 PO
+                                            duas mãos
+Lança de          1d12 perfurante   6 lb    Alcance, especial 10 PO
+cavalaria
+Espada longa      1d8 cortante      3 lb    Versátil 1d10      15 PO
+Malho             2d6 concussão     10 lb   Pesada, duas       10 PO
+                                            mãos
+Maça-estrela      1d8 perfurante    4 lb    —                  15 PO
+Pique             1d10 perfurante   18 lb   Pesada, alcance,   5 PO
+                                            duas mãos
+Rapieira          1d8 perfurante    2 lb    Acuidade           25 PO
+Cimitarra         1d6 cortante      3 lb    Acuidade, leve     25 PO
+Espada curta      1d6 perfurante    2 lb    Acuidade, leve     10 PO
+Tridente          1d6 perfurante    4 lb    Arremesso 20/60,   5 PO
+                                            versátil 1d8
+Picareta de       1d8 perfurante    2 lb    —                  5 PO
+guerra
+Martelo de guerra 1d8 concussão     2 lb    Versátil 1d10      15 PO
+Chicote           1d4 cortante      3 lb    Acuidade,          2 PO
+                                            alcance
+4.4 Armas marciais à distância
+Arma           Dano              Peso              Propriedades        Custo
+Zarabatana     1 perfurante      1 lb              Munição 25/100,     10 PO
+                                                   recarga
+Besta de mão   1d6 perfurante    3 lb              Munição 30/120,     75 PO
+                                                   leve, recarga
+                                                   Munição
+Besta pesada   1d10 perfurante   18 lb             100/400, pesada,    50 PO
+                                                   recarga, duas
+                                                   mãos
+                                                   Munição
+Arco longo     1d8 perfurante    2 lb              150/600, pesada,    50 PO
+                                                   duas mãos
+Rede           —                 3 lb              Especial,           1 PO
+                                                   arremesso 5/15
+
+
+4.5 Propriedades de armas
+Propriedade                              Funcionamento
+                                         Exige munição; cada ataque consome uma
+Munição                                  unidade. Ao fim do combate, pode-se
+                                         recuperar metade da munição gasta após
+                                         procurar por um minuto.
+                                         Permite usar Força ou Destreza para ataque e
+Acuidade                                 dano, usando o mesmo atributo nas duas
+                                         jogadas.
+Pesada                                   Criaturas Pequenas ou Miúdas têm
+                                         desvantagem nos ataques com a arma.
+Leve                                     Facilita o combate com duas armas, sujeito
+                                         às demais regras.
+                                         Limita a um disparo por ação, ação bônus ou
+Recarga                                  reação, independentemente do número de
+                                         ataques normalmente disponível.
+ Alcance                                     Aumenta o alcance normal e o alcance para
+                                             ataques de oportunidade em 5 pés.
+                                             Permite fazer ataque à distância
+ Arremesso                                   arremessando a arma; usa o atributo
+                                             apropriado ao ataque corpo a corpo.
+ Duas mãos                                   Exige as duas mãos ao atacar.
+                                             Pode ser usada com uma ou duas mãos; o
+ Versátil                                    dano entre parênteses é o dano de duas
+                                             mãos.
+ Especial                                    Tem uma regra própria descrita na seção de
+                                             armas especiais.
+
+Alcance: o primeiro número é o alcance normal; o segundo é o alcance máximo. Além do
+alcance normal, o ataque é feito com desvantagem. Além do alcance máximo, não é
+possível atacar.
+Lança de cavalaria: tem desvantagem contra alvo a até 5 pés e exige duas mãos quando
+não montado.
+Rede: pode deixar uma criatura Grande ou menor restringida; a criatura pode escapar com
+um teste de Força CD 10 ou destruindo a rede, e só é permitido um ataque com rede na
+ação, ação bônus ou reação.
+4.6 Armas improvisadas e prateadas
+Qualquer objeto que possa ser empunhado pode funcionar como arma improvisada. Se for
+parecido com uma arma existente, o Mestre pode tratá-lo como tal. Caso contrário,
+normalmente causa 1d4 de dano, com o tipo escolhido pelo Mestre. Uma arma ou dez
+unidades de munição podem ser prateadas por 100 PO, recurso útil contra criaturas
+resistentes ou imunes a armas não mágicas.
+
+5. Equipamento de aventura
+O equipamento de aventura não é apenas decoração. Muitos itens criam iluminação,
+resolvem obstáculos, impõem condições, permitem sobreviver ou interagem com testes de
+habilidade.
+5.1 Focos e componentes
+Categoria                      Itens do Livro do Jogador           Uso
+                               Cristal, orbe, bastão, cajado e     Pode substituir componentes
+Foco arcano                    varinha                             materiais de magias quando a
+                                                                   classe permitir.
+Foco druídico                  Ramo de visco, totem, cajado        Foco para conjuração druídica
+                               de madeira e varinha de teixo       quando permitido.
+Símbolo sagrado                Amuleto, emblema e relicário        Foco para magias de clérigo e
+                                                                   paladino, conforme a classe.
+                                                                   Armazena componentes
+Bolsa de componentes           Bolsa de componentes                materiais não consumidos e
+                                                                   sem custo especificado.
+                                                                   Registro das magias de um
+Livro de magias                Livro de magias                     mago; não é um foco arcano
+                                                                   por si só.
+
+
+5.2 Munição
+Item                    Quantidade               Custo                       Peso
+Flechas                 20                       1 PO                        1 lb
+Agulhas de zarabatana   50                       1 PO                        1 lb
+Virotes                 20                       1 PO                        1,5 lb
+Balas de funda          20                       4 PC                        1,5 lb
+
+
+5.3 Equipamento geral
+Grupo                                            Itens principais
+                                                 Mochila, barril, cesto, saco, baú, bolsa, estojo
+Armazenamento                                    de mapa/pergaminho, estojo de virotes,
+                                                 aljava, garrafa, frasco, jarro e balde.
+Acampamento                                      Saco de dormir, cobertor, barraca para duas
+                                                 pessoas, roupas comuns, roupas finas,
+                              roupas de viajante, panela de ferro, kit de
+                              refeição e rações.
+                              Corda de cânhamo, corda de seda, pitão,
+Escalada e travessia          gancho, kit de escalada, escada, vara de 10
+                              pés, aríete portátil, martelo e marreta.
+Luz e fogo                    Vela, lamparina, lanterna de foco, lanterna
+                              coberta, óleo, caixa de pederneira e tochas.
+                              Algemas, corrente, cadeado, armadilha de
+Contenção                     caça, rolamentos de metal, estrepes e pé de
+                              cabra.
+                              Livro, papel, pergaminho, tinta, pena, lacre,
+Escrita e informação          cera, ampulheta, lente de aumento, espelho
+                              de aço e luneta.
+Alimentação e líquidos        Odre, cantil/recipiente de água, frasco, jarro,
+                              cerveja ou outro líquido, rações e utensílios.
+                              Ácido, fogo alquímico, antitoxina, água
+Alquimia e cura               benta, veneno básico, kit de curandeiro e
+                              poção de cura.
+                              Ábaco, balança de mercador, sino, giz, sabão,
+Utilidade                     perfume, pedra de amolar, apito de sinal,
+                              livro e ferramentas diversas.
+
+
+5.4 Itens com regras específicas
+Item                          Funcionamento resumido
+                              Como ação, pode ser arremessado a até 20
+Ácido                         pés; em um ataque à distância bem-
+                              sucedido, causa 2d6 de dano de ácido.
+                              Em um acerto, causa 1d4 de dano de fogo no
+Fogo alquímico                início de cada turno até ser apagado com
+                              ação e teste de Destreza CD 10.
+Antitoxina                    Concede vantagem em salvamentos contra
+                              veneno por uma hora.
+                              Cobrem uma área de 10 por 10 pés; criaturas
+Rolamentos de metal           que atravessam fazem salvamento de
+                              Destreza CD 10 ou caem no chão.
+                                              Cobrem 5 por 5 pés; salvamento de Destreza
+ Estrepes                                     CD 15 ou a criatura para, sofre 1 perfurante e
+                                              tem deslocamento reduzido em 10 pés até
+                                              recuperar PV.
+ Corrente                                     Tem 10 PV e pode ser rompida com teste de
+                                              Força CD 20.
+ Kit de escalada                              Permite ancorar-se como ação usando pitões,
+                                              botas, luvas e arnês.
+ Kit de curandeiro                            Contém dez usos; permite estabilizar uma
+                                              criatura sem teste de Medicina.
+                                              Ao ser acionada, causa dano perfurante e
+ Armadilha de caça                            pode prender a criatura; a regra exata
+                                              depende da versão do item e decisão do
+                                              Mestre.
+ Poção de cura                                Item consumível que restaura PV conforme a
+                                              descrição oficial da poção.
+                                              Aplicado a arma ou munição; exige seguir a
+ Veneno básico                                regra de aplicação e salvamento da descrição
+                                              do item.
+                                              Pode ser usada como recurso contra certos
+ Água benta                                   mortos-vivos e ínferos, conforme as regras de
+                                              ataque e dano apropriadas.
+ Corda de seda                                50 pés, mais leve e mais cara que a corda de
+                                              cânhamo.
+ Luneta                                       Permite observar objetos distantes com
+                                              aumento.
+                                              Pode ser usado para observar sem expor o
+ Espelho de aço                               rosto, verificar atrás de obstáculos ou refletir
+                                              luz.
+
+
+
+6. Ferramentas
+Ferramentas representam treinamento prático. Se a proficiência com uma ferramenta e
+uma perícia se aplicar à mesma atividade, o Mestre pode permitir o benefício especial de
+combinar as duas proficiências, conforme as regras de testes e ferramentas.
+6.1 Ferramentas de artesão
+Ferramenta                       Possíveis usos
+Ferramentas de alquimista        Criar e identificar substâncias alquímicas.
+Ferramentas de cervejeiro        Produzir e avaliar bebidas; reconhecer
+                                 contaminação.
+Ferramentas de calígrafo         Escrever, copiar e analisar documentos.
+Ferramentas de carpinteiro       Construir e reparar estruturas de madeira.
+Ferramentas de cartógrafo        Produzir, interpretar e atualizar mapas.
+Ferramentas de sapateiro         Produzir e reparar calçados e couro
+                                 trabalhado.
+Ferramentas de cozinheiro        Preparar alimentos e identificar ingredientes.
+Ferramentas de vidreiro          Produzir e avaliar objetos de vidro.
+Ferramentas de joalheiro         Trabalhar e avaliar gemas e joias.
+Ferramentas de coureiro          Preparar e trabalhar couro e peles.
+Ferramentas de pedreiro          Construir, reparar e examinar alvenaria.
+Ferramentas de pintor            Produzir imagens, ilustrações e cópias visuais.
+Ferramentas de oleiro            Produzir objetos de cerâmica.
+Ferramentas de ferreiro          Trabalhar metal, ferraduras, armas e peças.
+Ferramentas de funileiro         Reparar e criar objetos metálicos pequenos.
+Ferramentas de tecelão           Produzir tecidos e avaliar roupas.
+Ferramentas de entalhador        Trabalhar madeira e esculpir objetos.
+
+
+6.2 Kits, instrumentos e jogos
+Tipo                             Opções
+                                 Kit de disfarce, kit de falsificação, kit de
+Kits especializados              herbalismo, ferramentas de ladrão e
+                                 ferramentas de navegador.
+ Instrumentos musicais                        Alaúde, flauta, flauta de pã, tambor, dulcimer,
+                                              lira, corno, pífaro e viola.
+                                              Dados, cartas, xadrez do dragão e outros
+ Jogos                                        conjuntos de jogos, conforme a mesa e a lista
+                                              usada.
+ Veículos                                     Veículos terrestres e veículos aquáticos.
+
+Kit de disfarce: ajuda a alterar aparência.
+Kit de falsificação: permite criar documentos e reproduzir escrita, sujeito a exame.
+Kit de herbalismo: identifica e prepara ervas, componentes e antídotos.
+Ferramentas de ladrão: usadas para abrir fechaduras e desarmar armadilhas;
+normalmente incluem pequenas limas, gazuas, espelhos e pinças.
+Ferramentas de navegador: permitem traçar curso, medir posição e interpretar cartas
+náuticas.
+
+7. Pacotes de equipamento
+Os pacotes simplificam a compra inicial e costumam reunir os itens mais úteis para um
+papel específico.
+ Pacote                                       Itens típicos
+ Pacote de aventureiro                        Mochila, saco de dormir, kit de refeição,
+                                              pederneira, tochas, rações, odre e corda.
+                                              Baú, duas caixas para mapas e pergaminhos,
+ Pacote de diplomata                          roupas finas, tinta, pena, lamparina, dois
+                                              frascos de óleo, papel, pergaminho, perfume
+                                              e sabão.
+                                              Mochila, saco de dormir, kit de refeição,
+ Pacote de explorador                         pederneira, tochas, rações, odre e corda, com
+                                              itens adicionais de exploração.
+                                              Mochila, cobertor, dez velas, caixa de
+ Pacote de sacerdote                          pederneira, esmoleiro, incenso, vestimentas
+                                              e água benta.
+                                              Mochila, livro de conhecimento, tinta, pena,
+ Pacote de estudioso                          pergaminho, bolsa pequena de areia e faca
+                                              pequena.
+ Pacote de masmorra                               Mochila, pé de cabra, martelo, pitões, tochas,
+                                                  pederneira, rações e odre.
+
+Os nomes e a composição exata podem variar conforme a classe. Para registrar a ficha,
+lance cada item do pacote individualmente no inventário, em vez de registrar apenas o
+nome do pacote.
+
+8. Montarias e veículos
+
+8.1 Montarias e animais
+ Tipo                          Exemplos                            Função
+                               Cavalo, pônei, mula, mastim e       Transporte individual e, em
+ Montarias                     camelo                              alguns casos, carga ou
+                                                                   combate.
+ Animais de carga              Boi, mula, cavalo de tração e       Transporte de carga e
+                               elefante                            equipamentos.
+ Equipamento                   Sela, arreios, rédeas, alforjes,    Transporte, proteção e
+                               carroça, carruagem e barding        acondicionamento de carga.
+
+
+8.2 Veículos terrestres e aquáticos
+ Categoria                                        Exemplos
+ Terrestres                                       Carroça, carruagem, carro de mão, trenó e
+                                                  vagão.
+ Aquáticos                                        Barco a remo, galera, barco de quilha, navio
+                                                  de guerra, navio longo e veleiro.
+
+Veículos têm custo, velocidade, tripulação, capacidade e carga. A personagem pode ser
+proficiente com veículos terrestres ou aquáticos; a proficiência normalmente se aplica a
+testes relacionados à condução, navegação e controle.
+9. Mercadorias e moeda
+A moeda-base pode ser convertida conforme a tabela abaixo.
+ Moeda                                        Relação
+ 1 PO                                         10 PP
+ 1 PO                                         100 PC
+ 1 PE                                         5 PP
+ 1 PP                                         10 PC
+ 1 PP                                         1/10 PO
+ 1 PC                                         1/100 PO
+ 1 PP                                         1/2 PE
+ 1 PP                                         10 PC
+
+As moedas são cobre (PC), prata (PP), electrum (PE), ouro (PO) e platina (PL).
+Mercadorias — como trigo, sal, ferro, especiarias, gado, madeira ou tecidos — funcionam
+como unidades de valor e podem servir de pagamento quando dinheiro comum não está
+disponível.
+
+10. Bugigangas
+As bugigangas são itens pequenos, estranhos ou simbólicos destinados a criar história e
+personalidade. Normalmente não fornecem bônus mecânico direto. Exemplos incluem
+uma chave sem fechadura, um mapa de local desconhecido, uma moeda de cultura extinta,
+uma pena incomum, uma pequena caixa musical, uma peça de xadrez ou uma carta cujo
+conteúdo não se consegue ler.
+  Plain Text
+  Bugiganga
+  ├── Objeto sem função evidente
+  ├── Pista de um passado
+  ├── Relíquia de uma cultura
+  ├── Lembrança pessoal
+  └── Possível gancho para o Mestre
+11. Relação entre itens e criação da ficha
+  Plain Text
+  Raça + classe + background
+            │
+            ├── Proficiências com armas e armaduras
+            ├── Equipamento inicial da classe
+            ├── Equipamento inicial do background
+            ├── Dinheiro ou pacote alternativo
+            └── Inventário final
+                      │
+                      ├── CA
+                      ├── ataques e dano
+                      ├── alcance e munição
+                      ├── carga e peso
+                      ├── testes de ferramenta
+                      └── recursos de exploração
+
+
+A escolha de equipamento deve ser conferida contra a proficiência da personagem. Uma
+arma marcial pode ser estatisticamente superior a uma simples, mas não acrescenta
+proficiência ao ataque se a personagem não tiver treinamento. Da mesma forma, uma
+armadura pesada sem proficiência pode prejudicar a personagem por impedir o uso eficaz
+e, em algumas classes, interferir com conjuração.
+11.1 Fluxo de conferência do inventário
+1. Registre o equipamento concedido pela classe.
+2. Registre o equipamento concedido pelo background.
+3. Escolha entre pacote e dinheiro quando a regra oferecer essa alternativa.
+4. Identifique armas e armaduras nas quais a personagem é proficiente.
+5. Calcule a CA, incluindo Destreza, escudo e propriedades da armadura.
+6. Registre alcance, dano, tipo de dano, munição e propriedades de cada arma.
+7. Some peso, quantidade e capacidade de carga.
+8. Separe itens consumíveis, focos, munições e ferramentas.
+9. Verifique se o cenário permite montarias, veículos, venenos, água benta e
+   equipamentos especiais.
+10.Anote itens narrativos que possam gerar cenas, contatos ou complicações.
+12. Referências
+[1]: D&D Beyond — Basic Rules 2014, Chapter 5: Equipment — fonte oficial para
+equipamentos, armaduras, armas, ferramentas, montarias, veículos, mercadorias,
+despesas e bugigangas.
+[2]: D&D Beyond — Basic Rules 2014, Chapter 4: Personality and Background — regras
+oficiais para o equipamento inicial concedido por backgrounds.
+[3]: D&D Beyond — Basic Rules 2014, Chapter 3: Classes — fontes oficiais para
+equipamentos iniciais, proficiências e opções de classe.
+[4]: D&D Beyond — Basic Rules 2014 — índice da coleção de regras básicas 2014.
+Aviso de escopo: este documento cobre o equipamento mundano e os tipos de item
+apresentados no capítulo de equipamentos do Livro do Jogador/Basic Rules 2014. Itens
+mágicos, artefatos, itens sentientes, armas de fogo opcionais e equipamentos de
+suplementos exigem mapeamentos separados.
+
