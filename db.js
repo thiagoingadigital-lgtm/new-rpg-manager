@@ -294,6 +294,8 @@ function initDb() {
 
     // Seed: classes básicas do D&D 5e + features básicas (SRD 5.1)
     const CLASSES_SEED = [
+      { slug:'artifice', name:'Artífice', icon:'⚙️', hitDie:'d8', primaryAbility:'Inteligência', casting:'full', castingAbility:'Inteligência', role:'Suporte',
+        description:'Inventores e artífices que usam ferramentas, infusões mágicas e conhecimento técnico para fabricar e imbuir objetos.' },
       { slug:'barbaro', name:'Bárbaro', icon:'🪓', hitDie:'d12', primaryAbility:'Força', casting:'none', role:'Linha de frente',
         description:'Um guerreiro feroz que combate com fúria primitiva e indomável. Para alguns, sua rabia brota da comunhão com espíritos de animais selvagens; outros recorrem a uma reserva de ira que ferve dentro deles.' },
       { slug:'bardo', name:'Bardo', icon:'🎵', hitDie:'d8', primaryAbility:'Carisma', casting:'full', castingAbility:'Carisma', role:'Suporte',
@@ -321,6 +323,17 @@ function initDb() {
     ];
 
     const FEATURES_SEED = {
+      artifice: [
+        { name:'Infusões Mágicas', level:2, description:'O artífice aprende a imbuir objetos mundanos com infusões mágicas.' },
+        { name:'Especialização de Artífice', level:3, description:'O artífice se especializa em uma linha de criação e recebe recursos adicionais conforme a especialização.' },
+        { name:'The Right Tool for the Job', level:3, description:'Pode criar temporariamente as ferramentas necessárias para realizar um trabalho.' },
+        { name:'Flash of Genius', level:7, description:'Usa sua Inteligência para melhorar testes de habilidade e resistências de aliados próximos.' },
+        { name:'Magic Item Adept', level:10, description:'Aprimora a criação e a sintonização de itens mágicos.' },
+        { name:'Spell-Storing Item', level:11, description:'Armazena uma magia em um objeto para permitir usos repetidos.' },
+        { name:'Magic Item Savant', level:14, description:'Aprimora a sintonização e o uso de itens mágicos.' },
+        { name:'Magic Item Master', level:18, description:'Aumenta a capacidade de sintonização com itens mágicos.' },
+        { name:'Soul of Artifice', level:20, description:'Aperfeiçoa a relação entre o artífice e seus itens mágicos.' }
+      ],
       barbaro: [
         { name:'Fúria (Rage)', level:1, description:'Como ação bônus, entra em fúria por 1 minuto: ganha resistência a dano físico (contundente, cortante e perfurante), bônus de +2 ao dano em ataques corpo a corpo usando Força e vantagem em testes de Força. Começa com 2 usos por descanso longo.' },
         { name:'Defesa sem Armadura', level:1, description:'Quando não usa armadura, a Classe de Armadura é 10 + modificador de Destreza + modificador de Constituição. Escudos podem ser usados normalmente.' },
@@ -433,9 +446,8 @@ function initDb() {
       return out;
     }
 
-    // Seed apenas se as classes ainda não existirem
-    const existingClasses = DB.exec('SELECT slug FROM classes');
-    if (!existingClasses.length || existingClasses[0].values.length === 0) {
+    // Seed incremental: adiciona classes, features e slots ausentes sem apagar dados existentes.
+    {
       DB.run('BEGIN TRANSACTION');
       try {
         for (const c of CLASSES_SEED) {
@@ -469,8 +481,7 @@ function initDb() {
         DB.run('ROLLBACK');
         throw e;
       }
-    }
-
+        }
     saveDb();
   })();
   return readyPromise;

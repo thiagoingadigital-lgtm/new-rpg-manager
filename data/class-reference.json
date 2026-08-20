@@ -1,18 +1,2006 @@
 {
-  "version": "1.0.0",
-  "source": "RPG Manager class registry",
+  "version": "2014.1",
+  "source": "mapeamento_dnd5e_2014",
+  "edition": "2014",
   "classes": [
-    {"slug":"barbaro","name":"Bárbaro","hitDie":"d12","primaryAbility":"Força","role":"Linha de frente","casting":"none","castingAbility":null,"resources":["Fúria"],"subclasses":["Caminho Primal"]},
-    {"slug":"bardo","name":"Bardo","hitDie":"d8","primaryAbility":"Carisma","role":"Suporte","casting":"full","castingAbility":"Carisma","resources":["Inspiração Bárdica"],"subclasses":["Colégio Bárdico"],"spellCatalog":"pending"},
-    {"slug":"bruxo","name":"Bruxo","hitDie":"d8","primaryAbility":"Carisma","role":"Dano","casting":"pact","castingAbility":"Carisma","resources":["Espaços de Pacto","Invocações Místicas"],"subclasses":["Patrono do Outro Plano"],"spellCatalog":"pending"},
-    {"slug":"clerigo","name":"Clérigo","hitDie":"d8","primaryAbility":"Sabedoria","role":"Suporte","casting":"full","castingAbility":"Sabedoria","resources":["Canalizar Divindade"],"subclasses":["Domínio Divino"],"spellCatalog":"pending"},
-    {"slug":"druida","name":"Druida","hitDie":"d8","primaryAbility":"Sabedoria","role":"Controle","casting":"full","castingAbility":"Sabedoria","resources":["Forma Selvagem"],"subclasses":["Círculo Druídico"],"spellCatalog":"pending"},
-    {"slug":"feiticeiro","name":"Feiticeiro","hitDie":"d6","primaryAbility":"Carisma","role":"Dano","casting":"full","castingAbility":"Carisma","resources":["Pontos de Feitiçaria","Metamágica"],"subclasses":["Origem Mágica"],"spellCatalog":"pending"},
-    {"slug":"guerreiro","name":"Guerreiro","hitDie":"d10","primaryAbility":"Força ou Destreza","role":"Dano","casting":"none","castingAbility":null,"resources":["Retomar Fôlego","Surto de Ação"],"subclasses":["Arquétipo Marcial"]},
-    {"slug":"ladino","name":"Ladino","hitDie":"d8","primaryAbility":"Destreza","role":"Furtivo","casting":"none","castingAbility":null,"resources":["Ataque Furtivo","Ação Ardilosa"],"subclasses":["Arquétipo de Ladino"]},
-    {"slug":"mago","name":"Mago","hitDie":"d6","primaryAbility":"Inteligência","role":"Controle","casting":"full","castingAbility":"Inteligência","resources":["Recuperação Arcana"],"subclasses":["Tradição Arcana"],"spellCatalog":"pending"},
-    {"slug":"monge","name":"Monge","hitDie":"d8","primaryAbility":"Destreza e Sabedoria","role":"Dano","casting":"none","castingAbility":null,"resources":["Pontos de Ki","Movimento sem Armadura"],"subclasses":["Tradição Monástica"]},
-    {"slug":"paladino","name":"Paladino","hitDie":"d10","primaryAbility":"Força e Carisma","role":"Linha de frente","casting":"half","castingAbility":"Carisma","resources":["Imposição das Mãos","Sentido Divino"],"subclasses":["Lorde Dragão","Juramento Sagrado"],"spellCatalog":"paladin-reference"},
-    {"slug":"patrulheiro","name":"Patrulheiro","hitDie":"d10","primaryAbility":"Destreza e Sabedoria","role":"Dano","casting":"half","castingAbility":"Sabedoria","resources":["Inimigo Favorito","Explorador Nato"],"subclasses":["Arquetipo de Patrulheiro"],"spellCatalog":"pending"}
+    {
+      "slug": "artifice",
+      "name": "Artífice",
+      "edition": "2014",
+      "status": "core",
+      "hitDie": "d8",
+      "primaryAbility": "Inteligência",
+      "role": "Suporte",
+      "casting": "full",
+      "castingAbility": "Inteligência",
+      "description": "Conjuração baseada em Inteligência; ferramentas de ladrão e de artesão; infusões mágicas; foco em fabricar e imbuir objetos.",
+      "resources": [],
+      "subclasses": [
+        {
+          "slug": "alquimista",
+          "name": "Alquimista",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "armeiro",
+          "name": "Armeiro",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "artilheiro",
+          "name": "Artilheiro",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "ferreiro-de-batalha",
+          "name": "Ferreiro de Batalha",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        }
+      ],
+      "features": [
+        {
+          "slug": "artifice-infusoes-magicas-2",
+          "name": "Infusões Mágicas",
+          "level": 2,
+          "description": "Infusões Mágicas — marco funcional da classe Artífice, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "artifice-especializacao-de-artifice-3",
+          "name": "Especialização de Artífice",
+          "level": 3,
+          "description": "Especialização de Artífice — marco funcional da classe Artífice, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "artifice-the-right-tool-for-the-job-3",
+          "name": "The Right Tool for the Job",
+          "level": 3,
+          "description": "The Right Tool for the Job — marco funcional da classe Artífice, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "artifice-melhoria-no-valor-de-habilidade-4",
+          "name": "Melhoria no Valor de Habilidade",
+          "level": 4,
+          "description": "Melhoria no Valor de Habilidade — marco funcional da classe Artífice, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "artifice-flash-of-genius-7",
+          "name": "Flash of Genius",
+          "level": 7,
+          "description": "Flash of Genius — marco funcional da classe Artífice, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "artifice-magic-item-adept-10",
+          "name": "Magic Item Adept",
+          "level": 10,
+          "description": "Magic Item Adept — marco funcional da classe Artífice, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "artifice-spell-storing-item-11",
+          "name": "Spell-Storing Item",
+          "level": 11,
+          "description": "Spell-Storing Item — marco funcional da classe Artífice, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "artifice-magic-item-savant-14",
+          "name": "Magic Item Savant",
+          "level": 14,
+          "description": "Magic Item Savant — marco funcional da classe Artífice, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "artifice-magic-item-master-18",
+          "name": "Magic Item Master",
+          "level": 18,
+          "description": "Magic Item Master — marco funcional da classe Artífice, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "artifice-soul-of-artifice-20",
+          "name": "Soul of Artifice",
+          "level": 20,
+          "description": "Soul of Artifice — marco funcional da classe Artífice, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        }
+      ]
+    },
+    {
+      "slug": "barbaro",
+      "name": "Bárbaro",
+      "edition": "2014",
+      "status": "core",
+      "hitDie": "d12",
+      "primaryAbility": "Força",
+      "role": "Linha de frente",
+      "casting": "none",
+      "castingAbility": null,
+      "description": "Fúria, Defesa sem Armadura, armas marciais, resistência física e combate de linha de frente.",
+      "resources": [],
+      "subclasses": [
+        {
+          "slug": "caminho-do-berserker",
+          "name": "Caminho do Berserker",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-do-guerreiro-totemico",
+          "name": "Caminho do Guerreiro Totêmico",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-do-battlerager",
+          "name": "Caminho do Battlerager",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-do-arauto-da-tempestade",
+          "name": "Caminho do Arauto da Tempestade",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-do-zelote",
+          "name": "Caminho do Zelote",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-do-guardiao-ancestral",
+          "name": "Caminho do Guardião Ancestral",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-da-besta",
+          "name": "Caminho da Besta",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-da-magia-selvagem",
+          "name": "Caminho da Magia Selvagem",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-do-gigante",
+          "name": "Caminho do Gigante",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        }
+      ],
+      "features": [
+        {
+          "slug": "barbaro-reckless-attack-2",
+          "name": "Reckless Attack",
+          "level": 2,
+          "description": "Reckless Attack — marco funcional da classe Bárbaro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "barbaro-danger-sense-2",
+          "name": "Danger Sense",
+          "level": 2,
+          "description": "Danger Sense — marco funcional da classe Bárbaro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "barbaro-melhoria-no-valor-de-habilidade-4",
+          "name": "Melhoria no Valor de Habilidade",
+          "level": 4,
+          "description": "Melhoria no Valor de Habilidade — marco funcional da classe Bárbaro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "barbaro-extra-attack-5",
+          "name": "Extra Attack",
+          "level": 5,
+          "description": "Extra Attack — marco funcional da classe Bárbaro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "barbaro-fast-movement-5",
+          "name": "Fast Movement",
+          "level": 5,
+          "description": "Fast Movement — marco funcional da classe Bárbaro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "barbaro-feral-instinct-7",
+          "name": "Feral Instinct",
+          "level": 7,
+          "description": "Feral Instinct — marco funcional da classe Bárbaro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "barbaro-brutal-critical-9",
+          "name": "Brutal Critical",
+          "level": 9,
+          "description": "Brutal Critical — marco funcional da classe Bárbaro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "barbaro-relentless-rage-11",
+          "name": "Relentless Rage",
+          "level": 11,
+          "description": "Relentless Rage — marco funcional da classe Bárbaro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "barbaro-persistent-rage-15",
+          "name": "Persistent Rage",
+          "level": 15,
+          "description": "Persistent Rage — marco funcional da classe Bárbaro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "barbaro-indomitable-might-18",
+          "name": "Indomitable Might",
+          "level": 18,
+          "description": "Indomitable Might — marco funcional da classe Bárbaro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "barbaro-primal-champion-20",
+          "name": "Primal Champion",
+          "level": 20,
+          "description": "Primal Champion — marco funcional da classe Bárbaro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        }
+      ]
+    },
+    {
+      "slug": "bardo",
+      "name": "Bardo",
+      "edition": "2014",
+      "status": "core",
+      "hitDie": "d8",
+      "primaryAbility": "Carisma",
+      "role": "Suporte",
+      "casting": "full",
+      "castingAbility": "Carisma",
+      "description": "Conjuração baseada em Carisma; inspiração de bardo; perícias sociais e amplo repertório mágico.",
+      "resources": [],
+      "subclasses": [
+        {
+          "slug": "colegio-do-conhecimento",
+          "name": "Colégio do Conhecimento",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "colegio-do-valor",
+          "name": "Colégio do Valor",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "colegio-do-glamour",
+          "name": "Colégio do Glamour",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "colegio-das-espadas",
+          "name": "Colégio das Espadas",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "colegio-dos-sussurros",
+          "name": "Colégio dos Sussurros",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "colegio-da-criacao",
+          "name": "Colégio da Criação",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "colegio-da-eloquencia",
+          "name": "Colégio da Eloquência",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "colegio-dos-espiritos",
+          "name": "Colégio dos Espíritos",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        }
+      ],
+      "features": [
+        {
+          "slug": "bardo-jack-of-all-trades-2",
+          "name": "Jack of All Trades",
+          "level": 2,
+          "description": "Jack of All Trades — marco funcional da classe Bardo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bardo-song-of-rest-2",
+          "name": "Song of Rest",
+          "level": 2,
+          "description": "Song of Rest — marco funcional da classe Bardo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bardo-expertise-3",
+          "name": "Expertise",
+          "level": 3,
+          "description": "Expertise — marco funcional da classe Bardo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bardo-font-of-inspiration-5",
+          "name": "Font of Inspiration",
+          "level": 5,
+          "description": "Font of Inspiration — marco funcional da classe Bardo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bardo-countercharm-6",
+          "name": "Countercharm",
+          "level": 6,
+          "description": "Countercharm — marco funcional da classe Bardo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bardo-magical-secrets-10",
+          "name": "Magical Secrets",
+          "level": 10,
+          "description": "Magical Secrets — marco funcional da classe Bardo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bardo-expertise-10",
+          "name": "Expertise",
+          "level": 10,
+          "description": "Expertise — marco funcional da classe Bardo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bardo-magical-secrets-14",
+          "name": "Magical Secrets",
+          "level": 14,
+          "description": "Magical Secrets — marco funcional da classe Bardo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bardo-magical-secrets-18",
+          "name": "Magical Secrets",
+          "level": 18,
+          "description": "Magical Secrets — marco funcional da classe Bardo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bardo-superior-inspiration-20",
+          "name": "Superior Inspiration",
+          "level": 20,
+          "description": "Superior Inspiration — marco funcional da classe Bardo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        }
+      ]
+    },
+    {
+      "slug": "clerigo",
+      "name": "Clérigo",
+      "edition": "2014",
+      "status": "core",
+      "hitDie": "d8",
+      "primaryAbility": "Sabedoria",
+      "role": "Suporte",
+      "casting": "full",
+      "castingAbility": "Sabedoria",
+      "description": "Conjuração baseada em Sabedoria; domínio divino; armaduras e armas conforme a classe; magia divina preparada.",
+      "resources": [],
+      "subclasses": [
+        {
+          "slug": "dominio-do-conhecimento",
+          "name": "Domínio do Conhecimento",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "dominio-da-vida",
+          "name": "Domínio da Vida",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "dominio-da-luz",
+          "name": "Domínio da Luz",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "dominio-da-natureza",
+          "name": "Domínio da Natureza",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "dominio-da-morte",
+          "name": "Domínio da Morte",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "dominio-da-tempestade",
+          "name": "Domínio da Tempestade",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "dominio-da-trapaca",
+          "name": "Domínio da Trapaça",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "dominio-da-guerra",
+          "name": "Domínio da Guerra",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "dominio-arcano",
+          "name": "Domínio Arcano",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "dominio-da-forja",
+          "name": "Domínio da Forja",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "dominio-do-tumulo",
+          "name": "Domínio do Túmulo",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "dominio-da-ordem",
+          "name": "Domínio da Ordem",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "dominio-da-paz",
+          "name": "Domínio da Paz",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "dominio-do-crepusculo",
+          "name": "Domínio do Crepúsculo",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        }
+      ],
+      "features": [
+        {
+          "slug": "clerigo-canalizar-divindade-2",
+          "name": "Canalizar Divindade",
+          "level": 2,
+          "description": "Canalizar Divindade — marco funcional da classe Clérigo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "clerigo-expulsar-mortos-vivos-2",
+          "name": "Expulsar Mortos-Vivos",
+          "level": 2,
+          "description": "Expulsar Mortos-Vivos — marco funcional da classe Clérigo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "clerigo-melhoria-no-valor-de-habilidade-4",
+          "name": "Melhoria no Valor de Habilidade",
+          "level": 4,
+          "description": "Melhoria no Valor de Habilidade — marco funcional da classe Clérigo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "clerigo-intervencao-divina-10",
+          "name": "Intervenção Divina",
+          "level": 10,
+          "description": "Intervenção Divina — marco funcional da classe Clérigo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "clerigo-intervencao-divina-aprimorada-20",
+          "name": "Intervenção Divina aprimorada",
+          "level": 20,
+          "description": "Intervenção Divina aprimorada — marco funcional da classe Clérigo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        }
+      ]
+    },
+    {
+      "slug": "druida",
+      "name": "Druida",
+      "edition": "2014",
+      "status": "core",
+      "hitDie": "d8",
+      "primaryAbility": "Sabedoria",
+      "role": "Controle",
+      "casting": "full",
+      "castingAbility": "Sabedoria",
+      "description": "Conjuração baseada em Sabedoria; linguagem druídica; vínculo com a natureza; Forma Selvagem.",
+      "resources": [],
+      "subclasses": [
+        {
+          "slug": "circulo-da-terra",
+          "name": "Círculo da Terra",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "circulo-da-lua",
+          "name": "Círculo da Lua",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "circulo-dos-esporos",
+          "name": "Círculo dos Esporos",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "circulo-dos-sonhos",
+          "name": "Círculo dos Sonhos",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "circulo-do-pastor",
+          "name": "Círculo do Pastor",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "circulo-das-estrelas",
+          "name": "Círculo das Estrelas",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "circulo-do-fogo-selvagem",
+          "name": "Círculo do Fogo Selvagem",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        }
+      ],
+      "features": [
+        {
+          "slug": "druida-druidico-1",
+          "name": "Druídico",
+          "level": 1,
+          "description": "Druídico — marco funcional da classe Druida, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "druida-forma-selvagem-2",
+          "name": "Forma Selvagem",
+          "level": 2,
+          "description": "Forma Selvagem — marco funcional da classe Druida, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "druida-melhoria-no-valor-de-habilidade-4",
+          "name": "Melhoria no Valor de Habilidade",
+          "level": 4,
+          "description": "Melhoria no Valor de Habilidade — marco funcional da classe Druida, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "druida-corpo-atemporal-18",
+          "name": "Corpo Atemporal",
+          "level": 18,
+          "description": "Corpo Atemporal — marco funcional da classe Druida, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "druida-magias-da-besta-18",
+          "name": "Magias da Besta",
+          "level": 18,
+          "description": "Magias da Besta — marco funcional da classe Druida, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "druida-arquidruida-20",
+          "name": "Arquídruida",
+          "level": 20,
+          "description": "Arquídruida — marco funcional da classe Druida, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        }
+      ]
+    },
+    {
+      "slug": "guerreiro",
+      "name": "Guerreiro",
+      "edition": "2014",
+      "status": "core",
+      "hitDie": "d10",
+      "primaryAbility": "Força ou Destreza",
+      "role": "Dano",
+      "casting": "none",
+      "castingAbility": null,
+      "description": "Proficiência ampla em armas e armaduras; estilo de combate; alta resistência e foco em ataques.",
+      "resources": [],
+      "subclasses": [
+        {
+          "slug": "campeao",
+          "name": "Campeão",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "mestre-de-batalha",
+          "name": "Mestre de Batalha",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "cavaleiro-arcano",
+          "name": "Cavaleiro Arcano",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "cavaleiro-purpura-batedor-de-estandarte",
+          "name": "Cavaleiro Púrpura / Batedor de Estandarte",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "arqueiro-arcano",
+          "name": "Arqueiro Arcano",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "samurai",
+          "name": "Samurai",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "cavaleiro",
+          "name": "Cavaleiro",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "cavaleiro-runico",
+          "name": "Cavaleiro Rúnico",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "guerreiro-psionico",
+          "name": "Guerreiro Psiônico",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "cavaleiro-do-eco",
+          "name": "Cavaleiro do Eco",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        }
+      ],
+      "features": [
+        {
+          "slug": "guerreiro-segundo-folego-1",
+          "name": "Segundo Fôlego",
+          "level": 1,
+          "description": "Segundo Fôlego — marco funcional da classe Guerreiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "guerreiro-estilo-de-combate-1",
+          "name": "Estilo de Combate",
+          "level": 1,
+          "description": "Estilo de Combate — marco funcional da classe Guerreiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "guerreiro-surto-de-acao-2",
+          "name": "Surto de Ação",
+          "level": 2,
+          "description": "Surto de Ação — marco funcional da classe Guerreiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "guerreiro-arquetipo-marcial-3",
+          "name": "Arquétipo Marcial",
+          "level": 3,
+          "description": "Arquétipo Marcial — marco funcional da classe Guerreiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "guerreiro-extra-attack-5",
+          "name": "Extra Attack",
+          "level": 5,
+          "description": "Extra Attack — marco funcional da classe Guerreiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "guerreiro-indomavel-9",
+          "name": "Indomável",
+          "level": 9,
+          "description": "Indomável — marco funcional da classe Guerreiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "guerreiro-extra-attack-11",
+          "name": "Extra Attack",
+          "level": 11,
+          "description": "Extra Attack — marco funcional da classe Guerreiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "guerreiro-extra-attack-20",
+          "name": "Extra Attack",
+          "level": 20,
+          "description": "Extra Attack — marco funcional da classe Guerreiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        }
+      ]
+    },
+    {
+      "slug": "monge",
+      "name": "Monge",
+      "edition": "2014",
+      "status": "core",
+      "hitDie": "d8",
+      "primaryAbility": "Destreza e Sabedoria",
+      "role": "Dano",
+      "casting": "none",
+      "castingAbility": null,
+      "description": "Artes marciais; Defesa sem Armadura; mobilidade e uso de ki; combate desarmado.",
+      "resources": [],
+      "subclasses": [
+        {
+          "slug": "caminho-da-mao-aberta",
+          "name": "Caminho da Mão Aberta",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-das-sombras",
+          "name": "Caminho das Sombras",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-dos-quatro-elementos",
+          "name": "Caminho dos Quatro Elementos",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-da-alma-solar",
+          "name": "Caminho da Alma Solar",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-da-longa-morte",
+          "name": "Caminho da Longa Morte",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-do-mestre-bebado",
+          "name": "Caminho do Mestre Bêbado",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-do-kensei",
+          "name": "Caminho do Kensei",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-da-misericordia",
+          "name": "Caminho da Misericórdia",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-do-eu-astral",
+          "name": "Caminho do Eu Astral",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "caminho-do-dragao-ascendente",
+          "name": "Caminho do Dragão Ascendente",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        }
+      ],
+      "features": [
+        {
+          "slug": "monge-movimento-sem-armadura-2",
+          "name": "Movimento sem Armadura",
+          "level": 2,
+          "description": "Movimento sem Armadura — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "monge-defletir-projeteis-3",
+          "name": "Defletir Projéteis",
+          "level": 3,
+          "description": "Defletir Projéteis — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "monge-queda-lenta-4",
+          "name": "Queda Lenta",
+          "level": 4,
+          "description": "Queda Lenta — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "monge-extra-attack-5",
+          "name": "Extra Attack",
+          "level": 5,
+          "description": "Extra Attack — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "monge-golpe-atordoante-5",
+          "name": "Golpe Atordoante",
+          "level": 5,
+          "description": "Golpe Atordoante — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "monge-ataques-magicos-6",
+          "name": "Ataques Mágicos",
+          "level": 6,
+          "description": "Ataques Mágicos — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "monge-evasao-7",
+          "name": "Evasão",
+          "level": 7,
+          "description": "Evasão — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "monge-mente-tranquila-7",
+          "name": "Mente Tranquila",
+          "level": 7,
+          "description": "Mente Tranquila — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "monge-pureza-do-corpo-10",
+          "name": "Pureza do Corpo",
+          "level": 10,
+          "description": "Pureza do Corpo — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "monge-lingua-do-sol-e-da-lua-13",
+          "name": "Língua do Sol e da Lua",
+          "level": 13,
+          "description": "Língua do Sol e da Lua — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "monge-alma-diamante-14",
+          "name": "Alma Diamante",
+          "level": 14,
+          "description": "Alma Diamante — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "monge-corpo-atemporal-15",
+          "name": "Corpo Atemporal",
+          "level": 15,
+          "description": "Corpo Atemporal — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "monge-corpo-vazio-18",
+          "name": "Corpo Vazio",
+          "level": 18,
+          "description": "Corpo Vazio — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "monge-eu-perfeito-20",
+          "name": "Eu Perfeito",
+          "level": 20,
+          "description": "Eu Perfeito — marco funcional da classe Monge, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        }
+      ]
+    },
+    {
+      "slug": "paladino",
+      "name": "Paladino",
+      "edition": "2014",
+      "status": "core",
+      "hitDie": "d10",
+      "primaryAbility": "Força e Carisma",
+      "role": "Linha de frente",
+      "casting": "half",
+      "castingAbility": "Carisma",
+      "description": "Armaduras e armas marciais; magia baseada em Carisma; poder sagrado e proteção de aliados.",
+      "resources": [],
+      "subclasses": [
+        {
+          "slug": "juramento-de-devocao",
+          "name": "Juramento de Devoção",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "juramento-dos-ancestrais",
+          "name": "Juramento dos Ancestrais",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "juramento-de-vinganca",
+          "name": "Juramento de Vingança",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "juramento-da-coroa",
+          "name": "Juramento da Coroa",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "juramento-de-conquista",
+          "name": "Juramento de Conquista",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "juramento-de-redencao",
+          "name": "Juramento de Redenção",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "juramento-da-gloria",
+          "name": "Juramento da Glória",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "juramento-dos-vigilantes",
+          "name": "Juramento dos Vigilantes",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "quebrador-de-juramento",
+          "name": "Quebrador de Juramento",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        }
+      ],
+      "features": [
+        {
+          "slug": "paladino-sentido-divino-1",
+          "name": "Sentido Divino",
+          "level": 1,
+          "description": "Sentido Divino — marco funcional da classe Paladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "paladino-imposicao-das-maos-1",
+          "name": "Imposição das Mãos",
+          "level": 1,
+          "description": "Imposição das Mãos — marco funcional da classe Paladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "paladino-estilo-de-combate-2",
+          "name": "Estilo de Combate",
+          "level": 2,
+          "description": "Estilo de Combate — marco funcional da classe Paladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "paladino-destruicao-divina-2",
+          "name": "Destruição Divina",
+          "level": 2,
+          "description": "Destruição Divina — marco funcional da classe Paladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "paladino-juramento-sagrado-3",
+          "name": "Juramento Sagrado",
+          "level": 3,
+          "description": "Juramento Sagrado — marco funcional da classe Paladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "paladino-aura-de-protecao-6",
+          "name": "Aura de Proteção",
+          "level": 6,
+          "description": "Aura de Proteção — marco funcional da classe Paladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "paladino-aura-de-coragem-10",
+          "name": "Aura de Coragem",
+          "level": 10,
+          "description": "Aura de Coragem — marco funcional da classe Paladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "paladino-destruicao-divina-aprimorada-11",
+          "name": "Destruição Divina Aprimorada",
+          "level": 11,
+          "description": "Destruição Divina Aprimorada — marco funcional da classe Paladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "paladino-limpeza-de-doencas-14",
+          "name": "Limpeza de Doenças",
+          "level": 14,
+          "description": "Limpeza de Doenças — marco funcional da classe Paladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "paladino-melhoria-de-auras-18",
+          "name": "Melhoria de Auras",
+          "level": 18,
+          "description": "Melhoria de Auras — marco funcional da classe Paladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        }
+      ]
+    },
+    {
+      "slug": "patrulheiro",
+      "name": "Patrulheiro",
+      "edition": "2014",
+      "status": "core",
+      "hitDie": "d10",
+      "primaryAbility": "Destreza e Sabedoria",
+      "role": "Dano",
+      "casting": "half",
+      "castingAbility": "Sabedoria",
+      "description": "Combate marcial; exploração; conjuração baseada em Sabedoria; sobrevivência e caça.",
+      "resources": [],
+      "subclasses": [
+        {
+          "slug": "cacador",
+          "name": "Caçador",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "mestre-das-feras",
+          "name": "Mestre das Feras",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "perseguidor-das-trevas",
+          "name": "Perseguidor das Trevas",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "andarilho-do-horizonte",
+          "name": "Andarilho do Horizonte",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "cacador-de-monstros",
+          "name": "Caçador de Monstros",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "guardiao-do-enxame",
+          "name": "Guardião do Enxame",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "andarilho-feerico",
+          "name": "Andarilho Feérico",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "guardiao-dos-dracos",
+          "name": "Guardião dos Dracos",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        }
+      ],
+      "features": [
+        {
+          "slug": "patrulheiro-inimigo-favorito-1",
+          "name": "Inimigo Favorito",
+          "level": 1,
+          "description": "Inimigo Favorito — marco funcional da classe Patrulheiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "patrulheiro-explorador-nato-1",
+          "name": "Explorador Nato",
+          "level": 1,
+          "description": "Explorador Nato — marco funcional da classe Patrulheiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "patrulheiro-estilo-de-combate-2",
+          "name": "Estilo de Combate",
+          "level": 2,
+          "description": "Estilo de Combate — marco funcional da classe Patrulheiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "patrulheiro-conjuracao-2",
+          "name": "Conjuração",
+          "level": 2,
+          "description": "Conjuração — marco funcional da classe Patrulheiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "patrulheiro-arquetipo-3",
+          "name": "Arquétipo",
+          "level": 3,
+          "description": "Arquétipo — marco funcional da classe Patrulheiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "patrulheiro-extra-attack-5",
+          "name": "Extra Attack",
+          "level": 5,
+          "description": "Extra Attack — marco funcional da classe Patrulheiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "patrulheiro-passo-da-terra-8",
+          "name": "Passo da Terra",
+          "level": 8,
+          "description": "Passo da Terra — marco funcional da classe Patrulheiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "patrulheiro-esconder-se-a-vista-10",
+          "name": "Esconder-se à Vista",
+          "level": 10,
+          "description": "Esconder-se à Vista — marco funcional da classe Patrulheiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "patrulheiro-desaparecer-14",
+          "name": "Desaparecer",
+          "level": 14,
+          "description": "Desaparecer — marco funcional da classe Patrulheiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "patrulheiro-sentidos-ferais-18",
+          "name": "Sentidos Ferais",
+          "level": 18,
+          "description": "Sentidos Ferais — marco funcional da classe Patrulheiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "patrulheiro-matador-de-inimigos-20",
+          "name": "Matador de Inimigos",
+          "level": 20,
+          "description": "Matador de Inimigos — marco funcional da classe Patrulheiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        }
+      ]
+    },
+    {
+      "slug": "ladino",
+      "name": "Ladino",
+      "edition": "2014",
+      "status": "core",
+      "hitDie": "d8",
+      "primaryAbility": "Destreza",
+      "role": "Furtivo",
+      "casting": "none",
+      "castingAbility": null,
+      "description": "Perícia e mobilidade; Expertise; Ataque Furtivo; ferramentas de infiltração.",
+      "resources": [],
+      "subclasses": [
+        {
+          "slug": "ladrao",
+          "name": "Ladrão",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "assassino",
+          "name": "Assassino",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "trapaceiro-arcano",
+          "name": "Trapaceiro Arcano",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "inquisitivo",
+          "name": "Inquisitivo",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "mestre-da-intriga",
+          "name": "Mestre da Intriga",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "espadachim",
+          "name": "Espadachim",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "explorador",
+          "name": "Explorador",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "fantasma",
+          "name": "Fantasma",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "lamina-da-alma",
+          "name": "Lâmina da Alma",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        }
+      ],
+      "features": [
+        {
+          "slug": "ladino-expertise-1",
+          "name": "Expertise",
+          "level": 1,
+          "description": "Expertise — marco funcional da classe Ladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "ladino-ataque-furtivo-1",
+          "name": "Ataque Furtivo",
+          "level": 1,
+          "description": "Ataque Furtivo — marco funcional da classe Ladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "ladino-acao-ardilosa-2",
+          "name": "Ação Ardilosa",
+          "level": 2,
+          "description": "Ação Ardilosa — marco funcional da classe Ladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "ladino-arquetipo-3",
+          "name": "Arquétipo",
+          "level": 3,
+          "description": "Arquétipo — marco funcional da classe Ladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "ladino-uncanny-dodge-5",
+          "name": "Uncanny Dodge",
+          "level": 5,
+          "description": "Uncanny Dodge — marco funcional da classe Ladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "ladino-evasao-7",
+          "name": "Evasão",
+          "level": 7,
+          "description": "Evasão — marco funcional da classe Ladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "ladino-talento-confiavel-11",
+          "name": "Talento Confiável",
+          "level": 11,
+          "description": "Talento Confiável — marco funcional da classe Ladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "ladino-blindsense-14",
+          "name": "Blindsense",
+          "level": 14,
+          "description": "Blindsense — marco funcional da classe Ladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "ladino-mente-escorregadia-15",
+          "name": "Mente Escorregadia",
+          "level": 15,
+          "description": "Mente Escorregadia — marco funcional da classe Ladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "ladino-elusivo-18",
+          "name": "Elusivo",
+          "level": 18,
+          "description": "Elusivo — marco funcional da classe Ladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "ladino-golpe-de-sorte-20",
+          "name": "Golpe de Sorte",
+          "level": 20,
+          "description": "Golpe de Sorte — marco funcional da classe Ladino, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        }
+      ]
+    },
+    {
+      "slug": "feiticeiro",
+      "name": "Feiticeiro",
+      "edition": "2014",
+      "status": "core",
+      "hitDie": "d6",
+      "primaryAbility": "Carisma",
+      "role": "Dano",
+      "casting": "full",
+      "castingAbility": "Carisma",
+      "description": "Conjuração baseada em Carisma; magia inata; pontos de feitiçaria e Metamagia.",
+      "resources": [],
+      "subclasses": [
+        {
+          "slug": "linhagem-draconica",
+          "name": "Linhagem Dracônica",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "magia-selvagem",
+          "name": "Magia Selvagem",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "alma-divina",
+          "name": "Alma Divina",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "magia-das-sombras",
+          "name": "Magia das Sombras",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "feiticaria-da-tempestade",
+          "name": "Feitiçaria da Tempestade",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "mente-aberrante",
+          "name": "Mente Aberrante",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "alma-mecanica",
+          "name": "Alma Mecânica",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "feiticaria-lunar",
+          "name": "Feitiçaria Lunar",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        }
+      ],
+      "features": [
+        {
+          "slug": "feiticeiro-origem-magica-1",
+          "name": "Origem Mágica",
+          "level": 1,
+          "description": "Origem Mágica — marco funcional da classe Feiticeiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "feiticeiro-fonte-de-magia-2",
+          "name": "Fonte de Magia",
+          "level": 2,
+          "description": "Fonte de Magia — marco funcional da classe Feiticeiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "feiticeiro-metamagia-3",
+          "name": "Metamagia",
+          "level": 3,
+          "description": "Metamagia — marco funcional da classe Feiticeiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "feiticeiro-melhoria-no-valor-de-habilidade-4",
+          "name": "Melhoria no Valor de Habilidade",
+          "level": 4,
+          "description": "Melhoria no Valor de Habilidade — marco funcional da classe Feiticeiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "feiticeiro-metamagia-adicional-10",
+          "name": "Metamagia adicional",
+          "level": 10,
+          "description": "Metamagia adicional — marco funcional da classe Feiticeiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "feiticeiro-metamagia-adicional-17",
+          "name": "Metamagia adicional",
+          "level": 17,
+          "description": "Metamagia adicional — marco funcional da classe Feiticeiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "feiticeiro-restauracao-feiticeira-20",
+          "name": "Restauração Feiticeira",
+          "level": 20,
+          "description": "Restauração Feiticeira — marco funcional da classe Feiticeiro, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        }
+      ]
+    },
+    {
+      "slug": "bruxo",
+      "name": "Bruxo",
+      "edition": "2014",
+      "status": "core",
+      "hitDie": "d8",
+      "primaryAbility": "Carisma",
+      "role": "Dano",
+      "casting": "pact",
+      "castingAbility": "Carisma",
+      "description": "Magia baseada em Carisma; patrono extraplanar; espaços de magia recuperados em descanso curto; invocações.",
+      "resources": [],
+      "subclasses": [
+        {
+          "slug": "arquifada",
+          "name": "Arquifada",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "o-grande-antigo",
+          "name": "O Grande Antigo",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "infernal",
+          "name": "Infernal",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "o-imortal",
+          "name": "O Imortal",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "lamina-maldita",
+          "name": "Lâmina Maldita",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "celestial",
+          "name": "Celestial",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "abissal",
+          "name": "Abissal",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "genio",
+          "name": "Gênio",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "morto-vivo",
+          "name": "Morto-vivo",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        }
+      ],
+      "features": [
+        {
+          "slug": "bruxo-patrono-1",
+          "name": "Patrono",
+          "level": 1,
+          "description": "Patrono — marco funcional da classe Bruxo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bruxo-invocacoes-misticas-2",
+          "name": "Invocações Místicas",
+          "level": 2,
+          "description": "Invocações Místicas — marco funcional da classe Bruxo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bruxo-dadiva-do-pacto-3",
+          "name": "Dádiva do Pacto",
+          "level": 3,
+          "description": "Dádiva do Pacto — marco funcional da classe Bruxo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bruxo-invocacoes-adicionais-5",
+          "name": "Invocações adicionais",
+          "level": 5,
+          "description": "Invocações adicionais — marco funcional da classe Bruxo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bruxo-invocacoes-adicionais-7",
+          "name": "Invocações adicionais",
+          "level": 7,
+          "description": "Invocações adicionais — marco funcional da classe Bruxo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bruxo-invocacoes-adicionais-9",
+          "name": "Invocações adicionais",
+          "level": 9,
+          "description": "Invocações adicionais — marco funcional da classe Bruxo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bruxo-arcanum-mistico-11",
+          "name": "Arcanum Místico",
+          "level": 11,
+          "description": "Arcanum Místico — marco funcional da classe Bruxo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bruxo-arcanum-mistico-13",
+          "name": "Arcanum Místico",
+          "level": 13,
+          "description": "Arcanum Místico — marco funcional da classe Bruxo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bruxo-arcanum-mistico-15",
+          "name": "Arcanum Místico",
+          "level": 15,
+          "description": "Arcanum Místico — marco funcional da classe Bruxo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bruxo-arcanum-mistico-17",
+          "name": "Arcanum Místico",
+          "level": 17,
+          "description": "Arcanum Místico — marco funcional da classe Bruxo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "bruxo-mestre-do-eldritch-20",
+          "name": "Mestre do Eldritch",
+          "level": 20,
+          "description": "Mestre do Eldritch — marco funcional da classe Bruxo, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        }
+      ]
+    },
+    {
+      "slug": "mago",
+      "name": "Mago",
+      "edition": "2014",
+      "status": "core",
+      "hitDie": "d6",
+      "primaryAbility": "Inteligência",
+      "role": "Controle",
+      "casting": "full",
+      "castingAbility": "Inteligência",
+      "description": "Conjuração baseada em Inteligência; grimório; preparação de magias; grande amplitude de escolas.",
+      "resources": [],
+      "subclasses": [
+        {
+          "slug": "escola-de-abjuracao",
+          "name": "Escola de Abjuração",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "escola-de-conjuracao",
+          "name": "Escola de Conjuração",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "escola-de-adivinhacao",
+          "name": "Escola de Adivinhação",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "escola-de-encantamento",
+          "name": "Escola de Encantamento",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "escola-de-evocacao",
+          "name": "Escola de Evocação",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "escola-de-ilusao",
+          "name": "Escola de Ilusão",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "escola-de-necromancia",
+          "name": "Escola de Necromancia",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "escola-de-transmutacao",
+          "name": "Escola de Transmutação",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "cantor-das-laminas",
+          "name": "Cantor das Lâminas",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "magia-de-guerra",
+          "name": "Magia de Guerra",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "magia-da-cronurgia",
+          "name": "Magia da Cronurgia",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "magia-da-graviturgy",
+          "name": "Magia da Graviturgy",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        },
+        {
+          "slug": "ordem-dos-escribas",
+          "name": "Ordem dos Escribas",
+          "edition": "2014",
+          "status": "core",
+          "source": "mapeamento_dnd5e_2014"
+        }
+      ],
+      "features": [
+        {
+          "slug": "mago-recuperacao-arcana-1",
+          "name": "Recuperação Arcana",
+          "level": 1,
+          "description": "Recuperação Arcana — marco funcional da classe Mago, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "mago-tradicao-arcana-2",
+          "name": "Tradição Arcana",
+          "level": 2,
+          "description": "Tradição Arcana — marco funcional da classe Mago, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "mago-melhoria-no-valor-de-habilidade-4",
+          "name": "Melhoria no Valor de Habilidade",
+          "level": 4,
+          "description": "Melhoria no Valor de Habilidade — marco funcional da classe Mago, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "mago-dominio-de-magias-18",
+          "name": "Domínio de Magias",
+          "level": 18,
+          "description": "Domínio de Magias — marco funcional da classe Mago, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        },
+        {
+          "slug": "mago-magias-de-assinatura-20",
+          "name": "Magias de Assinatura",
+          "level": 20,
+          "description": "Magias de Assinatura — marco funcional da classe Mago, conforme o mapeamento D&D 5e 2014.",
+          "source": "mapeamento_dnd5e_2014",
+          "edition": "2014"
+        }
+      ]
+    }
   ]
 }

@@ -40,10 +40,20 @@ function syncClassReference() {
   if (fSubclass) {
     const subclasses = selected?.subclasses || [];
     const currentSubclass = fSubclass.value;
-    fSubclass.innerHTML = '<option value="">Nenhuma subclasse</option>' + subclasses.map(subclass => `<option value="${escapeHtml(subclass)}">${escapeHtml(subclass)}</option>`).join('');
-    fSubclass.value = subclasses.includes(currentSubclass) ? currentSubclass : '';
-    fSubclass.disabled = currentClass !== 'Paladino';
+    fSubclass.innerHTML = '<option value="">Nenhuma subclasse</option>' + subclasses.map(subclass => { const name = typeof subclass === 'string' ? subclass : subclass.name; return `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`; }).join('');
+    const subclassNames = subclasses.map(subclass => typeof subclass === 'string' ? subclass : subclass.name);
+    fSubclass.value = subclassNames.includes(currentSubclass) ? currentSubclass : '';
+    fSubclass.disabled = !selected;
   }
+  renderClassReference(selected);
+}
+function renderClassReference(selected = state.classReference.find(cls => cls.name === fClass?.value)) {
+  if (!classReferencePanel) return;
+  if (!selected) { classReferencePanel.innerHTML = '<div class="class-reference-empty">Selecione uma classe para carregar o núcleo da progressão.</div>'; return; }
+  const level = Math.max(1, Number(fLevel?.value) || 1);
+  const features = (selected.features || []).filter(feature => Number(feature.level) <= level).sort((a,b) => Number(a.level) - Number(b.level));
+  const next = (selected.features || []).filter(feature => Number(feature.level) > level).sort((a,b) => Number(a.level) - Number(b.level))[0];
+  classReferencePanel.innerHTML = `<div class="class-reference-summary"><div><span class="rebuild-kicker">NÚCLEO 2014 / NÍVEL ${level}</span><h4>${escapeHtml(selected.name)}</h4><p>${escapeHtml(selected.description || '')}</p></div><div class="class-reference-meta"><b>${escapeHtml(selected.primaryAbility || '—')}</b><small>Atributo principal</small><b>${escapeHtml(selected.hitDie || '—')}</b><small>Dado de vida</small><b>${escapeHtml(selected.role || '—')}</b><small>Função</small></div></div><div class="class-reference-features"><strong>Features liberadas</strong>${features.length ? features.map(feature => `<article><span>NÍVEL ${feature.level}</span><div><b>${escapeHtml(feature.name)}</b><p>${escapeHtml(feature.description || '')}</p></div></article>`).join('') : '<p class="class-reference-empty">Nenhuma feature de progressão cadastrada até este nível.</p>'}${next ? `<small class="class-reference-next">Próxima no nível ${next.level}: ${escapeHtml(next.name)}</small>` : '<small class="class-reference-next">Progressão de classe exibida até o nível atual.</small>'}</div>`;
 }
 
 function setCharacterStatus(message, type = 'success') {
@@ -127,6 +137,7 @@ const resourceListEl = document.getElementById('resource-list');
 const inventoryListEl = document.getElementById('inventory-list');
 const templateSelect = document.getElementById('template-select');
 const btnApplyTemplate = document.getElementById('btn-apply-template');
+const classReferencePanel = document.getElementById('class-reference-panel');
 
 // ---------- Core Functions ----------
 function calculateModifier(score) {
@@ -185,13 +196,10 @@ async function renderCharacterView(character) {
   // Dados básicos
   fName.value = character.name;
   fClass.value = character.class;
-  syncClassReference();
-  if (fSubclass) {
-    fSubclass.value = character.class === 'Paladino' ? (character.subclass || '') : '';
-    fSubclass.disabled = character.class !== 'Paladino';
-  }
   fRace.value = character.race;
   fLevel.value = character.level;
+  syncClassReference();
+  if (fSubclass) fSubclass.value = character.subclass || '';
 
   if (character.imageUrl) {
     fPortrait.src = character.imageUrl;
@@ -510,7 +518,8 @@ async function loadTemplates() {
 }
 
 // Event Listeners básicos
-if (fClass && fSubclass) fClass.addEventListener('change', async () => { syncClassReference(); if (state.currentCharacter) { renderCastingStats({ ...state.currentCharacter, class: fClass.value }, Number(document.getElementById('stat-proficiency').textContent.replace('+', '')) || 2); renderSpellSlots({ ...state.currentCharacter, class: fClass.value }); await refreshSpellSearch(); } });
+if (fClass && fSubclass) fClass.addEventListener('change', async () => { syncClassReference(); if (state.currentCharacter) { state.currentCharacter.class = fClass.value; state.currentCharacter.subclass = ''; renderCastingStats({ ...state.currentCharacter, class: fClass.value }, Number(document.getElementById('stat-proficiency').textContent.replace('+', '')) || 2); renderSpellSlots({ ...state.currentCharacter, class: fClass.value }); await refreshSpellSearch(); } });
+fLevel?.addEventListener('input', () => renderClassReference());
 
 document.getElementById('btn-refresh-spells')?.addEventListener('click', refreshSpellSearch);
 document.getElementById('spell-search-input')?.addEventListener('keydown', (event) => { if (event.key === 'Enter') { event.preventDefault(); refreshSpellSearch(); } });
