@@ -15,6 +15,8 @@ if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 app.use(express.json());
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 app.use(express.static(path.join(__dirname, 'public')));
+const { registerFeatureApi } = require('./feature_api');
+registerFeatureApi(app, { db, newId });
 
 // ---------- Upload de imagens (retrato do personagem) ----------
 const storage = multer.diskStorage({
@@ -39,6 +41,13 @@ const upload = multer({
 // ---------- Helpers ----------
 function newId() {
   return crypto.randomUUID();
+}
+function sessionUserId(req) {
+  const cookie = String(req.headers.cookie || '').split(';').map(part => part.trim()).find(part => part.startsWith('rpg_session='));
+  if (!cookie) return null;
+  const token = decodeURIComponent(cookie.slice('rpg_session='.length));
+  const row = db.get("SELECT userId FROM sessions WHERE id = ? AND datetime(expiresAt) > datetime('now')", [token]);
+  return row?.userId || null;
 }
 
 // ---------- Modelo base de um personagem ----------
@@ -315,10 +324,12 @@ app.get('/api/characters/:id', (req, res) => {
 // Criar
 app.post('/api/characters', (req, res) => {
   const character = sanitizeCharacter(req.body || {});
+  const ownerId = sessionUserId(req);
+  const campaign = ownerId ? db.get('SELECT c.id FROM campaigns c JOIN campaign_members cm ON cm.campaignId = c.id WHERE cm.userId = ? ORDER BY c.createdAt LIMIT 1', [ownerId]) : null;
   db.run(`
     INSERT INTO characters (id, name, class, subclass, race, level, attributes, skillProficiencies,
-                            saveProficiencies, resources, items, spellSlotsUsage, imageUrl, createdAt, updatedAt)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
+                            saveProficiencies, resources, items, spellSlotsUsage, imageUrl, campaignId, ownerId, createdAt, updatedAt)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))
   `, [
     character.id, character.name, character.class, character.subclass, character.race, character.level,
     JSON.stringify(character.attributes),
@@ -328,6 +339,8 @@ app.post('/api/characters', (req, res) => {
     JSON.stringify(character.items),
     JSON.stringify(character.spellSlotsUsage),
     character.imageUrl,
+    campaign?.id || null,
+    ownerId,
   ]);
   res.status(201).json(character);
 });
@@ -355,10 +368,13 @@ app.put('/api/characters/:id', (req, res) => {
     JSON.stringify(updated.spellSlotsUsage),
     updated.imageUrl,
     updated.id,
-  ]);
+    ]);
+  const actorId = sessionUserId(req);
+  if (actorId) {
+    db.run('INSERT INTO character_history (id, characterId, userId, action, snapshot) VALUES (?, ?, ?, ?, ?)', [newId(), updated.id, actorId, 'updated', JSON.stringify(updated)]);
+  }
   res.json(updated);
 });
-
 // Excluir
 app.delete('/api/characters/:id', (req, res) => {
   const existing = db.get('SELECT imageUrl FROM characters WHERE id = ?', [req.params.id]);

@@ -143,13 +143,29 @@ function renderCharacterList() {
     const li = document.createElement('li');
     li.className = `character-item ${state.selectedId === char.id ? 'active' : ''}`;
     li.innerHTML = `
-      <div class="char-thumb">${char.imageUrl ? `<img src="${char.imageUrl}">` : char.name[0]}</div>
+      <div class="char-thumb">${char.imageUrl ? `<img src="${char.imageUrl}" alt="">` : escapeHtml((char.name || '?')[0])}</div>
       <div class="char-info">
         <span class="char-name">${escapeHtml(char.name)}</span>
-        <span class="char-meta">${char.class || 'Sem classe'} • Nível ${char.level}</span>
+        <span class="char-meta">${escapeHtml(char.class || 'Sem classe')} • Nível ${char.level}</span>
       </div>
+      <button type="button" class="character-list-delete" aria-label="Excluir ${escapeHtml(char.name)}" title="Excluir ficha">×</button>
     `;
     li.onclick = () => selectCharacter(char.id);
+    li.querySelector('.character-list-delete').onclick = async (event) => {
+      event.stopPropagation();
+      if (!window.confirm(`Excluir a ficha de “${char.name}”? Esta ação não pode ser desfeita.`)) return;
+      try {
+        await deleteCharacter(char.id);
+        if (state.selectedId === char.id) {
+          state.selectedId = null;
+          state.currentCharacter = null;
+          renderCharacterView(null);
+        }
+        await refreshSelected();
+      } catch (error) {
+        window.alert(error.message || 'Não foi possível excluir a ficha.');
+      }
+    };
     characterListEl.appendChild(li);
   });
 }
@@ -525,12 +541,51 @@ document.getElementById('btn-save-character').onclick = async () => {
 };
 
 document.getElementById('btn-delete-character').onclick = async () => {
-  if (!state.selectedId || !confirm('Excluir este herói?')) return;
-  await deleteCharacter(state.selectedId);
-  state.selectedId = null;
-  await refreshSelected();
-  renderCharacterView(null);
+  if (!state.selectedId) return;
+  const characterName = state.currentCharacter?.name || fName.value || 'esta ficha';
+  if (!window.confirm(`Excluir a ficha de “${characterName}”? Esta ação não pode ser desfeita.`)) return;
+  const deleteButton = document.getElementById('btn-delete-character');
+  deleteButton.disabled = true;
+  setCharacterStatus('Excluindo ficha…', 'loading');
+  try {
+    await deleteCharacter(state.selectedId);
+    state.selectedId = null;
+    state.currentCharacter = null;
+    await refreshSelected();
+    renderCharacterView(null);
+  } catch (error) {
+    setCharacterStatus(error.message || 'Não foi possível excluir a ficha.', 'error');
+  } finally {
+    deleteButton.disabled = false;
+  }
 };
+
+const exportCharacterButton = document.getElementById('btn-export-character');
+exportCharacterButton?.addEventListener('click', async () => {
+  if (!state.selectedId) return;
+  try {
+    const response = await fetch(`/api/v2/characters/${state.selectedId}/export`, { credentials: 'same-origin' });
+    if (!response.ok) throw new Error('Faça login para exportar a ficha.');
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${(state.currentCharacter?.name || 'personagem').replace(/[^a-z0-9à-ÿ]+/gi, '-').toLowerCase()}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+    setCharacterStatus('Ficha exportada.', 'success');
+  } catch (error) {
+    setCharacterStatus(error.message || 'Não foi possível exportar a ficha.', 'error');
+  }
+});
+let autosaveTimer = null;
+function scheduleCharacterAutosave() {
+  if (!state.selectedId) return;
+  window.clearTimeout(autosaveTimer);
+  setCharacterStatus('Alterações pendentes…', 'loading');
+  autosaveTimer = window.setTimeout(() => document.getElementById('btn-save-character')?.click(), 850);
+}
+[fName, fClass, fSubclass, fRace, fLevel, ...attrIds.map(attr => document.getElementById(`attr-${attr}`))].forEach(field => field?.addEventListener('change', scheduleCharacterAutosave));
 
 // Utils
 function escapeHtml(s) {

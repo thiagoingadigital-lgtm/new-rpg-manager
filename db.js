@@ -107,8 +107,177 @@ function initDb() {
         level INTEGER,
         casted INTEGER DEFAULT 0
       );
+      CREATE TABLE IF NOT EXISTS users (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL COLLATE NOCASE,
+        passwordHash TEXT NOT NULL,
+        passwordSalt TEXT NOT NULL,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS sessions (
+        id TEXT PRIMARY KEY,
+        userId TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        expiresAt DATETIME NOT NULL,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS campaigns (
+        id TEXT PRIMARY KEY,
+        ownerId TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        name TEXT NOT NULL,
+        description TEXT DEFAULT '',
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS campaign_members (
+        campaignId TEXT NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+        userId TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        role TEXT NOT NULL DEFAULT 'player',
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (campaignId, userId)
+      );
+      CREATE TABLE IF NOT EXISTS maps (
+        id TEXT PRIMARY KEY,
+        campaignId TEXT NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+        ownerId TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        name TEXT NOT NULL,
+        kind TEXT DEFAULT 'Regional',
+        imageUrl TEXT DEFAULT '',
+        description TEXT DEFAULT '',
+        zoom INTEGER DEFAULT 100,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS map_markers (
+        id TEXT PRIMARY KEY,
+        mapId TEXT NOT NULL REFERENCES maps(id) ON DELETE CASCADE,
+        name TEXT NOT NULL,
+        color TEXT DEFAULT 'red',
+        kind TEXT DEFAULT 'local',
+        subjectType TEXT DEFAULT '',
+        subjectId TEXT DEFAULT '',
+        notes TEXT DEFAULT '',
+        x REAL DEFAULT 50,
+        y REAL DEFAULT 50,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS library_records (
+        id TEXT PRIMARY KEY,
+        campaignId TEXT NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+        ownerId TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        type TEXT NOT NULL DEFAULT 'npc',
+        name TEXT NOT NULL,
+        role TEXT DEFAULT '',
+        description TEXT DEFAULT '',
+        tags TEXT DEFAULT '[]',
+        visibility TEXT DEFAULT 'private',
+        imageUrl TEXT DEFAULT '',
+        metadata TEXT DEFAULT '{}',
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS record_links (
+        id TEXT PRIMARY KEY,
+        campaignId TEXT NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+        fromType TEXT NOT NULL,
+        fromId TEXT NOT NULL,
+        toType TEXT NOT NULL,
+        toId TEXT NOT NULL,
+        label TEXT DEFAULT '',
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE (fromType, fromId, toType, toId)
+      );
+      CREATE TABLE IF NOT EXISTS library_history (
+        id TEXT PRIMARY KEY,
+        recordId TEXT NOT NULL,
+        campaignId TEXT NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+        userId TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        action TEXT NOT NULL,
+        snapshot TEXT NOT NULL,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS rolls (
+        id TEXT PRIMARY KEY,
+        campaignId TEXT NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+        userId TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        formula TEXT NOT NULL,
+        label TEXT DEFAULT '',
+        mode TEXT DEFAULT 'Pública',
+        dice TEXT DEFAULT '[]',
+        total INTEGER NOT NULL,
+        details TEXT DEFAULT '{}',
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS diary_entries (
+        id TEXT PRIMARY KEY,
+        campaignId TEXT NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+        userId TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        title TEXT NOT NULL,
+        body TEXT DEFAULT '',
+        visibility TEXT DEFAULT 'private',
+        tags TEXT DEFAULT '[]',
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS character_history (
+        id TEXT PRIMARY KEY,
+        characterId TEXT NOT NULL REFERENCES characters(id) ON DELETE CASCADE,
+        userId TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        action TEXT NOT NULL,
+        snapshot TEXT NOT NULL,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS character_conditions (
+        id TEXT PRIMARY KEY,
+        characterId TEXT NOT NULL REFERENCES characters(id) ON DELETE CASCADE,
+        name TEXT NOT NULL,
+        duration TEXT DEFAULT '',
+        notes TEXT DEFAULT '',
+        active INTEGER DEFAULT 1,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS character_attacks (
+        id TEXT PRIMARY KEY,
+        characterId TEXT NOT NULL REFERENCES characters(id) ON DELETE CASCADE,
+        name TEXT NOT NULL,
+        bonus TEXT DEFAULT '',
+        damage TEXT DEFAULT '',
+        range TEXT DEFAULT '',
+        notes TEXT DEFAULT '',
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS character_classes (
+        id TEXT PRIMARY KEY,
+        characterId TEXT NOT NULL REFERENCES characters(id) ON DELETE CASCADE,
+        className TEXT NOT NULL,
+        subclass TEXT DEFAULT '',
+        level INTEGER DEFAULT 1,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS spell_favorites (
+        id TEXT PRIMARY KEY,
+        userId TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        spellName TEXT NOT NULL,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE (userId, spellName)
+      );
+      CREATE TABLE IF NOT EXISTS prepared_spells (
+        id TEXT PRIMARY KEY,
+        characterId TEXT NOT NULL REFERENCES characters(id) ON DELETE CASCADE,
+        spellName TEXT NOT NULL,
+        prepared INTEGER DEFAULT 1,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE (characterId, spellName)
+      );
     `);
     try { DB.run("ALTER TABLE characters ADD COLUMN subclass TEXT DEFAULT ''"); } catch (e) { /* coluna já existe */ }
+    try { DB.run("ALTER TABLE characters ADD COLUMN campaignId TEXT"); } catch (e) { /* coluna já existe */ }
+    try { DB.run("ALTER TABLE characters ADD COLUMN ownerId TEXT"); } catch (e) { /* coluna já existe */ }
 
     // Seed: proficiência por nível
     const PROFICIENCY = {1:2,2:2,3:2,4:2,5:3,6:3,7:3,8:3,9:4,10:4,11:4,12:4,13:5,14:5,15:5,16:5,17:6,18:6,19:6,20:6};
